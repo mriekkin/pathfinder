@@ -37,7 +37,7 @@ public class Dijkstra {
             if (getVisited(u)) continue;
             setVisited(u, true);
 
-//            if (u == end) break;
+            if (u.equals(end)) break;
 
             for (Node v : g.neighbours(u)) {
                 if (getDist(v) > getDist(u) + 1) {

@@ -36,30 +36,30 @@ public class Graph {
     public int getHeight() {
         return height;
     }
-    
+
     public List<Node> neighbours(Node u) {
         return neighbours(u.x(), u.y());
     }
 
     public List<Node> neighbours(int x, int y) {
-        ArrayList<Node> adj = new ArrayList<Node>(4);
+        ArrayList<Node> adj = new ArrayList<>(4);
 
         if (y > 0 && getNode(x, y-1).isWalkable()) {
             adj.add(getNode(x, y-1));
         }
-        
+
         if (x+1 < width && getNode(x+1, y).isWalkable()) {
             adj.add(getNode(x+1, y));
         }
-        
+
         if (y+1 < height && getNode(x, y+1).isWalkable()) {
             adj.add(getNode(x, y+1));
         }
-        
+
         if (x > 0 && getNode(x-1, y).isWalkable()) {
             adj.add(getNode(x-1, y));
         }
-        
+
         return adj;
     }
 
