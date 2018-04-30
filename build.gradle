@@ -12,11 +12,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-mainClassName = 'pathfinder.console.App'
+mainClassName = 'pathfinder.gui.App'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'pathfinder.console.App'
+        attributes 'Main-Class': 'pathfinder.gui.App'
     }
 }
 
