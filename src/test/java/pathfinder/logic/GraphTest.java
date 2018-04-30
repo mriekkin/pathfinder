@@ -32,17 +32,6 @@ public class GraphTest {
     }
 
     @Test
-    public void testNeighbours_Node() {
-        Graph g = new Graph(10, 10);
-        List<Node> n = g.neighbours(g.getNode(5, 5));
-        assertEquals(4, n.size());
-        assertEquals("(5, 4)", n.get(0).toString());
-        assertEquals("(6, 5)", n.get(1).toString());
-        assertEquals("(5, 6)", n.get(2).toString());
-        assertEquals("(4, 5)", n.get(3).toString());
-    }
-
-    @Test
     public void testNeighboursMiddle() {
         Graph g = new Graph(10, 10);
         List<Node> n = g.neighbours(5, 5);
@@ -69,6 +58,14 @@ public class GraphTest {
         assertEquals(2, n.size());
         assertEquals("(9, 8)", n.get(0).toString());
         assertEquals("(8, 9)", n.get(1).toString());
+    }
+
+    @Test
+    public void testNeighbours_Node() {
+        Graph g = new Graph(10, 10);
+        List<Node> list1 = g.neighbours(5, 5);
+        List<Node> list2 = g.neighbours(g.getNode(5, 5));
+        assertEquals(list1, list2);
     }
 
 }
