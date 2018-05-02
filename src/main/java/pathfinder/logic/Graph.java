@@ -6,35 +6,35 @@ import java.util.List;
 public class Graph {
 
     private final Node[][] nodes;
-    private final int width;
-    private final int height;
+    private final int cols;
+    private final int rows;
 
-    public Graph(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.nodes = new Node[height][width];
+    public Graph(int cols, int rows) {
+        this.cols = cols;
+        this.rows = rows;
+        this.nodes = new Node[rows][cols];
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
                 nodes[y][x] = new Node(x, y, true);
             }
         }
     }
 
     public Node getNode(int x, int y) {
-        if (x < 0 || y < 0 || x >= width || y >= height) {
+        if (x < 0 || y < 0 || x >= cols || y >= rows) {
             throw new IllegalArgumentException("Coordinates out of range (" + x + "," + y + ")");
         }
 
         return nodes[y][x];
     }
 
-    public int getWidth() {
-        return width;
+    public int getCols() {
+        return cols;
     }
 
-    public int getHeight() {
-        return height;
+    public int getRows() {
+        return rows;
     }
 
     public List<Node> neighbours(Node u) {
@@ -48,11 +48,11 @@ public class Graph {
             adj.add(getNode(x, y-1));
         }
 
-        if (x+1 < width && getNode(x+1, y).isWalkable()) {
+        if (x+1 < cols && getNode(x+1, y).isWalkable()) {
             adj.add(getNode(x+1, y));
         }
 
-        if (y+1 < height && getNode(x, y+1).isWalkable()) {
+        if (y+1 < rows && getNode(x, y+1).isWalkable()) {
             adj.add(getNode(x, y+1));
         }
 

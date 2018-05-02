@@ -22,13 +22,13 @@ public class GraphTest {
     @Test
     public void testGetWidth() {
         Graph g = new Graph(10, 20);
-        assertEquals(10, g.getWidth());
+        assertEquals(10, g.getCols());
     }
 
     @Test
     public void testGetHeight() {
         Graph g = new Graph(10, 20);
-        assertEquals(20, g.getHeight());
+        assertEquals(20, g.getRows());
     }
 
     @Test

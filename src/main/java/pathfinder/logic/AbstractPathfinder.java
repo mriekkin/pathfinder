@@ -3,8 +3,8 @@ package pathfinder.logic;
 public abstract class AbstractPathfinder implements Pathfinder {
 
     private final Graph g;
-    private final Node start;
-    private final Node end;
+    private Node start;
+    private Node end;
     private boolean[][] visited;
     private int[][] dist;
     private Node[][] pred;
@@ -13,12 +13,12 @@ public abstract class AbstractPathfinder implements Pathfinder {
         this.g = g;
         this.start = start;
         this.end = end;
-        this.visited = new boolean[g.getHeight()][g.getWidth()];
-        this.dist = new int[g.getHeight()][g.getWidth()];
-        this.pred = new Node[g.getHeight()][g.getWidth()];
+        this.visited = new boolean[g.getRows()][g.getCols()];
+        this.dist = new int[g.getRows()][g.getCols()];
+        this.pred = new Node[g.getRows()][g.getCols()];
 
-        for (int y = 0; y < g.getHeight(); y++) {
-            for (int x = 0; x < g.getWidth(); x++) {
+        for (int y = 0; y < g.getRows(); y++) {
+            for (int x = 0; x < g.getCols(); x++) {
                 dist[y][x] = INFINITY;
             }
         }
@@ -40,6 +40,16 @@ public abstract class AbstractPathfinder implements Pathfinder {
     @Override
     public Node getEnd() {
         return end;
+    }
+
+    @Override
+    public void setStart(Node start) {
+        this.start = start;
+    }
+
+    @Override
+    public void setEnd(Node end) {
+        this.end = end;
     }
 
     @Override

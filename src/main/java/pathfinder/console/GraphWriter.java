@@ -12,8 +12,8 @@ public class GraphWriter {
 
     public static String plotGrid(Graph g, Node start, Node end) {
         StringBuffer s = new StringBuffer();
-        for (int y = g.getHeight()-1; y >= 0; y--) {
-            for (int x = 0; x < g.getWidth(); x++) {
+        for (int y = g.getRows()-1; y >= 0; y--) {
+            for (int x = 0; x < g.getCols(); x++) {
                 s.append(getNode(g.getNode(x, y), start, end));
             }
 
@@ -26,8 +26,8 @@ public class GraphWriter {
     public static String plotDistances(Dijkstra pathfinder) {
         StringBuffer s = new StringBuffer();
         Graph g = pathfinder.getGraph();
-        for (int y = g.getHeight()-1; y >= 0; y--) {
-            for (int x = 0; x < g.getWidth(); x++) {
+        for (int y = g.getRows()-1; y >= 0; y--) {
+            for (int x = 0; x < g.getCols(); x++) {
                 s.append(getDistance(pathfinder, g.getNode(x, y)));
                 s.append(' ');
             }
@@ -41,8 +41,8 @@ public class GraphWriter {
     public static String plotPredecessors(Dijkstra pathfinder) {
         StringBuffer s = new StringBuffer();
         Graph g = pathfinder.getGraph();
-        for (int y = g.getHeight()-1; y >= 0; y--) {
-            for (int x = 0; x < g.getWidth(); x++) {
+        for (int y = g.getRows()-1; y >= 0; y--) {
+            for (int x = 0; x < g.getCols(); x++) {
                 s.append(getPredecessor(pathfinder, g.getNode(x, y)));
             }
 

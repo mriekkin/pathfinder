@@ -10,30 +10,21 @@ import pathfinder.logic.Pathfinder;
 
 public class GridPanel extends JPanel {
 
-    private final int borderSize;
-    private final int squareSize;
-    private final Color borderColor;
-    private final Color defaultColor;
-    private final Color startColor;
-    private final Color endColor;
-    private final Color obstacleColor;
-    private final Color visitedColor;
+    private final int borderSize = 2;
+    private final int squareSize = 20;
+    private final Color borderColor = new Color(0x719a9a);
+    private final Color defaultColor = new Color(0xffffff);
+    private final Color startColor = new Color(0x00dd00);
+    private final Color endColor = new Color(0xee4400);
+    private final Color obstacleColor = new Color(0x808080);
+    private final Color visitedColor = new Color(0xafeeee);
 
-    private Graph graph;
+    private Graph g;
     private Pathfinder pathfinder;
 
     public GridPanel(Graph g, Pathfinder pathfinder) {
-        this.graph = g;
+        this.g = g;
         this.pathfinder = pathfinder;
-
-        this.borderSize = 2;
-        this.squareSize = 20;
-        this.borderColor = new Color(0x719a9a);
-        this.defaultColor = new Color(0xffffff);
-        this.startColor = new Color(0x00dd00);
-        this.endColor = new Color(0xee4400);
-        this.obstacleColor = new Color(0x808080);
-        this.visitedColor = new Color(0xafeeee);
 
         this.setPreferredSize(new Dimension(computeWidth(), computeHeight()));
         this.setDoubleBuffered(true);
@@ -44,26 +35,26 @@ public class GridPanel extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    protected void paintComponent(Graphics gr) {
+        super.paintComponent(gr);
 
-        //paintBorders(g);
-        paintSquares(g);
+        //paintBorders(gr);
+        paintSquares(gr);
     }
 
-    private void paintBorders(Graphics g) {
-        g.setColor(borderColor);
+    private void paintBorders(Graphics gr) {
+        gr.setColor(borderColor);
 
         int cellSize = getCellSize();
         int width = computeWidth();
         int height = computeHeight();
 
-        for (int y = 0; y < graph.getHeight(); y++) {
-            g.drawLine(0, y * cellSize, width, y * cellSize);
+        for (int y = 0; y < g.getRows(); y++) {
+            gr.drawLine(0, y * cellSize, width, y * cellSize);
         }
 
-        for (int x = 0; x < graph.getWidth(); x++) {
-            g.drawLine(x * cellSize, 0, x * cellSize, height);
+        for (int x = 0; x < g.getCols(); x++) {
+            gr.drawLine(x * cellSize, 0, x * cellSize, height);
         }
     }
 
@@ -72,29 +63,29 @@ public class GridPanel extends JPanel {
     }
 
     private int computeWidth() {
-        return getCellSize() * graph.getWidth() + borderSize;
+        return getCellSize() * g.getCols() + borderSize;
     }
 
     private int computeHeight() {
-        return getCellSize() * graph.getHeight() + borderSize;
+        return getCellSize() * g.getRows() + borderSize;
     }
 
-    private void paintSquares(Graphics g) {
-        for (int y = 0; y < graph.getHeight(); y++) {
-            for (int x = 0; x < graph.getWidth(); x++) {
-                paintNode(g, graph.getNode(x, y));
+    private void paintSquares(Graphics gr) {
+        for (int y = 0; y < g.getRows(); y++) {
+            for (int x = 0; x < g.getCols(); x++) {
+                paintNode(gr, g.getNode(x, y));
             }
         }
     }
 
-    private void paintNode(Graphics g, Node node) {
+    private void paintNode(Graphics gr, Node node) {
         int cellSize = getCellSize();
-        int lastRow = (graph.getHeight()-1) * cellSize + borderSize;
+        int lastRow = (g.getRows()-1) * cellSize + borderSize;
         int fillX = node.x() * cellSize + borderSize;
         int fillY = node.y() * cellSize + borderSize;
         fillY = lastRow - fillY;
-        g.setColor(getNodeColor(node));
-        g.fill3DRect(fillX, fillY, squareSize, squareSize, true);
+        gr.setColor(getNodeColor(node));
+        gr.fill3DRect(fillX, fillY, squareSize, squareSize, true);
     }
 
     private Color getNodeColor(Node node) {
@@ -104,6 +95,17 @@ public class GridPanel extends JPanel {
         if (pathfinder.getVisited(node)) return visitedColor;
 
         return defaultColor;
+    }
+
+    protected Node getNode(int pointX, int pointY) {
+        int x = pointX / getCellSize();
+        int y = pointY / getCellSize();
+        y = g.getRows() - 1 - y;
+
+        if (x < 0 || x >= g.getCols()) return null;
+        if (y < 0 || y >= g.getRows()) return null;
+
+        return g.getNode(x, y);
     }
 
 }
