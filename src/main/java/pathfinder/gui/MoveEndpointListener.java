@@ -10,14 +10,12 @@ public class MoveEndpointListener extends MouseInputAdapter {
 
     private GridPanel panel;
     private Graph g;
-    private Pathfinder pathfinder;
     private boolean isActive;
     private boolean isStart;
 
-    public MoveEndpointListener(GridPanel panel, Graph g, Pathfinder pathfinder) {
+    public MoveEndpointListener(GridPanel panel, Graph g) {
         this.panel = panel;
         this.g = g;
-        this.pathfinder = pathfinder;
         this.isActive = false;
     }
 
@@ -26,13 +24,13 @@ public class MoveEndpointListener extends MouseInputAdapter {
         Node node = panel.getNode(e.getX(), e.getY());
         if (node == null) return;
         
-        if (node.equals(pathfinder.getStart())) {
+        if (node.equals(g.getStart())) {
             isStart = true;
             isActive = true;
             return;
         }
         
-        if (node.equals(pathfinder.getEnd())) {
+        if (node.equals(g.getEnd())) {
             isStart = false;
             isActive = true;
         }
@@ -44,14 +42,14 @@ public class MoveEndpointListener extends MouseInputAdapter {
 
         Node toNode = panel.getNode(e.getX(), e.getY());
         if (toNode == null) return;
-        if (toNode.equals(pathfinder.getStart())) return;
-        if (toNode.equals(pathfinder.getEnd())) return;
+        if (toNode.equals(g.getStart())) return;
+        if (toNode.equals(g.getEnd())) return;
         if (!toNode.isWalkable()) return;
 
         if (isStart)
-            pathfinder.setStart(toNode);
+            g.setStart(toNode);
         else
-            pathfinder.setEnd(toNode);
+            g.setEnd(toNode);
 
         panel.repaint();
     }

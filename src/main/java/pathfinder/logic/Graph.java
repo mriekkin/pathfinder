@@ -8,17 +8,21 @@ public class Graph {
     private final Node[][] nodes;
     private final int cols;
     private final int rows;
+    private Node start;
+    private Node end;
 
-    public Graph(int cols, int rows) {
-        this.cols = cols;
-        this.rows = rows;
+    public Graph(Pair dimensions, Pair start, Pair end) {
+        this.cols = dimensions.getL();
+        this.rows = dimensions.getR();
         this.nodes = new Node[rows][cols];
-
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 nodes[y][x] = new Node(x, y, true);
             }
         }
+
+        this.start = getNode(start.getL(), start.getR());
+        this.end = getNode(end.getL(), end.getR());
     }
 
     public Node getNode(int x, int y) {
@@ -35,6 +39,22 @@ public class Graph {
 
     public int getRows() {
         return rows;
+    }
+
+    public Node getStart() {
+        return start;
+    }
+
+    public Node getEnd() {
+        return end;
+    }
+
+    public void setStart(Node start) {
+        this.start = start;
+    }
+
+    public void setEnd(Node end) {
+        this.end = end;
     }
 
     public List<Node> neighbours(Node u) {

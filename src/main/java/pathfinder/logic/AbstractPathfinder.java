@@ -3,53 +3,30 @@ package pathfinder.logic;
 public abstract class AbstractPathfinder implements Pathfinder {
 
     private final Graph g;
-    private Node start;
-    private Node end;
     private boolean[][] visited;
     private int[][] dist;
     private Node[][] pred;
 
-    public AbstractPathfinder(Graph g, Node start, Node end) {
+    public AbstractPathfinder(Graph g) {
         this.g = g;
-        this.start = start;
-        this.end = end;
         this.visited = new boolean[g.getRows()][g.getCols()];
         this.dist = new int[g.getRows()][g.getCols()];
         this.pred = new Node[g.getRows()][g.getCols()];
 
+        init();
+    }
+
+    protected void init() {
         for (int y = 0; y < g.getRows(); y++) {
             for (int x = 0; x < g.getCols(); x++) {
                 dist[y][x] = INFINITY;
             }
         }
-
-        dist[start.y()][start.x()] = 0;
     }
-
 
     @Override
     public Graph getGraph() {
         return g;
-    }
-
-    @Override
-    public Node getStart() {
-        return start;
-    }
-
-    @Override
-    public Node getEnd() {
-        return end;
-    }
-
-    @Override
-    public void setStart(Node start) {
-        this.start = start;
-    }
-
-    @Override
-    public void setEnd(Node end) {
-        this.end = end;
     }
 
     @Override

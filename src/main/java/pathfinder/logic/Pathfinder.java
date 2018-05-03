@@ -16,14 +16,6 @@ public interface Pathfinder {
 
     Graph getGraph();
 
-    Node getStart();
-
-    Node getEnd();
-
-    void setStart(Node start);
-
-    void setEnd(Node end);
-
     boolean getVisited(Node u);
 
     int getDist(Node u);

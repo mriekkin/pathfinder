@@ -5,16 +5,17 @@ import static org.junit.Assert.*;
 import pathfinder.console.GraphWriter;
 
 /**
- * Tests graph setup using a few examples of small and large graphs
+ * Tests graph setup using a few examples
  * 
  */
 public class GraphSetupTest {
 
     @Test
     public void testSetupSmallGrid() {
-        Graph g = new Graph(10, 10);
-        Node start = g.getNode(0, 0);
-        Node end = g.getNode(9, 0);
+        Pair dimensions = new Pair(10, 10);
+        Pair start = new Pair(0, 0);
+        Pair end = new Pair(9, 0);
+        Graph g = new Graph(dimensions, start, end);
 
         for (int y = 0; y < 9; y++) {
             g.getNode(5, y).setWalkable(false);
@@ -31,14 +32,15 @@ public class GraphSetupTest {
                 + ". . . . . ##. . . . \n"
                 + ". . . . . ##. . . . \n"
                 + "S . . . . ##. . . E ",
-                GraphWriter.plotGrid(g, start, end));
+                GraphWriter.plotGrid(g));
     }
 
     @Test
     public void testSetupBigGrid() {
-        Graph g = new Graph(30, 15);
-        Node start = g.getNode(8, 7);
-        Node end = g.getNode(17, 12);
+        Pair dimensions = new Pair(30, 15);
+        Pair start = new Pair(8, 7);
+        Pair end = new Pair(17, 12);
+        Graph g = new Graph(dimensions, start, end);
 
         for (int y = 3; y <= 11; y++) {
             g.getNode(3, y).setWalkable(false);
@@ -77,7 +79,7 @@ public class GraphSetupTest {
                 + ". . . . . . . . . . . . . ####. . . . . . . . . . . . . . . \n"
                 + ". . . . . . . . . . . . . ####. . . . . . . . . . . . . . . \n"
                 + ". . . . . . . . . . . . . ####. . . . . . . . . . . . . . . ",
-                GraphWriter.plotGrid(g, start, end));
+                GraphWriter.plotGrid(g));
     }
 
 }

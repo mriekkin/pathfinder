@@ -10,8 +10,11 @@ public class DijkstraTest {
 
     @Test
     public void testFind() {
-        Graph g = new Graph(10, 10);
-        Dijkstra pathfinder = new Dijkstra(g, g.getNode(0, 0), g.getNode(9, 9));
+        Pair dimensions = new Pair(10, 10);
+        Pair start = new Pair(0, 0);
+        Pair end = new Pair(9, 9);
+        Graph g = new Graph(dimensions, start, end);
+        Dijkstra pathfinder = new Dijkstra(g);
         assertEquals(18, pathfinder.find());
     }
 

@@ -2,38 +2,38 @@
 package pathfinder.logic;
 
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GraphTest {
 
-    public GraphTest() {
+    Graph g;
+
+    @Before
+    public void setup() {
+        g = new Graph(new Pair(10, 20), new Pair(0, 0), new Pair(9, 19));
     }
 
     @Test
     public void testGetNode() {
-        Graph g = new Graph(10, 10);
-        assertEquals(0, g.getNode(0, 0).x());
-        assertEquals(0, g.getNode(0, 0).y());
-        assertEquals(8, g.getNode(8, 9).x());
-        assertEquals(9, g.getNode(8, 9).y());
+        assertEquals("(0, 0)", g.getNode(0, 0).toString());
+        assertEquals("(5, 10)", g.getNode(5, 10).toString());
+        assertEquals("(9, 19)", g.getNode(9, 19).toString());
     }
 
     @Test
     public void testGetWidth() {
-        Graph g = new Graph(10, 20);
         assertEquals(10, g.getCols());
     }
 
     @Test
     public void testGetHeight() {
-        Graph g = new Graph(10, 20);
         assertEquals(20, g.getRows());
     }
 
     @Test
     public void testNeighboursMiddle() {
-        Graph g = new Graph(10, 10);
         List<Node> n = g.neighbours(5, 5);
         assertEquals(4, n.size());
         assertEquals("(5, 4)", n.get(0).toString());
@@ -44,7 +44,6 @@ public class GraphTest {
     
     @Test
     public void testNeighboursLowerLeftCorner() {
-        Graph g = new Graph(10, 10);
         List<Node> n = g.neighbours(0, 0);
         assertEquals(2, n.size());
         assertEquals("(1, 0)", n.get(0).toString());
@@ -53,16 +52,14 @@ public class GraphTest {
     
     @Test
     public void testNeighboursUpperRightCorner() {
-        Graph g = new Graph(10, 10);
-        List<Node> n = g.neighbours(9, 9);
+        List<Node> n = g.neighbours(9, 19);
         assertEquals(2, n.size());
-        assertEquals("(9, 8)", n.get(0).toString());
-        assertEquals("(8, 9)", n.get(1).toString());
+        assertEquals("(9, 18)", n.get(0).toString());
+        assertEquals("(8, 19)", n.get(1).toString());
     }
 
     @Test
     public void testNeighbours_Node() {
-        Graph g = new Graph(10, 10);
         List<Node> list1 = g.neighbours(5, 5);
         List<Node> list2 = g.neighbours(g.getNode(5, 5));
         assertEquals(list1, list2);

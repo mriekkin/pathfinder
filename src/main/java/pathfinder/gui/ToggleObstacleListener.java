@@ -10,14 +10,12 @@ class ToggleObstacleListener extends MouseInputAdapter {
 
     private GridPanel panel;
     private Graph g;
-    private Pathfinder pathfinder;
     private boolean isActive;
     private boolean walkable;
 
-    public ToggleObstacleListener(GridPanel panel, Graph g, Pathfinder pathfinder) {
+    public ToggleObstacleListener(GridPanel panel, Graph g) {
         this.panel = panel;
         this.g = g;
-        this.pathfinder = pathfinder;
         this.isActive = false;
     }
 
@@ -26,8 +24,8 @@ class ToggleObstacleListener extends MouseInputAdapter {
         Node node = panel.getNode(e.getX(), e.getY());
 
         if (node == null) return;
-        if (node.equals(pathfinder.getStart())) return;
-        if (node.equals(pathfinder.getEnd())) return;
+        if (node.equals(g.getStart())) return;
+        if (node.equals(g.getEnd())) return;
 
         isActive = true;
         walkable = !node.isWalkable();
@@ -43,8 +41,8 @@ class ToggleObstacleListener extends MouseInputAdapter {
         Node node = panel.getNode(e.getX(), e.getY());
 
         if (node == null) return;
-        if (node.equals(pathfinder.getStart())) return;
-        if (node.equals(pathfinder.getEnd())) return;
+        if (node.equals(g.getStart())) return;
+        if (node.equals(g.getEnd())) return;
         if (node.isWalkable() == walkable) return;
 
         node.setWalkable(walkable);

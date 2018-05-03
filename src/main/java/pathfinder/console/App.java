@@ -2,7 +2,7 @@ package pathfinder.console;
 
 import pathfinder.logic.Dijkstra;
 import pathfinder.logic.Graph;
-import pathfinder.logic.Node;
+import pathfinder.logic.Pair;
 
 public class App {
 
@@ -12,16 +12,17 @@ public class App {
     }
     
     public static void smallGrid() {
-        Graph g = new Graph(10, 10);
-        Node start = g.getNode(0, 0);
-        Node end = g.getNode(9, 0);
-        Dijkstra pathfinder = new Dijkstra(g, start, end);
+        Pair dimensions = new Pair(10, 10);
+        Pair start = new Pair(0, 0);
+        Pair end = new Pair(9, 0);
+        Graph g = new Graph(dimensions, start, end);
+        Dijkstra pathfinder = new Dijkstra(g);
         
         for (int y = 0; y < 9; y++) {
             g.getNode(5, y).setWalkable(false);
         }
         
-        System.out.println(GraphWriter.plotGrid(g, start, end) + "\n");
+        System.out.println(GraphWriter.plotGrid(g) + "\n");
         
         pathfinder.find();
         
@@ -30,10 +31,11 @@ public class App {
     }
     
     public static void bigGrid() {
-        Graph g = new Graph(30, 15);
-        Node start = g.getNode(8, 7);
-        Node end = g.getNode(17, 12);
-        Dijkstra pathfinder = new Dijkstra(g, start, end);
+        Pair dimensions = new Pair(30, 15);
+        Pair start = new Pair(8, 7);
+        Pair end = new Pair(17, 12);
+        Graph g = new Graph(dimensions, start, end);
+        Dijkstra pathfinder = new Dijkstra(g);
         
         for (int y = 3; y <= 11; y++) {
             g.getNode(3, y).setWalkable(false);
@@ -56,7 +58,7 @@ public class App {
             g.getNode(25, y).setWalkable(false);
         }
         
-        System.out.println(GraphWriter.plotGrid(g, start, end) + "\n");
+        System.out.println(GraphWriter.plotGrid(g) + "\n");
         
         pathfinder.find();
         

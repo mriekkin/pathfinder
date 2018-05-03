@@ -89,8 +89,8 @@ public class GridPanel extends JPanel {
     }
 
     private Color getNodeColor(Node node) {
-        if (node.equals(pathfinder.getStart())) return startColor;
-        if (node.equals(pathfinder.getEnd())) return endColor;
+        if (node.equals(g.getStart())) return startColor;
+        if (node.equals(g.getEnd())) return endColor;
         if (!node.isWalkable()) return obstacleColor;
         if (pathfinder.getVisited(node)) return visitedColor;
 

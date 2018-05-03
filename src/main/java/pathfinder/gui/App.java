@@ -5,10 +5,11 @@ import pathfinder.logic.*;
 public class App {
 
     public static void main(String[] args) {
-        Graph g = new Graph(30, 15);
-        Node start = g.getNode(8, 7);
-        Node end = g.getNode(17, 12);
-        Pathfinder pathfinder = new Dijkstra(g, start, end);
+        Pair dimensions = new Pair(30, 15);
+        Pair start = new Pair(8, 7);
+        Pair end = new Pair(17, 12);
+        Graph g = new Graph(dimensions, start, end);
+        Pathfinder pathfinder = new Dijkstra(g);
 
         createBigGrid(g);
 

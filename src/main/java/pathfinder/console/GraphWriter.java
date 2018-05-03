@@ -10,11 +10,11 @@ import pathfinder.logic.Node;
  */
 public class GraphWriter {
 
-    public static String plotGrid(Graph g, Node start, Node end) {
+    public static String plotGrid(Graph g) {
         StringBuffer s = new StringBuffer();
         for (int y = g.getRows()-1; y >= 0; y--) {
             for (int x = 0; x < g.getCols(); x++) {
-                s.append(getNode(g.getNode(x, y), start, end));
+                s.append(getNode(g, g.getNode(x, y)));
             }
 
             if (y > 0) s.append("\n");
@@ -28,7 +28,7 @@ public class GraphWriter {
         Graph g = pathfinder.getGraph();
         for (int y = g.getRows()-1; y >= 0; y--) {
             for (int x = 0; x < g.getCols(); x++) {
-                s.append(getDistance(pathfinder, g.getNode(x, y)));
+                s.append(getDistance(g, pathfinder, g.getNode(x, y)));
                 s.append(' ');
             }
 
@@ -43,7 +43,7 @@ public class GraphWriter {
         Graph g = pathfinder.getGraph();
         for (int y = g.getRows()-1; y >= 0; y--) {
             for (int x = 0; x < g.getCols(); x++) {
-                s.append(getPredecessor(pathfinder, g.getNode(x, y)));
+                s.append(getPredecessor(g, pathfinder, g.getNode(x, y)));
             }
 
             if (y > 0) s.append("\n");
@@ -52,15 +52,15 @@ public class GraphWriter {
         return s.toString();
     }
 
-    private static String getNode(Node node, Node start, Node end) {
-        String s = getSpecialCases(node, start, end);
+    private static String getNode(Graph g, Node node) {
+        String s = getSpecialCases(g, node);
         if (s != null) return s;
 
         return ". ";
     }
 
-    private static String getDistance(Dijkstra pathfinder, Node node) {
-        String s = getSpecialCases(node, pathfinder.getStart(), pathfinder.getEnd());
+    private static String getDistance(Graph g, Dijkstra pathfinder, Node node) {
+        String s = getSpecialCases(g, node);
         if (s != null) return s;
 
         int dist = pathfinder.getDist(node);
@@ -70,8 +70,8 @@ public class GraphWriter {
         return Integer.toString(dist);
     }
 
-    private static String getPredecessor(Dijkstra pathfinder, Node node) {
-        String s = getSpecialCases(node, pathfinder.getStart(), pathfinder.getEnd());
+    private static String getPredecessor(Graph g, Dijkstra pathfinder, Node node) {
+        String s = getSpecialCases(g, node);
         if (s != null) return s;
 
         Node pred = pathfinder.getPred(node);
@@ -84,10 +84,10 @@ public class GraphWriter {
         return "  ";
     }
 
-    private static String getSpecialCases(Node node, Node start, Node end) {
+    private static String getSpecialCases(Graph g, Node node) {
         if (!node.isWalkable()) return "##";
-        if (node.equals(start)) return "S ";
-        if (node.equals(end)) return "E ";
+        if (node.equals(g.getStart())) return "S ";
+        if (node.equals(g.getEnd())) return "E ";
 
         return null;
     }

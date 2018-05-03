@@ -43,8 +43,6 @@ public class UserInterface implements Runnable {
         reset = new JButton("Reset");
         grid = new GridPanel(g, pathfinder);
 
-        reset.setEnabled(false); // This is temporary
-
         addActionListeners();
         addMouseListeners();
 
@@ -65,7 +63,7 @@ public class UserInterface implements Runnable {
         });
 
         reset.addActionListener((e) -> {
-            pathfinder = new Dijkstra(g, g.getNode(8, 7), g.getNode(17, 12));
+            pathfinder = new Dijkstra(g);
             grid.setPathfinder(pathfinder);
             grid.repaint();
             find.setEnabled(true);
@@ -73,8 +71,8 @@ public class UserInterface implements Runnable {
     }
 
     private void addMouseListeners() {
-        mouseListener1 = new ToggleObstacleListener(grid, g, pathfinder);
-        mouseListener2 = new MoveEndpointListener(grid, g, pathfinder);
+        mouseListener1 = new ToggleObstacleListener(grid, g);
+        mouseListener2 = new MoveEndpointListener(grid, g);
         grid.addMouseListener(mouseListener1);
         grid.addMouseListener(mouseListener2);
         grid.addMouseMotionListener(mouseListener1);
