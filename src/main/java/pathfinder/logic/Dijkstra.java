@@ -44,6 +44,7 @@ public class Dijkstra extends AbstractPathfinder {
             return -1;
         }
 
+        updatePath();
         return getDist(end);
     }
 

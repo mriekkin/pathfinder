@@ -1,8 +1,11 @@
 package pathfinder.gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.List;
 import javax.swing.JPanel;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
@@ -18,6 +21,7 @@ public class GridPanel extends JPanel {
     private final Color endColor = new Color(0xee4400);
     private final Color obstacleColor = new Color(0x808080);
     private final Color visitedColor = new Color(0xafeeee);
+    final static BasicStroke pathStroke = new BasicStroke(2.5f);
 
     private Graph g;
     private Pathfinder pathfinder;
@@ -40,6 +44,7 @@ public class GridPanel extends JPanel {
 
         //paintBorders(gr);
         paintSquares(gr);
+        paintPath(gr);
     }
 
     private void paintBorders(Graphics gr) {
@@ -95,6 +100,32 @@ public class GridPanel extends JPanel {
         if (pathfinder.getVisited(node)) return visitedColor;
 
         return defaultColor;
+    }
+
+    private void paintPath(Graphics gr) {
+        List<Node> path = pathfinder.getPath();
+        if (path.isEmpty()) return;
+
+        int[] xPoints = new int[path.size()];
+        int[] yPoints = new int[path.size()];
+        final int cellSize = getCellSize();
+        final int lastRow = g.getRows() * cellSize;
+        int i = 0;
+        for (Node node : path) {
+            xPoints[i] = node.x() * cellSize + borderSize + squareSize/2;
+            yPoints[i] = node.y() * cellSize + borderSize + squareSize/2;
+            yPoints[i] = lastRow - yPoints[i];
+            i++;
+        }
+
+        PaintPathPolyline(gr, xPoints, yPoints, path);
+    }
+
+    protected void PaintPathPolyline(Graphics gr, int[] xPoints, int[] yPoints, List<Node> path) {
+        Graphics2D g2 = (Graphics2D) gr;
+        g2.setColor(Color.YELLOW);
+        g2.setStroke(pathStroke);
+        gr.drawPolyline(xPoints, yPoints, path.size());
     }
 
     protected Node getNode(int pointX, int pointY) {

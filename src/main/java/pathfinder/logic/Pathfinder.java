@@ -1,5 +1,7 @@
 package pathfinder.logic;
 
+import java.util.List;
+
 public interface Pathfinder {
 
     /**
@@ -21,5 +23,7 @@ public interface Pathfinder {
     int getDist(Node u);
 
     Node getPred(Node u);
+
+    List<Node> getPath();
 
 }

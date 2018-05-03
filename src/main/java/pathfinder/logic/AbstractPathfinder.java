@@ -1,11 +1,17 @@
 package pathfinder.logic;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
 public abstract class AbstractPathfinder implements Pathfinder {
 
     private final Graph g;
     private boolean[][] visited;
     private int[][] dist;
     private Node[][] pred;
+    private List<Node> path;
 
     public AbstractPathfinder(Graph g) {
         this.g = g;
@@ -19,9 +25,14 @@ public abstract class AbstractPathfinder implements Pathfinder {
     protected void init() {
         for (int y = 0; y < g.getRows(); y++) {
             for (int x = 0; x < g.getCols(); x++) {
+                visited[y][x] = false;
                 dist[y][x] = INFINITY;
+                pred[y][x] = null;
             }
         }
+
+        setDist(g.getStart(), 0);
+        path = new ArrayList<>();
     }
 
     @Override
@@ -54,6 +65,29 @@ public abstract class AbstractPathfinder implements Pathfinder {
 
     protected void setPred(Node u, Node pred) {
         this.pred[u.y()][u.x()] = pred;
+    }
+
+    @Override
+    public List<Node> getPath() {
+        return path;
+    }
+
+    protected void updatePath() {
+        this.path = constructPath();
+    }
+
+    private List<Node> constructPath() {
+        Node u = g.getEnd();
+        if (getPred(u) == null)
+            return new ArrayList<>();
+
+        Deque<Node> s = new ArrayDeque<>();
+        while (u != null) {
+            s.push(u);
+            u = getPred(u);
+        }
+
+        return new ArrayList<>(s);
     }
 
 }
