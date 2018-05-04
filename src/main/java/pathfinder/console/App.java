@@ -1,6 +1,6 @@
 package pathfinder.console;
 
-import pathfinder.logic.Dijkstra;
+import pathfinder.logic.pathfinders.Dijkstra;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Pair;
 

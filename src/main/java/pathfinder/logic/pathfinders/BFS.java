@@ -1,7 +1,9 @@
-package pathfinder.logic;
+package pathfinder.logic.pathfinders;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
+import pathfinder.logic.Graph;
+import pathfinder.logic.Node;
 
 public class BFS extends AbstractPathfinder {
 
@@ -14,7 +16,7 @@ public class BFS extends AbstractPathfinder {
     @Override
     protected void init() {
         super.init();
-        Node start = getGraph().getStart();
+        Node start = g.getStart();
         q = new ArrayDeque<>();
         q.add(start);
         setVisited(start, true);
@@ -24,7 +26,6 @@ public class BFS extends AbstractPathfinder {
     @Override
     public int find() {
         init();
-        Graph g = getGraph();
         Node end = g.getEnd();
         while (!q.isEmpty()) {
             Node u = q.poll();

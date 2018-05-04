@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
-import pathfinder.logic.Pathfinder;
+import pathfinder.logic.pathfinders.Pathfinder;
 
 public class GridPanel extends JPanel {
 

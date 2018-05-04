@@ -1,6 +1,8 @@
-package pathfinder.logic;
+package pathfinder.logic.pathfinders;
 
 import java.util.List;
+import pathfinder.logic.Graph;
+import pathfinder.logic.Node;
 
 public interface Pathfinder {
 

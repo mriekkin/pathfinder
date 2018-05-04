@@ -1,8 +1,8 @@
 package pathfinder.console;
 
-import pathfinder.logic.Dijkstra;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
+import pathfinder.logic.pathfinders.Pathfinder;
 
 /**
  * Plots ASCII representations of graphs
@@ -23,7 +23,7 @@ public class GraphWriter {
         return s.toString();
     }
 
-    public static String plotDistances(Dijkstra pathfinder) {
+    public static String plotDistances(Pathfinder pathfinder) {
         StringBuffer s = new StringBuffer();
         Graph g = pathfinder.getGraph();
         for (int y = g.getRows()-1; y >= 0; y--) {
@@ -38,7 +38,7 @@ public class GraphWriter {
         return s.toString();
     }
 
-    public static String plotPredecessors(Dijkstra pathfinder) {
+    public static String plotPredecessors(Pathfinder pathfinder) {
         StringBuffer s = new StringBuffer();
         Graph g = pathfinder.getGraph();
         for (int y = g.getRows()-1; y >= 0; y--) {
@@ -59,7 +59,7 @@ public class GraphWriter {
         return ". ";
     }
 
-    private static String getDistance(Graph g, Dijkstra pathfinder, Node node) {
+    private static String getDistance(Graph g, Pathfinder pathfinder, Node node) {
         String s = getSpecialCases(g, node);
         if (s != null) return s;
 
@@ -70,7 +70,7 @@ public class GraphWriter {
         return Integer.toString(dist);
     }
 
-    private static String getPredecessor(Graph g, Dijkstra pathfinder, Node node) {
+    private static String getPredecessor(Graph g, Pathfinder pathfinder, Node node) {
         String s = getSpecialCases(g, node);
         if (s != null) return s;
 

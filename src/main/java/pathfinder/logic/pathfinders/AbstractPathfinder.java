@@ -1,13 +1,15 @@
-package pathfinder.logic;
+package pathfinder.logic.pathfinders;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import pathfinder.logic.Graph;
+import pathfinder.logic.Node;
 
-public abstract class AbstractPathfinder implements Pathfinder {
+abstract class AbstractPathfinder implements Pathfinder {
 
-    private final Graph g;
+    protected final Graph g;
     private boolean[][] visited;
     private int[][] dist;
     private Node[][] pred;

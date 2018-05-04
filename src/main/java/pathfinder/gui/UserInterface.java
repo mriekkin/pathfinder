@@ -7,11 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import pathfinder.logic.AStar;
-import pathfinder.logic.BFS;
 import pathfinder.logic.Graph;
-import pathfinder.logic.Dijkstra;
-import pathfinder.logic.Pathfinder;
+import pathfinder.logic.pathfinders.AStar;
+import pathfinder.logic.pathfinders.BFS;
+import pathfinder.logic.pathfinders.Dijkstra;
+import pathfinder.logic.pathfinders.Pathfinder;
 
 public class UserInterface implements Runnable {
 

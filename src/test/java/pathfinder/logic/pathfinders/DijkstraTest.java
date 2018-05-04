@@ -1,6 +1,8 @@
-package pathfinder.logic;
+package pathfinder.logic.pathfinders;
 
 import org.junit.Test;
+import pathfinder.logic.Graph;
+import pathfinder.logic.Pair;
 import static org.junit.Assert.*;
 
 public class DijkstraTest {

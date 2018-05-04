@@ -1,6 +1,8 @@
-package pathfinder.logic;
+package pathfinder.logic.pathfinders;
 
-public class PriorityNode implements Comparable<PriorityNode> {
+import pathfinder.logic.Node;
+
+class PriorityNode implements Comparable<PriorityNode> {
 
     public Node node;
     public int dist;

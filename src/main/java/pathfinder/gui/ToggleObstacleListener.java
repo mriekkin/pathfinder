@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
-import pathfinder.logic.Pathfinder;
 
 class ToggleObstacleListener extends MouseInputAdapter {
 
