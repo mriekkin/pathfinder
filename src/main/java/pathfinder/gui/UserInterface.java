@@ -4,26 +4,32 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import pathfinder.logic.AStar;
+import pathfinder.logic.BFS;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Dijkstra;
 import pathfinder.logic.Pathfinder;
 
 public class UserInterface implements Runnable {
 
+    private static final String[] ALGORITHMS = new String[]{"BFS", "Dijkstra", "A*"};
+
     private Graph g;
     private Pathfinder pathfinder;
 
     private JButton find;
     private JButton reset;
+    private JComboBox algorithm;
     private GridPanel grid;
     private ToggleObstacleListener mouseListener1;
     private MoveEndpointListener mouseListener2;
 
-    public UserInterface(Graph g, Pathfinder pathfinder) {
+    public UserInterface(Graph g) {
         this.g = g;
-        this.pathfinder = pathfinder;
+        this.pathfinder = new BFS(g);
     }
 
     @Override
@@ -41,6 +47,7 @@ public class UserInterface implements Runnable {
     private void addComponents(final Container pane) {
         find = new JButton("Find");
         reset = new JButton("Reset");
+        algorithm = new JComboBox(ALGORITHMS);
         grid = new GridPanel(g, pathfinder);
 
         addActionListeners();
@@ -50,6 +57,7 @@ public class UserInterface implements Runnable {
         top.setLayout(new FlowLayout());
         top.add(find);
         top.add(reset);
+        top.add(algorithm);
 
         pane.add(top, BorderLayout.PAGE_START);
         pane.add(grid, BorderLayout.CENTER);
@@ -59,14 +67,19 @@ public class UserInterface implements Runnable {
         find.addActionListener((e) -> {
             pathfinder.find();
             grid.repaint();
-            find.setEnabled(false);
+            //find.setEnabled(false);
         });
 
         reset.addActionListener((e) -> {
-            pathfinder = new Dijkstra(g);
+            pathfinder = createPathfinder();
             grid.setPathfinder(pathfinder);
             grid.repaint();
             find.setEnabled(true);
+        });
+
+        algorithm.addActionListener((e) -> {
+            pathfinder = createPathfinder();
+            grid.setPathfinder(pathfinder);
         });
     }
 
@@ -77,6 +90,15 @@ public class UserInterface implements Runnable {
         grid.addMouseListener(mouseListener2);
         grid.addMouseMotionListener(mouseListener1);
         grid.addMouseMotionListener(mouseListener2);
+    }
+
+    private Pathfinder createPathfinder() {
+        switch (algorithm.getSelectedIndex()) {
+            case 0: return new BFS(g);
+            case 1: return new Dijkstra(g);
+            case 2: return new AStar(g);
+            default: return null;
+        }
     }
 
 }

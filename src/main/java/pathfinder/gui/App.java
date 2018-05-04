@@ -9,11 +9,10 @@ public class App {
         Pair start = new Pair(8, 7);
         Pair end = new Pair(17, 12);
         Graph g = new Graph(dimensions, start, end);
-        Pathfinder pathfinder = new Dijkstra(g);
 
         createBigGrid(g);
 
-        UserInterface gui = new UserInterface(g, pathfinder);
+        UserInterface gui = new UserInterface(g);
 
         javax.swing.SwingUtilities.invokeLater(gui);
     }
