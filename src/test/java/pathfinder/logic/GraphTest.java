@@ -1,4 +1,3 @@
-
 package pathfinder.logic;
 
 import java.util.List;

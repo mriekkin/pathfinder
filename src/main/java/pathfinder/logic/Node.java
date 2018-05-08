@@ -2,8 +2,8 @@ package pathfinder.logic;
 
 public class Node {
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private boolean walkable;
 
     public Node(int x, int y, boolean walkable) {
