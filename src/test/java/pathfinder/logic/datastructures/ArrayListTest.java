@@ -69,6 +69,59 @@ public class ArrayListTest {
     }
 
     @Test
+    public void canAddToTheBeginningOfList() {
+        list.add(0, "First");
+        assertEquals("First", list.get(0));
+        assertEquals("Zero", list.get(1));
+        assertEquals("One", list.get(2));
+        assertEquals("Two", list.get(3));
+        assertEquals("Three", list.get(4));
+        assertEquals("Four", list.get(5));
+        assertEquals("Five", list.get(6));
+        assertEquals(7, list.size());
+    }
+
+    @Test
+    public void canAddToTheMiddleOfList() {
+        list.add(4, "Middle");
+        assertEquals("Zero", list.get(0));
+        assertEquals("One", list.get(1));
+        assertEquals("Two", list.get(2));
+        assertEquals("Three", list.get(3));
+        assertEquals("Middle", list.get(4));
+        assertEquals("Four", list.get(5));
+        assertEquals("Five", list.get(6));
+        assertEquals(7, list.size());
+    }
+
+    @Test
+    public void canAddToTheEndOfList() {
+        list.add(6, "Last"); // one-over the last position
+        assertEquals("Zero", list.get(0));
+        assertEquals("One", list.get(1));
+        assertEquals("Two", list.get(2));
+        assertEquals("Three", list.get(3));
+        assertEquals("Four", list.get(4));
+        assertEquals("Five", list.get(5));
+        assertEquals("Last", list.get(6));
+        assertEquals(7, list.size());
+    }
+
+    @Test
+    public void addThrowsExceptionForNegativeIndex() {
+        thrown.expect(ArrayIndexOutOfBoundsException.class);
+        thrown.expectMessage("Array index out of range: -1");
+        list.add(-1, "Negative index");
+    }
+
+    @Test
+    public void addThrowsExceptionForTooLargeIndex() {
+        thrown.expect(ArrayIndexOutOfBoundsException.class);
+        thrown.expectMessage("Array index out of range: 7");
+        list.add(7, "Index out-of-bounds"); // two-over the last
+    }
+
+    @Test
     public void addResizesWhenFull() {
         list = new ArrayList<>(1); // initial capacity 1
         list.add("Zero"); list.add("One"); list.add("Two"); list.add("Three");

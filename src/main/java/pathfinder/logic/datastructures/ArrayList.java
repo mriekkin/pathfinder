@@ -12,7 +12,6 @@ public class ArrayList<E> implements List<E> {
         this(10);
     }
 
-
     /**
      * Constructs an empty list with the specified initial capacity
      * 
@@ -35,11 +34,22 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public void add(E e) {
+        add(n, e);
+    }
+
+    @Override
+    public void add(int index, E element) {
+        // In here we allow the index n (one-over the last position)
+        if (index < 0 || index > n) throw new ArrayIndexOutOfBoundsException(index);
         if (isFull()) {
             resize(2 * table.length);
         }
 
-        table[n] = e;
+        for (int i = n; i-1 >= index; i--) {
+            table[i] = table[i-1];
+        }
+
+        table[index] = element;
         n++;
     }
 

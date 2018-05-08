@@ -18,6 +18,14 @@ public interface List<E> {
     void add(E e);
 
     /**
+     * Inserts the specified element at the specified position in this list
+     * 
+     * @param index index at which the specified element is to be inserted
+     * @param element element to be inserted 
+     */
+    void add(int index, E element);
+
+    /**
      * Removes the element at the specified position in this list
      *
      * @param index index of the element to be removed
