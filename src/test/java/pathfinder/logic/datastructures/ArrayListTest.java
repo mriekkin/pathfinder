@@ -178,6 +178,14 @@ public class ArrayListTest {
     }
 
     @Test
+    public void canRemoveTheOnlyElement() {
+        list = new ArrayList<>();
+        list.add("List with one element");
+        list.remove(0);
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
     public void removeReturnsTheRemovedElement() {
         assertEquals("Five", list.remove(5));
         assertEquals("Two", list.remove(2));
