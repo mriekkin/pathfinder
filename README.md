@@ -1,6 +1,6 @@
 # pathfinder
 
-![travis](https://travis-ci.org/mriekkin/pathfinder.svg?branch=master)
-[![Code Coverage](https://img.shields.io/codecov/c/github/mriekkin/pathfinder/master.svg)](https://codecov.io/github/mriekkin/pathfinder/)
+[![Build Status](https://travis-ci.com/mriekkin/pathfinder.svg?token=ezJZa5spPprq15TfcPVq&branch=master)](https://travis-ci.com/mriekkin/pathfinder)
+[![Code Coverage](https://codecov.io/gh/mriekkin/pathfinder/branch/master/graph/badge.svg?token=5GzNuxwBS8)](https://codecov.io/gh/mriekkin/pathfinder)
 
 A pathfinder for square grids
