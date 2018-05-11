@@ -13,25 +13,46 @@ import pathfinder.logic.pathfinders.Pathfinder;
 
 public class GridPanel extends JPanel {
 
-    private final int borderSize = 2;
-    private final int squareSize = 20;
-    private final Color borderColor = new Color(0x719a9a);
-    private final Color defaultColor = new Color(0xffffff);
-    private final Color startColor = new Color(0x00dd00);
-    private final Color endColor = new Color(0xee4400);
-    private final Color obstacleColor = new Color(0x808080);
-    private final Color visitedColor = new Color(0xafeeee);
-    final static BasicStroke pathStroke = new BasicStroke(2.5f);
+    private static final Color borderColor = Color.BLACK;
+    private static final Color defaultColor = new Color(0xffffff);
+    private static final Color startColor = new Color(0x00dd00);
+    private static final Color endColor = new Color(0xee4400);
+    private static final Color obstacleColor = new Color(0x808080);
+    private static final Color visitedColor = new Color(0xafeeee);
+    private static final Color pathColor = Color.YELLOW;
+    private static final BasicStroke pathStroke = new BasicStroke(2.5f);
+
+    private int borderSize;
+    private int squareSize;
+    private BasicStroke borderStroke;
 
     private Graph g;
     private Pathfinder pathfinder;
 
-    public GridPanel(Graph g, Pathfinder pathfinder) {
+    public GridPanel(Graph g, Pathfinder pathfinder, int squareSize) {
+        reset(g, pathfinder, squareSize);
+    }
+
+    public void reset(Graph g, Pathfinder pathfinder, int squareSize) {
         this.g = g;
         this.pathfinder = pathfinder;
+        initSizes(squareSize);
 
         this.setPreferredSize(new Dimension(computeWidth(), computeHeight()));
         this.setDoubleBuffered(true);
+    }
+
+    private void initSizes(int squareSize) {
+        if (squareSize < 0) throw new IllegalArgumentException("Negative squareSize: " + squareSize);
+        this.squareSize = squareSize;
+        this.borderSize = getBorderSize(squareSize);
+        this.borderStroke = new BasicStroke(borderSize);
+    }
+
+    private int getBorderSize(int squareSize) {
+        if (squareSize == 1) return 0;
+        if (squareSize < 5) return 1;
+        return 1;
     }
 
     public void setPathfinder(Pathfinder pathfinder) {
@@ -42,24 +63,27 @@ public class GridPanel extends JPanel {
     protected void paintComponent(Graphics gr) {
         super.paintComponent(gr);
 
-        //paintBorders(gr);
-        paintSquares(gr);
-        paintPath(gr);
+        Graphics2D g2 = (Graphics2D) gr;
+        paintSquares(g2);
+        if (borderSize > 0)
+            paintBorders(g2);
+        paintPath(g2);
     }
 
-    private void paintBorders(Graphics gr) {
-        gr.setColor(borderColor);
+    private void paintBorders(Graphics2D g2) {
+        g2.setColor(borderColor);
+        g2.setStroke(borderStroke);
 
         int cellSize = getCellSize();
         int width = computeWidth();
         int height = computeHeight();
 
-        for (int y = 0; y < g.getRows(); y++) {
-            gr.drawLine(0, y * cellSize, width, y * cellSize);
+        for (int y = 0; y <= g.getRows(); y++) {
+            g2.drawLine(0, y * cellSize, width, y * cellSize);
         }
 
-        for (int x = 0; x < g.getCols(); x++) {
-            gr.drawLine(x * cellSize, 0, x * cellSize, height);
+        for (int x = 0; x <= g.getCols(); x++) {
+            g2.drawLine(x * cellSize, 0, x * cellSize, height);
         }
     }
 
@@ -75,22 +99,22 @@ public class GridPanel extends JPanel {
         return getCellSize() * g.getRows() + borderSize;
     }
 
-    private void paintSquares(Graphics gr) {
+    private void paintSquares(Graphics2D g2) {
         for (int y = 0; y < g.getRows(); y++) {
             for (int x = 0; x < g.getCols(); x++) {
-                paintNode(gr, g.getNode(x, y));
+                paintNode(g2, g.getNode(x, y));
             }
         }
     }
 
-    private void paintNode(Graphics gr, Node node) {
+    private void paintNode(Graphics2D g2, Node node) {
         int cellSize = getCellSize();
         int lastRow = (g.getRows()-1) * cellSize + borderSize;
         int fillX = node.x() * cellSize + borderSize;
         int fillY = node.y() * cellSize + borderSize;
         fillY = lastRow - fillY;
-        gr.setColor(getNodeColor(node));
-        gr.fill3DRect(fillX, fillY, squareSize, squareSize, true);
+        g2.setColor(getNodeColor(node));
+        g2.fillRect(fillX, fillY, squareSize, squareSize);
     }
 
     private Color getNodeColor(Node node) {
@@ -102,7 +126,7 @@ public class GridPanel extends JPanel {
         return defaultColor;
     }
 
-    private void paintPath(Graphics gr) {
+    private void paintPath(Graphics2D g2) {
         List<Node> path = pathfinder.getPath();
         if (path.isEmpty()) return;
 
@@ -118,14 +142,13 @@ public class GridPanel extends JPanel {
             i++;
         }
 
-        PaintPathPolyline(gr, xPoints, yPoints, path);
+        PaintPathPolyline(g2, xPoints, yPoints, path);
     }
 
-    protected void PaintPathPolyline(Graphics gr, int[] xPoints, int[] yPoints, List<Node> path) {
-        Graphics2D g2 = (Graphics2D) gr;
-        g2.setColor(Color.YELLOW);
+    protected void PaintPathPolyline(Graphics2D g2, int[] xPoints, int[] yPoints, List<Node> path) {
+        g2.setColor(pathColor);
         g2.setStroke(pathStroke);
-        gr.drawPolyline(xPoints, yPoints, path.size());
+        g2.drawPolyline(xPoints, yPoints, path.size());
     }
 
     protected Node getNode(int pointX, int pointY) {
