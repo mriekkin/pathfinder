@@ -1,4 +1,4 @@
-package pathfinder.gui;
+package pathfinder.gui.grid;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -23,29 +23,29 @@ public class GridPanel extends JPanel {
     private static final BasicStroke pathStroke = new BasicStroke(2.5f);
 
     private int borderSize;
-    private int squareSize;
+    private int cellSize;
     private BasicStroke borderStroke;
 
     private Graph g;
     private Pathfinder pathfinder;
 
-    public GridPanel(Graph g, Pathfinder pathfinder, int squareSize) {
-        reset(g, pathfinder, squareSize);
+    public GridPanel(Graph g, Pathfinder pathfinder, int cellSize) {
+        reset(g, pathfinder, cellSize);
     }
 
-    public void reset(Graph g, Pathfinder pathfinder, int squareSize) {
+    public void reset(Graph g, Pathfinder pathfinder, int cellSize) {
         this.g = g;
         this.pathfinder = pathfinder;
-        initSizes(squareSize);
+        initSizes(cellSize);
 
         this.setPreferredSize(new Dimension(computeWidth(), computeHeight()));
         this.setDoubleBuffered(true);
     }
 
-    private void initSizes(int squareSize) {
-        if (squareSize < 0) throw new IllegalArgumentException("Negative squareSize: " + squareSize);
-        this.squareSize = squareSize;
-        this.borderSize = getBorderSize(squareSize);
+    private void initSizes(int cellSize) {
+        if (cellSize < 0) throw new IllegalArgumentException("Negative cell size: " + cellSize);
+        this.cellSize = cellSize;
+        this.borderSize = getBorderSize(cellSize);
         this.borderStroke = new BasicStroke(borderSize);
     }
 
@@ -74,7 +74,7 @@ public class GridPanel extends JPanel {
         g2.setColor(borderColor);
         g2.setStroke(borderStroke);
 
-        int cellSize = getCellSize();
+        int cellSize = getTotalSize();
         int width = computeWidth();
         int height = computeHeight();
 
@@ -87,16 +87,16 @@ public class GridPanel extends JPanel {
         }
     }
 
-    private int getCellSize() {
-        return borderSize + squareSize;
+    private int getTotalSize() {
+        return borderSize + cellSize;
     }
 
     private int computeWidth() {
-        return getCellSize() * g.getCols() + borderSize;
+        return getTotalSize() * g.getCols() + borderSize;
     }
 
     private int computeHeight() {
-        return getCellSize() * g.getRows() + borderSize;
+        return getTotalSize() * g.getRows() + borderSize;
     }
 
     private void paintSquares(Graphics2D g2) {
@@ -108,13 +108,13 @@ public class GridPanel extends JPanel {
     }
 
     private void paintNode(Graphics2D g2, Node node) {
-        int cellSize = getCellSize();
-        int lastRow = (g.getRows()-1) * cellSize + borderSize;
-        int fillX = node.x() * cellSize + borderSize;
-        int fillY = node.y() * cellSize + borderSize;
+        int totalSize = getTotalSize();
+        int lastRow = (g.getRows()-1) * totalSize + borderSize;
+        int fillX = node.x() * totalSize + borderSize;
+        int fillY = node.y() * totalSize + borderSize;
         fillY = lastRow - fillY;
         g2.setColor(getNodeColor(node));
-        g2.fillRect(fillX, fillY, squareSize, squareSize);
+        g2.fillRect(fillX, fillY, cellSize, cellSize);
     }
 
     private Color getNodeColor(Node node) {
@@ -132,12 +132,12 @@ public class GridPanel extends JPanel {
 
         int[] xPoints = new int[path.size()];
         int[] yPoints = new int[path.size()];
-        final int cellSize = getCellSize();
-        final int lastRow = g.getRows() * cellSize;
+        final int totalSize = getTotalSize();
+        final int lastRow = g.getRows() * totalSize;
         int i = 0;
         for (Node node : path) {
-            xPoints[i] = node.x() * cellSize + borderSize + squareSize/2;
-            yPoints[i] = node.y() * cellSize + borderSize + squareSize/2;
+            xPoints[i] = node.x() * totalSize + borderSize + cellSize/2;
+            yPoints[i] = node.y() * totalSize + borderSize + cellSize/2;
             yPoints[i] = lastRow - yPoints[i];
             i++;
         }
@@ -152,8 +152,8 @@ public class GridPanel extends JPanel {
     }
 
     protected Node getNode(int pointX, int pointY) {
-        int x = pointX / getCellSize();
-        int y = pointY / getCellSize();
+        int x = pointX / getTotalSize();
+        int y = pointY / getTotalSize();
         y = g.getRows() - 1 - y;
 
         if (x < 0 || x >= g.getCols()) return null;

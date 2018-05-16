@@ -1,4 +1,4 @@
-package pathfinder.gui;
+package pathfinder.gui.grid;
 
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;

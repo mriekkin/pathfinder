@@ -1,5 +1,9 @@
 package pathfinder.gui;
 
+import pathfinder.gui.preferences.ShowPreferencesListener;
+import pathfinder.gui.grid.MoveEndpointListener;
+import pathfinder.gui.grid.ToggleObstacleListener;
+import pathfinder.gui.grid.GridPanel;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -9,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import pathfinder.gui.preferences.GridPreferencesEditor;
 import pathfinder.logic.Graph;
 import pathfinder.logic.pathfinders.AStar;
 import pathfinder.logic.pathfinders.BFS;
@@ -18,13 +23,14 @@ import pathfinder.logic.pathfinders.Pathfinder;
 public class UserInterface implements Runnable {
 
     private static final String[] ALGORITHMS = new String[]{"BFS", "Dijkstra", "A*"};
-    private static final int DEFAULT_SQUARE_SIZE = 20;
+    private static final int DEFAULT_CELL_SIZE = 20;
 
     private Graph g;
     private Pathfinder pathfinder;
 
     private JFrame frame;
     private JButton open;
+    private JButton settings;
     private JButton find;
     private JButton reset;
     private JComboBox algorithm;
@@ -32,10 +38,12 @@ public class UserInterface implements Runnable {
     private JScrollPane scroll;
     private ToggleObstacleListener mouseListener1;
     private MoveEndpointListener mouseListener2;
+    private GridPreferencesEditor prefs;
 
     public UserInterface(Graph g) {
         this.g = g;
         this.pathfinder = new BFS(g);
+        this.prefs = new GridPreferencesEditor();
     }
 
     @Override
@@ -52,10 +60,11 @@ public class UserInterface implements Runnable {
 
     private void addComponents(final Container pane) {
         open = new JButton("Open");
+        settings = new JButton("Settings");
         find = new JButton("Find");
         reset = new JButton("Reset");
         algorithm = new JComboBox(ALGORITHMS);
-        grid = new GridPanel(g, pathfinder, DEFAULT_SQUARE_SIZE);
+        grid = new GridPanel(g, pathfinder, DEFAULT_CELL_SIZE);
         scroll = new JScrollPane(grid);
 
         addActionListeners();
@@ -64,6 +73,7 @@ public class UserInterface implements Runnable {
         JPanel top = new JPanel();
         top.setLayout(new FlowLayout());
         top.add(open);
+        top.add(settings);
         top.add(Box.createHorizontalStrut(10));
         top.add(find);
         top.add(reset);
@@ -75,6 +85,7 @@ public class UserInterface implements Runnable {
 
     private void addActionListeners() {
         open.addActionListener(new OpenFileListener(this, frame));
+        settings.addActionListener(new ShowPreferencesListener(this, frame, prefs));
 
         find.addActionListener((e) -> {
             pathfinder.find();
@@ -117,7 +128,7 @@ public class UserInterface implements Runnable {
         g = graph;
         pathfinder = createPathfinder(g);
 
-        grid.reset(g, pathfinder, DEFAULT_SQUARE_SIZE);
+        grid.reset(g, pathfinder, prefs.getCellSize());
         grid.repaint();
         frame.pack();
     }

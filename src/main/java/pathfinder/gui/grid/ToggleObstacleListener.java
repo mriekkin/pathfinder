@@ -1,11 +1,11 @@
-package pathfinder.gui;
+package pathfinder.gui.grid;
 
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 
-class ToggleObstacleListener extends MouseInputAdapter {
+public class ToggleObstacleListener extends MouseInputAdapter {
 
     private GridPanel panel;
     private Graph g;

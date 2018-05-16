@@ -34,8 +34,6 @@ public class OpenFileListener implements ActionListener {
 
     /**
      * Shows the open file dialog, and reads the selected file
-     * 
-     * @param e 
      */
     @Override
     public void actionPerformed(ActionEvent e) {
