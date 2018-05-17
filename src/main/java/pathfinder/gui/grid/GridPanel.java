@@ -145,7 +145,7 @@ public class GridPanel extends JPanel {
         PaintPathPolyline(g2, xPoints, yPoints, path);
     }
 
-    protected void PaintPathPolyline(Graphics2D g2, int[] xPoints, int[] yPoints, List<Node> path) {
+    private void PaintPathPolyline(Graphics2D g2, int[] xPoints, int[] yPoints, List<Node> path) {
         g2.setColor(pathColor);
         g2.setStroke(pathStroke);
         g2.drawPolyline(xPoints, yPoints, path.size());

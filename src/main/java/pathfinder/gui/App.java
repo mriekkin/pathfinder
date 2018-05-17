@@ -5,19 +5,19 @@ import pathfinder.logic.*;
 public class App {
 
     public static void main(String[] args) {
-        Pair dimensions = new Pair(30, 15);
-        Pair start = new Pair(8, 7);
-        Pair end = new Pair(17, 12);
-        Graph g = new Graph(dimensions, start, end);
-
-        createBigGrid(g);
+        Graph g = createDefaultGrid();
 
         UserInterface gui = new UserInterface(g);
 
         javax.swing.SwingUtilities.invokeLater(gui);
     }
 
-    private static void createBigGrid(Graph g) {
+    private static Graph createDefaultGrid() {
+        Pair dimensions = new Pair(30, 15);
+        Pair start = new Pair(8, 7);
+        Pair end = new Pair(17, 12);
+        Graph g = new Graph(dimensions, start, end);
+
         for (int y = 3; y <= 11; y++) {
             g.getNode(3, y).setWalkable(false);
             g.getNode(4, y).setWalkable(false);
@@ -38,6 +38,8 @@ public class App {
             g.getNode(24, y).setWalkable(false);
             g.getNode(25, y).setWalkable(false);
         }
+
+        return g;
     }
 
 }
