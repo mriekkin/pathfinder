@@ -1,12 +1,13 @@
 package pathfinder.gui;
 
-import pathfinder.gui.preferences.ShowPreferencesListener;
+import pathfinder.gui.preferences.ShowPreferencesAction;
 import pathfinder.gui.grid.MoveEndpointListener;
 import pathfinder.gui.grid.ToggleObstacleListener;
 import pathfinder.gui.grid.GridPanel;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -59,8 +60,11 @@ public class UserInterface implements Runnable {
     }
 
     private void addComponents(final Container pane) {
-        open = new JButton("Open");
-        settings = new JButton("Settings");
+        Action openAction = new OpenFileAction(this, frame);
+        Action settingsAction = new ShowPreferencesAction(this, frame, prefs);
+
+        open = new JButton(openAction);
+        settings = new JButton(settingsAction);
         find = new JButton("Find");
         reset = new JButton("Reset");
         algorithm = new JComboBox(ALGORITHMS);
@@ -84,9 +88,6 @@ public class UserInterface implements Runnable {
     }
 
     private void addActionListeners() {
-        open.addActionListener(new OpenFileListener(this, frame));
-        settings.addActionListener(new ShowPreferencesListener(this, frame, prefs));
-
         find.addActionListener((e) -> {
             pathfinder.find();
             grid.repaint();

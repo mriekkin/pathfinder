@@ -2,9 +2,9 @@ package pathfinder.gui;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Path;
+import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import pathfinder.io.GraphReader;
@@ -14,7 +14,7 @@ import pathfinder.logic.Graph;
  * Shows the open file dialog, and reads the selected file
  * 
  */
-public class OpenFileListener implements ActionListener {
+public class OpenFileAction extends AbstractAction {
 
     private final UserInterface gui;
     private final Component parent;
@@ -26,7 +26,8 @@ public class OpenFileListener implements ActionListener {
      * @param gui reference to the GUI object
      * @param parent reference to the frame. Used for positioning the file chooser.
      */
-    public OpenFileListener(UserInterface gui, Component parent) {
+    public OpenFileAction(UserInterface gui, Component parent) {
+        super("Open");
         this.gui = gui;
         this.parent = parent;
         this.fileChooser = new JFileChooser();

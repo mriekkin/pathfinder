@@ -3,7 +3,7 @@ package pathfinder.gui.preferences;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -15,7 +15,7 @@ import pathfinder.logic.Graph;
  * Constructs the preferences dialog, and displays it to the user.
  *
  */
-public class ShowPreferencesListener implements ActionListener {
+public class ShowPreferencesAction extends AbstractAction {
 
     UserInterface gui;
     JFrame parent;
@@ -31,7 +31,8 @@ public class ShowPreferencesListener implements ActionListener {
      * @param parent reference to the frame. Used for positioning the settings
      * dialog.
      */
-    public ShowPreferencesListener(UserInterface gui, JFrame parent, GridPreferencesEditor prefs) {
+    public ShowPreferencesAction(UserInterface gui, JFrame parent, GridPreferencesEditor prefs) {
+        super("Settings");
         this.gui = gui;
         this.parent = parent;
         this.prefs = prefs;
