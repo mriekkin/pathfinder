@@ -1,25 +1,11 @@
 package pathfinder.gui;
 
-import pathfinder.gui.preferences.ShowPreferencesAction;
-import pathfinder.gui.grid.MoveEndpointListener;
-import pathfinder.gui.grid.ToggleObstacleListener;
-import pathfinder.gui.grid.GridPanel;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import javax.swing.Action;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import pathfinder.gui.preferences.PreferencesView;
-import pathfinder.logic.Graph;
-import pathfinder.logic.pathfinders.AStar;
-import pathfinder.logic.pathfinders.BFS;
-import pathfinder.logic.pathfinders.Dijkstra;
-import pathfinder.logic.pathfinders.Pathfinder;
+import java.awt.*;
+import javax.swing.*;
+import pathfinder.gui.grid.*;
+import pathfinder.gui.preferences.*;
+import pathfinder.logic.*;
+import pathfinder.logic.pathfinders.*;
 
 public class UserInterface implements Runnable {
 
@@ -32,9 +18,9 @@ public class UserInterface implements Runnable {
     private ShowNewGridAction createAction;
 
     private JFrame frame;
-    private JButton create;
-    private JButton open;
-    private JButton settings;
+    private JMenuItem create;
+    private JMenuItem open;
+    private JMenuItem settings;
     private JButton find;
     private JButton reset;
     private JComboBox algorithm;
@@ -55,11 +41,32 @@ public class UserInterface implements Runnable {
         frame = new JFrame("Pathfinder");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        addMenuBar(frame);
         addComponents(frame.getContentPane());
 
         frame.pack();
         frame.setResizable(true);
         frame.setVisible(true);
+    }
+
+    private void addMenuBar(JFrame frame) {
+        createAction = new ShowNewGridAction(this, frame, g.getCols(), g.getRows());
+        Action openAction = new OpenFileAction(this, frame);
+        Action settingsAction = new ShowPreferencesAction(this, frame, prefs);
+
+        create = new JMenuItem(createAction);
+        open = new JMenuItem(openAction);
+        settings = new JMenuItem(settingsAction);
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu1 = new JMenu("File");
+        JMenu menu2 = new JMenu("Settings");
+        menu1.add(create);
+        menu1.add(open);
+        menu2.add(settings);
+        menuBar.add(menu1);
+        menuBar.add(menu2);
+        frame.setJMenuBar(menuBar);
     }
 
     private void addComponents(final Container pane) {
@@ -68,13 +75,6 @@ public class UserInterface implements Runnable {
     }
     
     private void addButtonRowOnTop(final Container pane) {
-        createAction = new ShowNewGridAction(this, frame, g.getCols(), g.getRows());
-        Action openAction = new OpenFileAction(this, frame);
-        Action settingsAction = new ShowPreferencesAction(this, frame, prefs);
-
-        create = new JButton(createAction);
-        open = new JButton(openAction);
-        settings = new JButton(settingsAction);
         find = new JButton("Find");
         reset = new JButton("Reset");
         algorithm = new JComboBox(ALGORITHMS);
@@ -83,10 +83,6 @@ public class UserInterface implements Runnable {
 
         JPanel top = new JPanel();
         top.setLayout(new FlowLayout());
-        top.add(create);
-        top.add(open);
-        top.add(settings);
-        top.add(Box.createHorizontalStrut(10));
         top.add(find);
         top.add(reset);
         top.add(algorithm);

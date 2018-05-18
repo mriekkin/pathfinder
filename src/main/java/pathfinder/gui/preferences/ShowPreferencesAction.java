@@ -1,17 +1,12 @@
 package pathfinder.gui.preferences;
 
-import pathfinder.gui.CreateNewGrid;
-import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import pathfinder.gui.UserInterface;
-import pathfinder.logic.Graph;
 
 /**
  * Constructs the preferences dialog, and displays it to the user.
@@ -35,6 +30,7 @@ public class ShowPreferencesAction extends AbstractAction {
         super("Settings");
         putValue(SHORT_DESCRIPTION, "Show application settings");
         putValue(MNEMONIC_KEY, KeyEvent.VK_P);
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
         this.gui = gui;
         this.owner = owner;
         this.prefs = prefs;

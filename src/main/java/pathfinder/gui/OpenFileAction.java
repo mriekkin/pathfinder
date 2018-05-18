@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
 
@@ -31,6 +32,7 @@ public class OpenFileAction extends AbstractAction {
         super("Open");
         putValue(SHORT_DESCRIPTION, "Open a file");
         putValue(MNEMONIC_KEY, KeyEvent.VK_O);
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         this.gui = gui;
         this.parent = parent;
         this.fileChooser = new JFileChooser();

@@ -1,10 +1,21 @@
 package pathfinder.gui;
 
+import javax.swing.UIManager;
 import pathfinder.logic.*;
 
 public class App {
 
     public static void main(String[] args) {
+        try {
+            // Use the system menu bar on Mac OS
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+            // Set System L&F
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
         Graph g = createDefaultGrid();
 
         UserInterface gui = new UserInterface(g);
