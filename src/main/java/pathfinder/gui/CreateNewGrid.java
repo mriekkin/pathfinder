@@ -1,4 +1,4 @@
-package pathfinder.gui.preferences;
+package pathfinder.gui;
 
 import pathfinder.logic.Graph;
 import pathfinder.logic.Pair;
@@ -8,7 +8,7 @@ import pathfinder.logic.Pair;
  * default locations.
  * 
  */
-public class CreateEmptyGrid {
+public class CreateNewGrid {
 
     /**
      * Creates an empty <code>Graph</code> and places the start and end points
