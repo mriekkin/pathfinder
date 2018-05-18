@@ -2,6 +2,7 @@ package pathfinder.gui;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Path;
 import javax.swing.AbstractAction;
@@ -21,13 +22,15 @@ public class OpenFileAction extends AbstractAction {
     private final JFileChooser fileChooser;
 
     /**
-     * Constructs an OpenFileListener
+     * Constructs an <code>OpenFileAction</code>
      * 
      * @param gui reference to the GUI object
      * @param parent reference to the frame. Used for positioning the file chooser.
      */
     public OpenFileAction(UserInterface gui, Component parent) {
         super("Open");
+        putValue(SHORT_DESCRIPTION, "Open a file");
+        putValue(MNEMONIC_KEY, KeyEvent.VK_O);
         this.gui = gui;
         this.parent = parent;
         this.fileChooser = new JFileChooser();
