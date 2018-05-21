@@ -5,6 +5,16 @@ import java.beans.PropertyChangeSupport;
 
 public class CurrentGraph {
 
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(propertyName, listener);
+    }
+
+    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        pcs.removePropertyChangeListener(propertyName, listener);
+    }
+
     private Graph g;
 
     public CurrentGraph(Graph g) {
@@ -47,25 +57,6 @@ public class CurrentGraph {
 
     public int getRows() {
         return g.getRows();
-    }
-
-    // PropertyChangeSupport
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        pcs.addPropertyChangeListener(listener);
-    }
-
-    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-        pcs.addPropertyChangeListener(propertyName, listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        pcs.removePropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-        pcs.removePropertyChangeListener(propertyName, listener);
     }
 
 }

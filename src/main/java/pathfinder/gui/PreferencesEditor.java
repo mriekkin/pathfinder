@@ -17,6 +17,16 @@ import javax.swing.SpinnerNumberModel;
 
 public class PreferencesEditor {
 
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(propertyName, listener);
+    }
+
+    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        pcs.removePropertyChangeListener(propertyName, listener);
+    }
+
     private static final String TITLE = "Preferences";
 
     private JDialog dialog;
@@ -111,25 +121,6 @@ public class PreferencesEditor {
         c.insets = new Insets(2, 2, 2, 2);
 
         return c;
-    }
-
-    // PropertyChangeSupport
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        pcs.addPropertyChangeListener(listener);
-    }
-
-    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-        pcs.addPropertyChangeListener(propertyName, listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        pcs.removePropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-        pcs.removePropertyChangeListener(propertyName, listener);
     }
 
 }
