@@ -1,21 +1,19 @@
 package pathfinder.gui;
 
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.*;
 import pathfinder.gui.grid.*;
-import pathfinder.gui.preferences.*;
 import pathfinder.logic.*;
 import pathfinder.logic.pathfinders.*;
 
-public class UserInterface implements Runnable {
+public class UserInterface implements Runnable, PropertyChangeListener {
 
     private static final String[] ALGORITHMS = new String[]{"BFS", "Dijkstra", "A*"};
-    private static final int DEFAULT_CELL_SIZE = 20;
 
-    private Graph g;
+    private final CurrentGraph current;
     private Pathfinder pathfinder;
-
-    private ShowNewGridAction createAction;
 
     private JFrame frame;
     private JMenuItem create;
@@ -28,12 +26,14 @@ public class UserInterface implements Runnable {
     private JScrollPane scroll;
     private ToggleObstacleListener mouseListener1;
     private MoveEndpointListener mouseListener2;
-    private PreferencesView prefs;
+    private PreferencesEditor prefs;
 
-    public UserInterface(Graph g) {
-        this.g = g;
-        this.pathfinder = new BFS(g);
-        this.prefs = new PreferencesView(this, DEFAULT_CELL_SIZE);
+    public UserInterface(CurrentGraph current, PreferencesEditor prefs) {
+        this.current = current;
+        this.pathfinder = new BFS(current.getGraph());
+        this.prefs = prefs;
+        current.addPropertyChangeListener("graph", this);
+        prefs.addPropertyChangeListener("cellSize", this);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class UserInterface implements Runnable {
     }
 
     private void addMenuBar(JFrame frame) {
-        createAction = new ShowNewGridAction(this, frame, g.getCols(), g.getRows());
-        Action openAction = new OpenFileAction(this, frame);
-        Action settingsAction = new ShowPreferencesAction(this, frame, prefs);
+        Action createAction = new ShowNewGridAction(frame, current);
+        Action openAction = new OpenFileAction(frame, current);
+        Action settingsAction = new ShowPreferencesAction(frame, prefs);
 
         create = new JMenuItem(createAction);
         open = new JMenuItem(openAction);
@@ -60,7 +60,7 @@ public class UserInterface implements Runnable {
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menu1 = new JMenu("File");
-        JMenu menu2 = new JMenu("Settings");
+        JMenu menu2 = new JMenu("Preferences");
         menu1.add(create);
         menu1.add(open);
         menu2.add(settings);
@@ -98,20 +98,20 @@ public class UserInterface implements Runnable {
         });
 
         reset.addActionListener((e) -> {
-            pathfinder = createPathfinder(g);
+            pathfinder = createPathfinder(current.getGraph());
             grid.setPathfinder(pathfinder);
             grid.repaint();
             find.setEnabled(true);
         });
 
         algorithm.addActionListener((e) -> {
-            pathfinder = createPathfinder(g);
+            pathfinder = createPathfinder(current.getGraph());
             grid.setPathfinder(pathfinder);
         });
     }
 
     private void addGridPanel(final Container pane) {
-        grid = new GridPanel(g, pathfinder, prefs.getCellSize());
+        grid = new GridPanel(current.getGraph(), pathfinder, prefs.getCellSize());
         scroll = new JScrollPane(grid);
 
         //scroll.setMaximumSize(new Dimension(600, 600));
@@ -122,8 +122,8 @@ public class UserInterface implements Runnable {
     }
 
     private void addMouseListeners() {
-        mouseListener1 = new ToggleObstacleListener(grid, g);
-        mouseListener2 = new MoveEndpointListener(grid, g);
+        mouseListener1 = new ToggleObstacleListener(grid, current);
+        mouseListener2 = new MoveEndpointListener(grid, current);
         grid.addMouseListener(mouseListener1);
         grid.addMouseListener(mouseListener2);
         grid.addMouseMotionListener(mouseListener1);
@@ -139,22 +139,27 @@ public class UserInterface implements Runnable {
         }
     }
 
-    public void setGraph(Graph graph) {
-        g = graph;
-        pathfinder = createPathfinder(g);
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String propertyName = evt.getPropertyName();
+        if ("graph".equals(propertyName)) {
+            pathfinder = createPathfinder(current.getGraph());
+            resize();
+            return;
+        }
 
-        resize();
+        if ("cellSize".equals(propertyName)) {
+            resize();
+        }
     }
 
     public void resize() {
-        createAction.setInitialValues(g.getCols(), g.getRows());
-
         // Solution A
         // Dimension size = scroll.getSize();
         // grid.reset(g, pathfinder, prefs.getCellSize());
         // scroll.setPreferredSize(size);
 
-        grid.reset(g, pathfinder, prefs.getCellSize());
+        grid.reset(current.getGraph(), pathfinder, prefs.getCellSize());
 
         // Solution B
         // resizeScrollPane();

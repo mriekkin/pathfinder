@@ -1,10 +1,12 @@
-package pathfinder.gui.preferences;
+package pathfinder.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -12,19 +14,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import pathfinder.gui.UserInterface;
 
-public class PreferencesView {
+public class PreferencesEditor {
 
-    private static final String TITLE = "Settings";
+    private static final String TITLE = "Preferences";
 
-    private UserInterface gui;
     private JDialog dialog;
     private JSpinner cellSizeSpin;
     private int cellSizeValue;
 
-    public PreferencesView(UserInterface gui, int cellSize) {
-        this.gui = gui;
+    public PreferencesEditor(int cellSize) {
         this.cellSizeValue = cellSize;
     }
 
@@ -95,9 +94,10 @@ public class PreferencesView {
     }
 
     private void okAction() {
+        int oldValue = cellSizeValue;
         cellSizeValue = (int) cellSizeSpin.getValue();
 
-        gui.resize();
+        pcs.firePropertyChange("cellSize", oldValue, cellSizeValue);
     }
 
     private void close() {
@@ -111,6 +111,25 @@ public class PreferencesView {
         c.insets = new Insets(2, 2, 2, 2);
 
         return c;
+    }
+
+    // PropertyChangeSupport
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(listener);
+    }
+
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(propertyName, listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        pcs.removePropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        pcs.removePropertyChangeListener(propertyName, listener);
     }
 
 }

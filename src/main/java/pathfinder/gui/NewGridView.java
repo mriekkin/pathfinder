@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import pathfinder.logic.CurrentGraph;
 import pathfinder.logic.Graph;
 
 public class NewGridView {
@@ -21,24 +22,17 @@ public class NewGridView {
     private JDialog dialog;
     private JSpinner numRows;
     private JSpinner numCols;
-    private final int initRows;
-    private final int initCols;
-    private final UserInterface gui;
+    private final CurrentGraph current;
 
     /**
      * Constructs a <code>NewGridView</code>. Constructs and displays a dialog
      * which allows the user to create a new grid.
-     *
-     * @param gui reference to a GUI object, which should be notififed of
-     * changes to the graph.
+     * 
      * @param owner reference to a frame. Used for positioning this dialog.
-     * @param initCols initial value for the number of columns
-     * @param initRows initial value for the number of rows
+     * @param current
      */
-    public NewGridView(UserInterface gui, JFrame owner, int initCols, int initRows) {
-        this.gui = gui;
-        this.initRows = initRows;
-        this.initCols = initCols;
+    public NewGridView(JFrame owner, CurrentGraph current) {
+        this.current = current;
         buildGui(owner);
     }
 
@@ -77,6 +71,8 @@ public class NewGridView {
     private void addGridSize(JPanel content) {
         JLabel numColsLabel = new JLabel("Columns");
         JLabel numRowsLabel = new JLabel("Rows");
+        int initCols = current.getCols();
+        int initRows = current.getRows();
         numCols = new JSpinner(new SpinnerNumberModel(initCols, 10, 512, 1));
         numRows = new JSpinner(new SpinnerNumberModel(initRows, 10, 512, 1));
 
@@ -115,9 +111,9 @@ public class NewGridView {
     private void okAction() {
         int cols = getNumCols();
         int rows = getNumRows();
-        Graph g = CreateNewGrid.create(cols, rows);
+        Graph graph = CreateNewGrid.create(cols, rows);
 
-        gui.setGraph(g);
+        current.setGraph(graph);
     }
 
     private void close() {

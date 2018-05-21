@@ -2,17 +2,17 @@ package pathfinder.gui.grid;
 
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;
-import pathfinder.logic.Graph;
+import pathfinder.logic.CurrentGraph;
 import pathfinder.logic.Node;
 
 public class MoveEndpointListener extends MouseInputAdapter {
 
     private GridPanel panel;
-    private Graph g;
+    private CurrentGraph g;
     private boolean isActive;
     private boolean isStart;
 
-    public MoveEndpointListener(GridPanel panel, Graph g) {
+    public MoveEndpointListener(GridPanel panel, CurrentGraph g) {
         this.panel = panel;
         this.g = g;
         this.isActive = false;

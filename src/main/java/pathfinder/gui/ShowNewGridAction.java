@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
+import pathfinder.logic.CurrentGraph;
 
 /**
  * Shows a dialog which allows the user to create a new grid.
@@ -12,28 +13,22 @@ import javax.swing.KeyStroke;
  */
 public class ShowNewGridAction extends AbstractAction {
 
-    private final UserInterface gui;
-    private final JFrame parent;
-    private int initRows;
-    private int initCols;
+    private final JFrame owner;
+    private final CurrentGraph current;
 
     /**
      * Constructs a <code>NewGridAction</code>
      *
-     * @param gui reference to a GUI object, which should be notififed of
-     * changes to the graph.
-     * @param parent reference to a frame. Used for positioning this dialog.
-     * @param initCols initial value for the number of columns
-     * @param initRows initial value for the number of rows
+     * @param owner reference to a frame. Used for positioning this dialog.
+     * @param current
      */
-    public ShowNewGridAction(UserInterface gui, JFrame parent, int initCols, int initRows) {
+    public ShowNewGridAction(JFrame owner, CurrentGraph current) {
         super("New");
         putValue(SHORT_DESCRIPTION, "Create an empty grid");
         putValue(MNEMONIC_KEY, KeyEvent.VK_N);
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        this.gui = gui;
-        this.parent = parent;
-        setInitialValues(initCols, initRows);
+        this.owner = owner;
+        this.current = current;
     }
 
     /**
@@ -41,12 +36,7 @@ public class ShowNewGridAction extends AbstractAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        new NewGridView(gui, parent, initCols, initRows);
-    }
-
-    public final void setInitialValues(int initCols, int initRows) {
-        this.initRows = initRows;
-        this.initCols = initCols;
+        new NewGridView(owner, current);
     }
 
 }

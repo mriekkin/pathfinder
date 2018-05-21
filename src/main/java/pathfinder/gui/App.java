@@ -5,7 +5,22 @@ import pathfinder.logic.*;
 
 public class App {
 
+    private static final int DEFAULT_CELL_SIZE = 20;
+
     public static void main(String[] args) {
+        // This needs to be done first
+        setSystemLaf();
+
+        Graph graph = createDefaultGrid();
+        CurrentGraph current = new CurrentGraph(graph);
+
+        PreferencesEditor prefs = new PreferencesEditor(DEFAULT_CELL_SIZE);
+        UserInterface gui = new UserInterface(current, prefs);
+
+        javax.swing.SwingUtilities.invokeLater(gui);
+    }
+
+    private static void setSystemLaf() {
         try {
             // Use the system menu bar on Mac OS
             System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -15,12 +30,6 @@ public class App {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-
-        Graph g = createDefaultGrid();
-
-        UserInterface gui = new UserInterface(g);
-
-        javax.swing.SwingUtilities.invokeLater(gui);
     }
 
     private static Graph createDefaultGrid() {
