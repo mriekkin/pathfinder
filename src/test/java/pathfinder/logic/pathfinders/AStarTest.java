@@ -1,11 +1,15 @@
 package pathfinder.logic.pathfinders;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Pair;
-import static org.junit.Assert.*;
 
-public class DijkstraTest {
+public class AStarTest {
+
+    @Test
+    public void testInit() {
+    }
 
     @Test
     public void findReturnsCorrectPathLength() {
@@ -13,7 +17,7 @@ public class DijkstraTest {
         Pair start = new Pair(0, 0);
         Pair end = new Pair(9, 9);
         Graph g = new Graph(dimensions, start, end);
-        Pathfinder pathfinder = new Dijkstra(g);
+        Pathfinder pathfinder = new AStar(g);
         assertEquals(18, pathfinder.find());
     }
 
@@ -28,7 +32,7 @@ public class DijkstraTest {
             g.getNode(5, y).setWalkable(false);
         }
 
-        Pathfinder pathfinder = new Dijkstra(g);
+        Pathfinder pathfinder = new AStar(g);
         assertEquals(-1, pathfinder.find());
     }
 
