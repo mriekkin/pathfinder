@@ -13,11 +13,25 @@ public class App {
 
         Graph graph = createDefaultGrid();
         CurrentGraph current = new CurrentGraph(graph);
-
         PreferencesEditor prefs = new PreferencesEditor(DEFAULT_CELL_SIZE);
+
         UserInterface gui = new UserInterface(current, prefs);
 
+        addPropertyChangeListeners(current, prefs, gui);
+
         javax.swing.SwingUtilities.invokeLater(gui);
+    }
+
+    private static void addPropertyChangeListeners(CurrentGraph current, PreferencesEditor prefs, UserInterface gui) {
+        // The GUI needs to be notified when the current graph changes
+        // This happends when the user either loads a file or creates a new empty graph
+        // The GUI will resize to fit the new graph
+        current.addPropertyChangeListener("graph", gui);
+
+        // The GUI needs to be notified when application preferences are updated
+        // In practice this happends when the cell size option is changed
+        // The view will update to reflect the new cell size
+        prefs.addPropertyChangeListener("cellSize", gui);
     }
 
     private static void setSystemLaf() {

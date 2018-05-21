@@ -32,8 +32,6 @@ public class UserInterface implements Runnable, PropertyChangeListener {
         this.current = current;
         this.pathfinder = new BFS(current.getGraph());
         this.prefs = prefs;
-        current.addPropertyChangeListener("graph", this);
-        prefs.addPropertyChangeListener("cellSize", this);
     }
 
     @Override
@@ -143,12 +141,18 @@ public class UserInterface implements Runnable, PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
         if ("graph".equals(propertyName)) {
+            // The current graph has changed
+            // This happends when the user either loads a file or creates a new empty graph
+            // The GUI will resize to fit the new graph
+            // Also, the pathfinder needs to re-created
             pathfinder = createPathfinder(current.getGraph());
             resize();
             return;
         }
 
         if ("cellSize".equals(propertyName)) {
+            // The cell size option has been updated to a new value
+            // The view will update to reflect the new cell size
             resize();
         }
     }
