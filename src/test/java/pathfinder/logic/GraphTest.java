@@ -3,9 +3,14 @@ package pathfinder.logic;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 public class GraphTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     Graph g;
 
@@ -15,24 +20,52 @@ public class GraphTest {
     }
 
     @Test
-    public void testGetNode() {
+    public void getNodeReturnsTheRequestedNode() {
         assertEquals("(0, 0)", g.getNode(0, 0).toString());
         assertEquals("(5, 10)", g.getNode(5, 10).toString());
         assertEquals("(9, 19)", g.getNode(9, 19).toString());
     }
 
     @Test
-    public void testGetWidth() {
+    public void getNodeThrowsExceptionForNegativeX() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Coordinates out of range (-1, 0)");
+        g.getNode(-1, 0);
+    }
+
+    @Test
+    public void getNodeThrowsExceptionForNegativeY() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Coordinates out of range (0, -1)");
+        g.getNode(0, -1);
+    }
+
+    @Test
+    public void getNodeThrowsExceptionTooLargeX() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Coordinates out of range (10, 19)");
+        g.getNode(10, 19);
+    }
+
+    @Test
+    public void getNodeThrowsExceptionTooLargeY() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Coordinates out of range (9, 20)");
+        g.getNode(9, 20);
+    }
+
+    @Test
+    public void getColsReturnsTheNumberOfColumns() {
         assertEquals(10, g.getCols());
     }
 
     @Test
-    public void testGetHeight() {
+    public void getRowsReturnsTheNumberOfRows() {
         assertEquals(20, g.getRows());
     }
 
     @Test
-    public void testNeighboursMiddle() {
+    public void neighboursReturnsListOfAdjacentWalkableCells() {
         List<Node> n = g.neighbours(5, 5);
         assertEquals(4, n.size());
         assertEquals("(5, 4)", n.get(0).toString());
@@ -40,17 +73,27 @@ public class GraphTest {
         assertEquals("(5, 6)", n.get(2).toString());
         assertEquals("(4, 5)", n.get(3).toString());
     }
-    
+
     @Test
-    public void testNeighboursLowerLeftCorner() {
+    public void neighboursExcludesUnwalkableCells() {
+        g.getNode(5, 4).setWalkable(false);
+        g.getNode(6, 5).setWalkable(false);
+        g.getNode(5, 6).setWalkable(false);
+        g.getNode(4, 5).setWalkable(false);
+        List<Node> n = g.neighbours(5, 5);
+        assertTrue(n.isEmpty());
+    }
+
+    @Test
+    public void neighboursWorksInTheLowerLeftCorner() {
         List<Node> n = g.neighbours(0, 0);
         assertEquals(2, n.size());
         assertEquals("(1, 0)", n.get(0).toString());
         assertEquals("(0, 1)", n.get(1).toString());
     }
-    
+
     @Test
-    public void testNeighboursUpperRightCorner() {
+    public void neighboursWorksInTheUpperRightCorner() {
         List<Node> n = g.neighbours(9, 19);
         assertEquals(2, n.size());
         assertEquals("(9, 18)", n.get(0).toString());
@@ -58,7 +101,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testNeighbours_Node() {
+    public void neighboursAcceptsNodeObjectAsArgument() {
         List<Node> list1 = g.neighbours(5, 5);
         List<Node> list2 = g.neighbours(g.getNode(5, 5));
         assertEquals(list1, list2);

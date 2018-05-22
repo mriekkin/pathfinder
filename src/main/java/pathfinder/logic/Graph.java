@@ -27,7 +27,7 @@ public class Graph {
 
     public Node getNode(int x, int y) {
         if (x < 0 || y < 0 || x >= cols || y >= rows) {
-            throw new IllegalArgumentException("Coordinates out of range (" + x + "," + y + ")");
+            throw new IllegalArgumentException("Coordinates out of range (" + x + ", " + y + ")");
         }
 
         return nodes[y][x];
