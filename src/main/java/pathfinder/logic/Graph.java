@@ -3,6 +3,23 @@ package pathfinder.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A specialised graph data structure, which represents a square 2D grid. A grid
+ * is composed of nodes arranged to a rectangular matrix. Each node is indexed
+ * by the familiar cartesian coordinates <code>(x, y)</code>, where coordinates
+ * start from 0. Each graph has also one node labeled as <code>start</code> and
+ * one node labeled as <code>end</code>. These are used by pathfinders as the
+ * start and end nodes. Each node is either walkable or not walkable. The
+ * un-walkable cells are obstacles. A path, as created by a pathfinder, visits
+ * only walkable nodes.
+ * <p>
+ * Adjacent nodes are called neighbours and are connected by vertices. This
+ * implementation connects the usual horizontal and vertical neighbours (N, E,
+ * S, W) but ignores diagonal neighbours. Hence a cell has at most 4 neighbours.
+ * A node is connected only to those neighbours which are walkable. Obstacles
+ * are not connected. At present, all edges have weight 1. This could be changed
+ * to include more variability.
+ */
 public class Graph {
 
     private final Node[][] nodes;
@@ -11,6 +28,17 @@ public class Graph {
     private Node start;
     private Node end;
 
+    /**
+     * Constructs a <code>Graph</code> with specific dimensions, and a specific
+     * start and end node.
+     *
+     * @param dimensions the pair <code>(cols, rows)</code>, which represents
+     * the number of columns and rows
+     * @param start the <code>(x, y)</code> coordinates of the the start node to
+     * be used by pathfinders
+     * @param end the <code>(x, y)</code> coordinates of the end node to be used
+     * by pathfinders
+     */
     public Graph(Pair dimensions, Pair start, Pair end) {
         this.cols = dimensions.getL();
         this.rows = dimensions.getR();
@@ -25,7 +53,16 @@ public class Graph {
         this.end = getNode(end.getL(), end.getR());
     }
 
-    public Node getNode(int x, int y) {
+    /**
+     * Returns the node at the specific <code>(x, y)</code> coordinates in this
+     * grid. Each node is indexed by the familiar cartesian coordinates
+     * <code>(x, y)</code>, where coordinates start from 0.
+     *
+     * @param x the x-coordinate of the node to be returned
+     * @param y the y-coordinate of the node to be returned
+     * @return the node at the specific <code>(x, y)</code> coordinates
+     */
+    public final Node getNode(int x, int y) {
         if (x < 0 || y < 0 || x >= cols || y >= rows) {
             throw new IllegalArgumentException("Coordinates out of range (" + x + ", " + y + ")");
         }
@@ -33,34 +70,96 @@ public class Graph {
         return nodes[y][x];
     }
 
-    public int getCols() {
+    /**
+     * Returns the number of columns in this grid. Each grid has a specific
+     * number of rows and columns.
+     *
+     * @return the number of columns in this grid
+     */
+    public final int getCols() {
         return cols;
     }
 
-    public int getRows() {
+    /**
+     * Returns the number of rows in this grid. Each grid has a specific number
+     * of rows and columns.
+     *
+     * @return the number of rows in this grid
+     */
+    public final int getRows() {
         return rows;
     }
 
+    /**
+     * Returns the node labeled as a starting node. Each graph has one node
+     * labeled as <code>start</code> and one node labeled as <code>end</code>.
+     * These are used by pathfinders as the start and end nodes.
+     *
+     * @return the node labeled as a starting node for this graph
+     */
     public Node getStart() {
         return start;
     }
 
+    /**
+     * Returns the node labeled as an end node. Each graph has one node labeled
+     * as <code>start</code> and one node labeled as <code>end</code>. These are
+     * used by pathfinders as the start and end nodes.
+     *
+     * @return the node labeled as an end node for this graph
+     */
     public Node getEnd() {
         return end;
     }
 
+    /**
+     * Labels one specific node as the new starting node for this graph.
+     *
+     * @param start the node to be labeled as the new starting node
+     */
     public void setStart(Node start) {
         this.start = start;
     }
 
+    /**
+     * Labels one specific node as the new end node for this graph.
+     *
+     * @param end the node to be labeled as the new end node
+     */
     public void setEnd(Node end) {
         this.end = end;
     }
 
+    /**
+     * Returns the list of neighbours for the specified node.
+     * <p>
+     * Adjacent nodes are called neighbours and are connected by vertices. This
+     * implementation connects the usual horizontal and vertical neighbours (N,
+     * E, S, W) but ignores diagonal neighbours. Hence a cell has at most 4
+     * neighbours. A node is connected only to those neighbours which are
+     * walkable. Obstacles are not connected.
+     *
+     * @param u the node whose neighbours are to be returned
+     * @return the list of neighbours for the specified node
+     */
     public List<Node> neighbours(Node u) {
         return neighbours(u.x(), u.y());
     }
 
+    /**
+     * Returns the list of neighbours for the node at the specified coordinates
+     * in this grid.
+     * <p>
+     * Adjacent nodes are called neighbours and are connected by vertices. This
+     * implementation connects the usual horizontal and vertical neighbours (N,
+     * E, S, W) but ignores diagonal neighbours. Hence a cell has at most 4
+     * neighbours. A node is connected only to those neighbours which are
+     * walkable. Obstacles are not connected.
+     *
+     * @param x the x-coordinate of the node in this grid
+     * @param y the y-coordinate of the node in this grid
+     * @return the list of neighbours for the node at the specified coordinates
+     */
     public List<Node> neighbours(int x, int y) {
         ArrayList<Node> adj = new ArrayList<>(4);
 
