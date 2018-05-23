@@ -7,7 +7,7 @@ import pathfinder.logic.Node;
 public interface Pathfinder {
 
     /**
-     * Represents infinity. Equals Integer.MAX_VALUE
+     * Represents infinity. Equals <code>Integer.MAX_VALUE</code>.
      */
     int INFINITY = Integer.MAX_VALUE;
 

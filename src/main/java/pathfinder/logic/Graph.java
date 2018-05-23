@@ -9,8 +9,8 @@ import java.util.List;
  * by the familiar cartesian coordinates <code>(x, y)</code>, where coordinates
  * start from 0. Each graph has also one node labeled as <code>start</code> and
  * one node labeled as <code>end</code>. These are used by pathfinders as the
- * start and end nodes. Each node is either walkable or not walkable. The
- * un-walkable cells are obstacles. A path, as created by a pathfinder, visits
+ * start and end nodes. Each node is either walkable or unwalkable. The
+ * unwalkable cells are obstacles. A path, as created by a pathfinder, visits
  * only walkable nodes.
  * <p>
  * Adjacent nodes are called neighbours and are connected by vertices. This
@@ -29,8 +29,8 @@ public class Graph {
     private Node end;
 
     /**
-     * Constructs a <code>Graph</code> with specific dimensions, and a specific
-     * start and end node.
+     * Constructs a <code>Graph</code> with the specified dimensions, and the
+     * specified start and end nodes.
      *
      * @param dimensions the pair <code>(cols, rows)</code>, which represents
      * the number of columns and rows
@@ -40,8 +40,8 @@ public class Graph {
      * by pathfinders
      */
     public Graph(Pair dimensions, Pair start, Pair end) {
-        this.cols = dimensions.getL();
-        this.rows = dimensions.getR();
+        this.cols = dimensions.getLeft();
+        this.rows = dimensions.getRight();
         this.nodes = new Node[rows][cols];
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
@@ -49,18 +49,18 @@ public class Graph {
             }
         }
 
-        this.start = getNode(start.getL(), start.getR());
-        this.end = getNode(end.getL(), end.getR());
+        this.start = getNode(start.getLeft(), start.getRight());
+        this.end = getNode(end.getLeft(), end.getRight());
     }
 
     /**
-     * Returns the node at the specific <code>(x, y)</code> coordinates in this
+     * Returns the node at the specified <code>(x, y)</code> coordinates in this
      * grid. Each node is indexed by the familiar cartesian coordinates
      * <code>(x, y)</code>, where coordinates start from 0.
      *
      * @param x the x-coordinate of the node to be returned
      * @param y the y-coordinate of the node to be returned
-     * @return the node at the specific <code>(x, y)</code> coordinates
+     * @return the node at the specified <code>(x, y)</code> coordinates
      */
     public final Node getNode(int x, int y) {
         if (x < 0 || y < 0 || x >= cols || y >= rows) {
@@ -91,29 +91,30 @@ public class Graph {
     }
 
     /**
-     * Returns the node labeled as a starting node. Each graph has one node
-     * labeled as <code>start</code> and one node labeled as <code>end</code>.
-     * These are used by pathfinders as the start and end nodes.
+     * Returns the node labeled as a starting node.
      *
      * @return the node labeled as a starting node for this graph
+     * @see #setStart(Node)
      */
     public Node getStart() {
         return start;
     }
 
     /**
-     * Returns the node labeled as an end node. Each graph has one node labeled
-     * as <code>start</code> and one node labeled as <code>end</code>. These are
-     * used by pathfinders as the start and end nodes.
+     * Returns the node labeled as an end node.
      *
      * @return the node labeled as an end node for this graph
+     * @see #setEnd(Node)
      */
     public Node getEnd() {
         return end;
     }
 
     /**
-     * Labels one specific node as the new starting node for this graph.
+     * Labels the specified node as the new starting node for this graph. Each
+     * graph has one node labeled as <code>start</code> and one node labeled as
+     * <code>end</code>. These are used by pathfinders as the start and end
+     * nodes.
      *
      * @param start the node to be labeled as the new starting node
      */
@@ -122,7 +123,10 @@ public class Graph {
     }
 
     /**
-     * Labels one specific node as the new end node for this graph.
+     * Labels the specified node as the new end node for this graph. Each graph
+     * has one node labeled as <code>start</code> and one node labeled as
+     * <code>end</code>. These are used by pathfinders as the start and end
+     * nodes.
      *
      * @param end the node to be labeled as the new end node
      */
