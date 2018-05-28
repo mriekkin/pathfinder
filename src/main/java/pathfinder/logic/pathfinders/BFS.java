@@ -24,7 +24,7 @@ public class BFS extends AbstractPathfinder {
     }
 
     @Override
-    public int find() {
+    public int run() {
         init();
         Node end = g.getEnd();
         while (!q.isEmpty()) {

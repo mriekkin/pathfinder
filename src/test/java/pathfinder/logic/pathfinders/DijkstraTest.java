@@ -14,7 +14,7 @@ public class DijkstraTest {
         Pair end = new Pair(9, 9);
         Graph g = new Graph(dimensions, start, end);
         Pathfinder pathfinder = new Dijkstra(g);
-        assertEquals(18, pathfinder.find());
+        assertEquals(18, pathfinder.run());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class DijkstraTest {
         }
 
         Pathfinder pathfinder = new Dijkstra(g);
-        assertEquals(-1, pathfinder.find());
+        assertEquals(-1, pathfinder.run());
     }
 
 }

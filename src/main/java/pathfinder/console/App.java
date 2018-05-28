@@ -24,7 +24,7 @@ public class App {
         
         System.out.println(GraphWriter.plotGrid(g) + "\n");
         
-        pathfinder.find();
+        pathfinder.run();
         
         System.out.println(GraphWriter.plotDistances(pathfinder) + "\n");
         System.out.println(GraphWriter.plotPredecessors(pathfinder) + "\n");
@@ -60,7 +60,7 @@ public class App {
         
         System.out.println(GraphWriter.plotGrid(g) + "\n");
         
-        pathfinder.find();
+        pathfinder.run();
         
         System.out.println(GraphWriter.plotDistances(pathfinder) + "\n");
         System.out.println(GraphWriter.plotPredecessors(pathfinder) + "\n");

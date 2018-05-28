@@ -90,7 +90,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
     
     private void addActionListeners() {
         find.addActionListener((e) -> {
-            pathfinder.find();
+            pathfinder.run();
             grid.repaint();
             //find.setEnabled(false);
         });
