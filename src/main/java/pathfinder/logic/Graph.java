@@ -13,7 +13,7 @@ import java.util.List;
  * unwalkable cells are obstacles. A path, as created by a pathfinder, visits
  * only walkable nodes.
  * <p>
- * Adjacent nodes are called neighbours and are connected by vertices. This
+ * Adjacent nodes are called neighbours and are connected by edges. This
  * implementation connects the usual horizontal and vertical neighbours (N, E,
  * S, W) but ignores diagonal neighbours. Hence a cell has at most 4 neighbours.
  * A node is connected only to those neighbours which are walkable. Obstacles

@@ -4,10 +4,19 @@ import java.util.PriorityQueue;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 
+/**
+ * Implements Dijkstra's algorithm for finding the shortest path between two
+ * nodes.
+ */
 public class Dijkstra extends AbstractPathfinder {
 
     private PriorityQueue<PriorityNode> q;
 
+    /**
+     * Constructs a <code>Dijkstra</code> object with the specified graph.
+     *
+     * @param g the graph to be used by this pathfinder
+     */
     public Dijkstra(Graph g) {
         super(g);
     }
@@ -27,10 +36,14 @@ public class Dijkstra extends AbstractPathfinder {
         Node end = g.getEnd();
         while (!q.isEmpty()) {
             Node u = q.poll().node;
-            if (getVisited(u)) continue;
+            if (getVisited(u)) {
+                continue;
+            }
             setVisited(u, true);
 
-            if (u.equals(end)) break;
+            if (u.equals(end)) {
+                break;
+            }
 
             for (Node v : g.neighbours(u)) {
                 if (getDist(v) > getDist(u) + 1) {

@@ -54,15 +54,17 @@ public class Node {
      * Returns true if this node is walkable.
      *
      * @return <code>true</code> if this node is walkable
+     * @see #setWalkable(boolean)
      */
     public final boolean isWalkable() {
         return walkable;
     }
 
     /**
-     * Sets whether this node is walkable.
+     * Sets whether this node is walkable. A walkable node can be visited. An
+     * unwalkable node on the other hand is an obstacle and cannot be visited.
      *
-     * @param walkable whether this node will be set as walkable
+     * @param walkable whether this node is walkable
      */
     public final void setWalkable(boolean walkable) {
         this.walkable = walkable;

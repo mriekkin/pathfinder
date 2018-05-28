@@ -5,10 +5,19 @@ import java.util.Queue;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 
+/**
+ * Implements breadth-first search (BFS) for finding the shortest path between
+ * two nodes.
+ */
 public class BFS extends AbstractPathfinder {
 
     private Queue<Node> q;
 
+    /**
+     * Constructs a <code>BFS</code> object with the specified graph.
+     *
+     * @param g the graph to be used by this pathfinder
+     */
     public BFS(Graph g) {
         super(g);
     }

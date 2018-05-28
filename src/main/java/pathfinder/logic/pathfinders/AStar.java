@@ -4,10 +4,18 @@ import java.util.PriorityQueue;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 
+/**
+ * Implements the A* algorithm for the shortest path between two nodes.
+ */
 public class AStar extends AbstractPathfinder {
 
     private PriorityQueue<PriorityNode> q;
 
+    /**
+     * Constructs an <code>AStar</code> object with the specified graph.
+     *
+     * @param g the graph to be used by this pathfinder
+     */
     public AStar(Graph g) {
         super(g);
     }
