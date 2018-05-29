@@ -7,7 +7,10 @@ import pathfinder.logic.Node;
 
 /**
  * Implements breadth-first search (BFS) for finding the shortest path between
- * two nodes.
+ * two nodes. This is mostly a standard implementation which is described in
+ * CLRS. The only addition is the "early exit" condition.
+ * <p>
+ * The running time of BFS is O(V + E).
  */
 public class BFS extends AbstractPathfinder {
 

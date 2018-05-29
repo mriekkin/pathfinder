@@ -36,14 +36,10 @@ public class Dijkstra extends AbstractPathfinder {
         Node end = g.getEnd();
         while (!q.isEmpty()) {
             Node u = q.poll().node;
-            if (getVisited(u)) {
-                continue;
-            }
+            if (getVisited(u)) continue;
             setVisited(u, true);
 
-            if (u.equals(end)) {
-                break;
-            }
+            if (u.equals(end)) break;
 
             for (Node v : g.neighbours(u)) {
                 if (getDist(v) > getDist(u) + 1) {
