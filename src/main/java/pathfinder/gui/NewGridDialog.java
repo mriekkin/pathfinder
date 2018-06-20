@@ -14,6 +14,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import pathfinder.logic.CurrentGraph;
 import pathfinder.logic.Graph;
+import pathfinder.logic.Pair;
 
 /**
  * A dialog which allows the user to create a new empty grid.
@@ -163,6 +164,31 @@ public class NewGridDialog {
         c.insets = new Insets(2, 2, 2, 2);
 
         return c;
+    }
+
+    /**
+     * Creates an empty graph, and places the source and destination nodes to
+     * default locations. It is the responsibility of this class to encode
+     * unified default positions for the source and destination nodes.
+     */
+    private static class CreateNewGrid {
+
+        /**
+         * Creates an empty graph, and places the source and destination nodes
+         * to default locations.
+         *
+         * @param cols number of columns
+         * @param rows number of rows
+         * @return an empty graph created as specified
+         */
+        public static Graph create(int cols, int rows) {
+            Pair dimensions = new Pair(cols, rows);
+            Pair start = new Pair(0, 0);
+            Pair end = new Pair(cols - 1, rows - 1);
+
+            return new Graph(dimensions, start, end);
+        }
+
     }
 
 }
