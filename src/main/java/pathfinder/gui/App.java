@@ -3,10 +3,19 @@ package pathfinder.gui;
 import javax.swing.UIManager;
 import pathfinder.logic.*;
 
+/**
+ * Application entry point. Performs initial setup and launches the application.
+ */
 public class App {
 
     private static final int DEFAULT_CELL_SIZE = 20;
 
+    /**
+     * Application entry point. Performs initial setup and launches the
+     * application.
+     * 
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         // This needs to be done first
         setSystemLaf();
