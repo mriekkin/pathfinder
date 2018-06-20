@@ -11,6 +11,13 @@ import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 import pathfinder.logic.pathfinders.Pathfinder;
 
+/**
+ * A panel which displays the grid. It displays the graph including walkable
+ * nodes and obstacles. The source and destination nodes are painted with
+ * separate colors. After a pathfinding operation it also displays the results
+ * of the chosen algorithm. This panel is the central view for the user and the
+ * most important element of the user interface.
+ */
 public class GridPanel extends JPanel {
 
     private static final Color borderColor = Color.BLACK;
@@ -29,10 +36,25 @@ public class GridPanel extends JPanel {
     private Graph g;
     private Pathfinder pathfinder;
 
+    /**
+     * Constructs a <code>GridPanel</code> with the specified graph, pathfinder
+     * and cell size.
+     * 
+     * @param g the current graph
+     * @param pathfinder the current pathfinder
+     * @param cellSize the size of a single cell on screen in pixels
+     */
     public GridPanel(Graph g, Pathfinder pathfinder, int cellSize) {
         reset(g, pathfinder, cellSize);
     }
 
+    /**
+     * Resizes this panel to fit the new graph and cell size.
+     * 
+     * @param g the current graph
+     * @param pathfinder the current pathfinder
+     * @param cellSize the size of a single cell on screen in pixels
+     */
     public void reset(Graph g, Pathfinder pathfinder, int cellSize) {
         this.g = g;
         this.pathfinder = pathfinder;
@@ -55,6 +77,11 @@ public class GridPanel extends JPanel {
         return 1;
     }
 
+    /**
+     * Updates the pathfinder used by this grid panel.
+     * 
+     * @param pathfinder the pathfinder to be registered as the current pathfinder
+     */
     public void setPathfinder(Pathfinder pathfinder) {
         this.pathfinder = pathfinder;
     }
@@ -151,6 +178,16 @@ public class GridPanel extends JPanel {
         g2.drawPolyline(xPoints, yPoints, path.size());
     }
 
+    /**
+     * Returns the node located at the specified position, if any. This method
+     * can be used to convert positions on screen into node objects. The
+     * coordinates of each position are specified relative to this panel.
+     * 
+     * @param pointX x-coordinate of the point relative to this panel
+     * @param pointY y-coordinate of the point relative to this panel
+     * @return the node at the specified position. Returns <code>null</code> if
+     * the specified point is outside the boundaries of this grid.
+     */
     protected Node getNode(int pointX, int pointY) {
         int x = pointX / getTotalSize();
         int y = pointY / getTotalSize();
