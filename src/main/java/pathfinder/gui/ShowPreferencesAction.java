@@ -7,19 +7,20 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 /**
- * Constructs the preferences dialog, and displays it to the user.
- *
+ * An action which displays the preferences editor.
+ * 
+ * @see PreferencesEditor
  */
 public class ShowPreferencesAction extends AbstractAction {
-    
+
     private final JFrame owner;
     private final PreferencesEditor prefs;
 
     /**
-     * Constructs a <code>ShowPreferencesAction</code>
+     * Constructs a <code>ShowPreferencesAction</code>.
      *
      * @param owner reference to a frame. Used for positioning this dialog.
-     * @param prefs
+     * @param prefs the preferences editor used by this application
      */
     public ShowPreferencesAction(JFrame owner, PreferencesEditor prefs) {
         super("Preferences");
@@ -31,7 +32,7 @@ public class ShowPreferencesAction extends AbstractAction {
     }
 
     /**
-     * Shows the preferences dialog
+     * Shows the preferences editor dialog
      */
     @Override
     public void actionPerformed(ActionEvent e) {

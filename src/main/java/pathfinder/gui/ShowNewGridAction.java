@@ -8,8 +8,9 @@ import javax.swing.KeyStroke;
 import pathfinder.logic.CurrentGraph;
 
 /**
- * Shows a dialog which allows the user to create a new grid.
- *
+ * An action which displays the new grid dialog.
+ * 
+ * @see NewGridDialog
  */
 public class ShowNewGridAction extends AbstractAction {
 
@@ -20,7 +21,7 @@ public class ShowNewGridAction extends AbstractAction {
      * Constructs a <code>NewGridAction</code>
      *
      * @param owner reference to a frame. Used for positioning this dialog.
-     * @param current
+     * @param current the current graph used by this application
      */
     public ShowNewGridAction(JFrame owner, CurrentGraph current) {
         super("New");
@@ -36,7 +37,7 @@ public class ShowNewGridAction extends AbstractAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        new NewGridView(owner, current);
+        new NewGridDialog(current).show(owner);
     }
 
 }

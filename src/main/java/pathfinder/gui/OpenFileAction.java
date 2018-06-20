@@ -1,6 +1,5 @@
 package pathfinder.gui;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -15,8 +14,7 @@ import pathfinder.logic.CurrentGraph;
 import pathfinder.logic.Graph;
 
 /**
- * Shows the open file dialog, and reads the selected file
- * 
+ * An action which shows the open file dialog, and reads the selected file.
  */
 public class OpenFileAction extends AbstractAction {
 
@@ -28,7 +26,7 @@ public class OpenFileAction extends AbstractAction {
      * Constructs an <code>OpenFileAction</code>
      *
      * @param owner reference to a frame. Used for positioning the file chooser.
-     * @param current
+     * @param current the current graph used by this application
      */
     public OpenFileAction(JFrame owner, CurrentGraph current) {
         super("Open");
