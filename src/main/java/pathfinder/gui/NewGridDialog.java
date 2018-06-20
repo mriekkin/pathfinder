@@ -15,9 +15,25 @@ import javax.swing.SpinnerNumberModel;
 import pathfinder.logic.CurrentGraph;
 import pathfinder.logic.Graph;
 
-public class NewGridView {
+/**
+ * A dialog which allows the user to create a new empty grid.
+ * <p>
+ * The user can create a new empty grid with specified dimensions, which
+ * replaces the current grid. An empty grid provides a clean plate for creating
+ * new maps. An empty grid consists of walkable nodes and has no obstacles. The
+ * source and destination nodes are placed at default locations.
+ * <p>
+ * The layout of this dialog consists of a panel for the grid dimensions (the
+ * content panel), and a panel for the OK and Cancel buttons (the buttons row).
+ * The content panel has a tabular layout with one row for the number of columns
+ * and one row for the number of rows. Both have labels and are controlled with
+ * spinner controls.
+ */
+public class NewGridDialog {
 
     private static final String TITLE = "New grid";
+    private static final int MIN_NUM_COLS_ROWS = 2;
+    private static final int MAX_NUM_COLS_ROWS = 512;
 
     private JDialog dialog;
     private JSpinner numRows;
@@ -25,23 +41,43 @@ public class NewGridView {
     private final CurrentGraph current;
 
     /**
-     * Constructs a <code>NewGridView</code>. Constructs and displays a dialog
-     * which allows the user to create a new grid.
-     * 
-     * @param owner reference to a frame. Used for positioning this dialog.
-     * @param current
+     * Constructs a <code>NewGridView</code>. The dimensions of the current
+     * graph are used as default values. That is, the values of the controls are
+     * matched to the dimensions of the current graph.
+     *
+     * @param current the current graph used by this application
      */
-    public NewGridView(JFrame owner, CurrentGraph current) {
+    public NewGridDialog(CurrentGraph current) {
         this.current = current;
-        buildGui(owner);
     }
 
+    /**
+     * Returns the number of rows. Returns the value chosen on the spinner
+     * control.
+     *
+     * @return the chosen number of rows
+     */
     public int getNumRows() {
         return (int) numRows.getValue();
     }
 
+    /**
+     * Returns the number of columns. Returns the value chosen on the spinner
+     * control.
+     *
+     * @return the chosen number of columns
+     */
     public int getNumCols() {
         return (int) numCols.getValue();
+    }
+
+    /**
+     * Constructs and displays this dialog.
+     *
+     * @param owner reference to a frame. Used for positioning this dialog.
+     */
+    public void show(JFrame owner) {
+        buildGui(owner);
     }
 
     private void buildGui(JFrame owner) {
@@ -63,18 +99,18 @@ public class NewGridView {
     private void addContent(final Container pane) {
         JPanel content = new JPanel();
         content.setLayout(new GridBagLayout());
-        addGridSize(content);
+        addGridDimensions(content);
 
         pane.add(content, BorderLayout.CENTER);
     }
 
-    private void addGridSize(JPanel content) {
+    private void addGridDimensions(JPanel content) {
         JLabel numColsLabel = new JLabel("Columns");
         JLabel numRowsLabel = new JLabel("Rows");
         int initCols = current.getCols();
         int initRows = current.getRows();
-        numCols = new JSpinner(new SpinnerNumberModel(initCols, 10, 512, 1));
-        numRows = new JSpinner(new SpinnerNumberModel(initRows, 10, 512, 1));
+        numCols = new JSpinner(new SpinnerNumberModel(initCols, MIN_NUM_COLS_ROWS, MAX_NUM_COLS_ROWS, 1));
+        numRows = new JSpinner(new SpinnerNumberModel(initRows, MIN_NUM_COLS_ROWS, MAX_NUM_COLS_ROWS, 1));
 
         content.add(numColsLabel, getConstraints(0, 0));
         content.add(numRowsLabel, getConstraints(0, 1));

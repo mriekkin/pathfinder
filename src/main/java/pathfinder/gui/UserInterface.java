@@ -8,6 +8,20 @@ import pathfinder.gui.grid.*;
 import pathfinder.logic.*;
 import pathfinder.logic.pathfinders.*;
 
+/**
+ * The main window for this application.
+ * <p>
+ * The layout of this window consists of a large panel which occupies most of
+ * the window (the grid panel) and a row of buttons on top of the panel (the
+ * buttons panel). The grid panel displays the grid, which is the main view of
+ * the application. The buttons panel contains the main controls used to control
+ * the application. The buttons panel is laid out horizontally in a single row.
+ * The window also contains a menu bar, which contains commands, for example,
+ * for creating a new grid or loading a grid from file.
+ * <p>
+ * This class is the main class for the user interface. It utilizes many classes
+ * and wires them together.
+ */
 public class UserInterface implements Runnable, PropertyChangeListener {
 
     private static final String[] ALGORITHMS = new String[]{"BFS", "Dijkstra", "A*"};
@@ -28,6 +42,13 @@ public class UserInterface implements Runnable, PropertyChangeListener {
     private MoveEndpointListener mouseListener2;
     private PreferencesEditor prefs;
 
+    /**
+     * Creates a new <code>UserInterface</code> with the specified graph and
+     * preferences editor.
+     *
+     * @param current the current graph used by this application
+     * @param prefs the preferences editor used by this application
+     */
     public UserInterface(CurrentGraph current, PreferencesEditor prefs) {
         this.current = current;
         this.pathfinder = new BFS(current.getGraph());
@@ -71,7 +92,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
         addButtonRowOnTop(pane);
         addGridPanel(pane);
     }
-    
+
     private void addButtonRowOnTop(final Container pane) {
         find = new JButton("Find");
         reset = new JButton("Reset");
@@ -87,7 +108,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
 
         pane.add(top, BorderLayout.PAGE_START);
     }
-    
+
     private void addActionListeners() {
         find.addActionListener((e) -> {
             pathfinder.run();
@@ -113,7 +134,6 @@ public class UserInterface implements Runnable, PropertyChangeListener {
         scroll = new JScrollPane(grid);
 
         //scroll.setMaximumSize(new Dimension(600, 600));
-
         addMouseListeners();
 
         pane.add(scroll, BorderLayout.CENTER);
@@ -157,7 +177,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
         }
     }
 
-    public void resize() {
+    private void resize() {
         // Solution A
         // Dimension size = scroll.getSize();
         // grid.reset(g, pathfinder, prefs.getCellSize());
@@ -167,7 +187,6 @@ public class UserInterface implements Runnable, PropertyChangeListener {
 
         // Solution B
         // resizeScrollPane();
-
         frame.pack();
         grid.revalidate();
         grid.repaint();
@@ -188,5 +207,4 @@ public class UserInterface implements Runnable, PropertyChangeListener {
 //            scroll.setPreferredSize(new Dimension(width, height));
 //        }
 //    }
-
 }
