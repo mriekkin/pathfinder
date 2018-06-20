@@ -1,4 +1,4 @@
-package pathfinder.gui;
+package pathfinder.gui.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

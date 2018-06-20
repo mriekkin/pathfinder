@@ -4,6 +4,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
+import pathfinder.gui.actions.*;
 import pathfinder.gui.grid.*;
 import pathfinder.logic.*;
 import pathfinder.logic.pathfinders.*;
@@ -40,7 +41,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
     private JScrollPane scroll;
     private ToggleObstacleListener mouseListener1;
     private MoveEndpointListener mouseListener2;
-    private PreferencesEditor prefs;
+    private final PreferencesEditor prefs;
 
     /**
      * Creates a new <code>UserInterface</code> with the specified graph and
