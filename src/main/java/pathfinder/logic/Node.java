@@ -1,7 +1,7 @@
 package pathfinder.logic;
 
 /**
- * A single node in a <code>Graph</code>. A node is part of a graph, and since
+ * A single node in a graph. A node is part of a graph, and since
  * in this application graphs represent 2D grids, each node is assigned a pair
  * of <code>(x, y)</code> coordinates. In addition to these coordinates each
  * node also has a flag which indicates whether it's walkable or unwalkable. A

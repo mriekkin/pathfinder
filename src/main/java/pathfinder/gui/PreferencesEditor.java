@@ -39,6 +39,15 @@ import javax.swing.SpinnerNumberModel;
  * content panel), and a panel for the OK and Cancel buttons (the buttons row).
  * The content panel has a tabular layout with one row per option. The cell size
  * option has a label, and a spinner control for adjusting the cell size.
+ * <p>
+ * This class follows the observer design pattern. The observer pattern is
+ * implemented with the <code>PropertyChangeListener</code> interface. Since
+ * this class is an <i>observable</i> it sends notifications to registered
+ * observers when a property of the class changes. To this end this class keeps
+ * a reference to a <code>PropertyChangeSupport</code> instance.
+ *
+ * @see <a href="http://www.baeldung.com/java-observer-pattern">The Observer
+ * Pattern in Java</a>
  */
 public class PreferencesEditor {
 

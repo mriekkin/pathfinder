@@ -16,9 +16,6 @@ import java.beans.PropertyChangeSupport;
  *
  * @see <a href="http://www.baeldung.com/java-observer-pattern">The Observer
  * Pattern in Java</a>
- * @see
- * <a href="http://www.javapractices.com/topic/TopicAction.do?Id=156">Observers
- * and listeners</a>
  */
 public class CurrentGraph {
 

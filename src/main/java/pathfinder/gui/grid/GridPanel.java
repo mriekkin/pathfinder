@@ -12,11 +12,11 @@ import pathfinder.logic.Node;
 import pathfinder.logic.pathfinders.Pathfinder;
 
 /**
- * A panel which displays the grid. It displays the graph including walkable
- * nodes and obstacles. The source and destination nodes are painted with
- * separate colors. After a pathfinding operation it also displays the results
- * of the chosen algorithm. This panel is the central view for the user and the
- * most important element of the user interface.
+ * A panel which displays the grid. This panel is the central view for the user
+ * and the most important element of the user interface. It displays the graph
+ * including walkable nodes and obstacles. The source and destination nodes are
+ * painted with separate colors. After a pathfinding operation it also displays
+ * the results of the chosen algorithm.
  */
 public class GridPanel extends JPanel {
 

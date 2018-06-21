@@ -14,7 +14,14 @@ import pathfinder.logic.CurrentGraph;
 import pathfinder.logic.Graph;
 
 /**
- * An action which shows the open file dialog, and reads the selected file.
+ * An action which shows the open file dialog, and loads the selected file.
+ * <p>
+ * The user can load a saved file. If the operation is successful, the loaded
+ * file will replace the current grid. The file contains the graph, and the
+ * positions of the source and destination nodes. Hence, loading a file will
+ * restore the graph as it was when it was saved.
+ *
+ * @see GraphReader
  */
 public class OpenFileAction extends AbstractAction {
 
@@ -39,7 +46,7 @@ public class OpenFileAction extends AbstractAction {
     }
 
     /**
-     * Shows the open file dialog, and reads the selected file
+     * Shows the open file dialog, and loads the selected file
      */
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A specialised graph data structure, which represents a square 2D grid. A grid
+ * A specialised graph data structure, which represents a 2D grid. A grid
  * is composed of nodes arranged to a rectangular matrix. Each node is indexed
  * by the familiar cartesian coordinates <code>(x, y)</code>, where coordinates
  * start from 0. Each graph has also one node labeled as <code>start</code> and
