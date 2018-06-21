@@ -1,4 +1,5 @@
 /**
- * Application logic. Includes the model portion of the Java model-view pattern.
+ * Application logic. This package represents the model portion of the
+ * model-view pattern.
  */
 package pathfinder.logic;
