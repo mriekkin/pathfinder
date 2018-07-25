@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/mriekkin/pathfinder.svg?token=ezJZa5spPprq15TfcPVq&branch=master)](https://travis-ci.com/mriekkin/pathfinder)
 [![Code Coverage](https://codecov.io/gh/mriekkin/pathfinder/branch/master/graph/badge.svg?token=5GzNuxwBS8)](https://codecov.io/gh/mriekkin/pathfinder)
 
-A Java program for finding shortest paths in grid-based maps. The implemented algorithms include Dijkstra, A\* and D\*.
+Pathfinder is a collection of shortest path algorithms for grid-based maps. It can be used in a visualization mode to illustrate the application of individual algorithms, or in a benchmarking mode to compare the performance of different algorithms.
 
 This is a student project for the [algorithms and data structures](https://github.com/TiraLabra/2018_loppu/wiki) course at the University of Helsinki. The intent of the project is to compare a number of pathfinding algorithms.
 
