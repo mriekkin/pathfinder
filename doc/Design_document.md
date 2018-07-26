@@ -12,6 +12,20 @@ The data structures required are binary heaps and dynamic arrays.
 
 ## Description of the program
 
+Visualization mode enables the user to study the results of running an algorithm on a particular grid.
 
+Usage of the visualization mode can be described in three steps. First, the user can either draw a new grid with the mouse, or load an existing grid from disk. This includes placement of the source and destination nodes. Second, the user chooses which algorithm to execute. Third, after execution finishes, the program displays all the visited nodes and a shortest path. This final step is described in the picture below.
 
-## Inputs and outputs
+Inputs in the visualization mode include a grid-based map, placement of the source and destination nodes and selection of the algorithm. Ouputs include a result grid which displays visited nodes and a shortest path.
+
+It should be noted that the visualization mode displays the final stage of running the algorithm, but not the intermediate steps. Simulation of the intermediate steps of the algorithm would be a nice feature, but it probably won't be implemented.
+
+![Visualization mode](img/screenshot_1.png)
+
+Benchmarking mode enables one to run experiments which compare the various algorithms on different grid-based maps. The key feature of the benchmarking mode is that - as opposed to just one problem - it solves a specified sequence of shortest path problems. This sequence will most likely be specified as a CSV file.
+
+The intention is to use some of the benchmarks at [movingai.com/benchmarks](https://www.movingai.com/benchmarks/).
+
+Inputs in the benchmark mode include a set of grid-based maps and a CSV file. The CSV file specifies which problems to solve. Ouputs include summary data printed to the console, and possibly a CSV file with more detailed information.
+
+Whereas the visualization mode is implemented as a graphical user interface (GUI) the benchmarking mode is a command-line interface (CLI).
