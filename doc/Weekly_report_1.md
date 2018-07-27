@@ -2,7 +2,7 @@
 
 [Hour reporting](Hour_reporting.md)
 
-# What has happened before week 1
+## What has happened before week 1
 
 I started this project in advance. At this point I've written 50 commits and around 1 000 lines. Most of this happened in May. I've implemented some algorithms (BFS, Dijkstra and A*) and most of the GUI. The code has Javadoc comments and a test coverage of 96%.
 
