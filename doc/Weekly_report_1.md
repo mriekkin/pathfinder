@@ -16,11 +16,11 @@ I hadn't really thought about a benchmarking mode before. I added it to the desi
 
 ## Questions
 
-Do I need to implement a benchmarking mode to obtain a grade in the range 4-5?
+Do I need to implement a benchmarking mode to obtain a grade in the range 4-5? It seems to me that it's needed in order to make a meaningful comparison of the algorithms.
 
-Is it sufficient if all edges have uniform weights? This means that all horizontal and vertical edges have weight 1, and all diagonal edges have weight sqrt(2).
+Is it sufficient if all edges have uniform weights? This means that all horizontal and vertical edges have weight 1, and all diagonal edges have weight sqrt(2). Since JPS assumes uniform weights this seems to be OK.
 
-Should corner-cutting be prohibited? Allowing it probably makes generating diagonal edges a lot easier.
+Should corner-cutting be prohibited? Allowing it probably makes generating diagonal edges a lot easier, so I think it should be allowed.
 
 ## Next week
 
