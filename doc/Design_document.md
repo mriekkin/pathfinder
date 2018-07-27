@@ -6,7 +6,7 @@ Pathfinder is a collection of shortest path algorithms for grid-based maps. It c
 
 The intent is to implement a few shortest path algorithms. The basic algorithms to be implemented include Dijkstra and A*. These are well documented in the course notes and a number of other sources. In addition, one more complex algorithm needs to be implemented. The alternatives include D* and Jump point search (JPS). Of these two, Jump point search seems more promising. It provides a significant speedup compared to standard A*, and is geared towards game-like maps. Based on a brief reading, D* seems more optimized towards applications where the pathfinding algorithm is invoked repeatedly. Also, Jump point search seems to have more documentation available.
 
-The running time of Dijkstra and A* is O((E + V) log V). This is true when the priority queue is implemented using a binary heap. Since Jump point search is an optimized version of A* it probably has the same worst-case running time. In practice, Dijkstra is slower than A*, and A* is slower than JPS. Jump point search can reduce the running time of A* by an order of magnitude.
+The running time of Dijkstra and A* is O((E + V) log V). This is true when the priority queue is implemented using a binary heap. Since Jump point search is an optimized version of A* it probably has the same worst-case running time. In practice, Dijkstra is slower than A*, and A* is slower than JPS. Jump point search can reduce the running time of A* by an order of magnitude. The space complexity of Dijkstra and A* is O(V).
 
 The data structures required are binary heaps and dynamic arrays.
 
@@ -29,3 +29,14 @@ The intention is to use some of the benchmarks at [movingai.com/benchmarks](http
 Inputs in the benchmark mode include a set of grid-based maps and a CSV file. The CSV file specifies which problems to solve. Ouputs include summary data printed to the console, and possibly a CSV file with more detailed information.
 
 Whereas the visualization mode is implemented as a graphical user interface (GUI) the benchmarking mode is a command-line interface (CLI).
+
+## References
+
+1. Kivinen, Jyrki (2018), "Tietorakenteet ja algoritmit, Kevät 2018"
+2. https://en.wikipedia.org/wiki/D*
+3. https://en.wikipedia.org/wiki/Jump_point_search
+4. https://zerowidth.com/2013/05/05/jump-point-search-explained.html
+5. http://theory.stanford.edu/~amitp/GameProgramming/Variations.html
+6. Stentz, Anthony (1994), "Optimal and Efficient Path Planning for Partially-Known Environments", Proceedings of the International Conference on Robotics and Automation: 3310–3317
+7. Koenig, S.; Likhachev, M.; Furcy, D. (2004), "Lifelong Planning A*", Artificial Intelligence Journal, 155 (1–2): 93–146
+8. Harabor, D.; Grastien, A. (2011), "Online Graph Pruning for Pathfinding on Grid Maps", 25th National Conference on Artificial Intelligence, AAAI.
