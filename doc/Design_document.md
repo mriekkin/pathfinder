@@ -33,7 +33,7 @@ Whereas the visualization mode is implemented as a graphical user interface (GUI
 ## References
 
 1. Kivinen, Jyrki (2018), "Tietorakenteet ja algoritmit, Kevät 2018"
-2. https://en.wikipedia.org/wiki/D*
+2. [https://en.wikipedia.org/wiki/D*](https://en.wikipedia.org/wiki/D*)
 3. https://en.wikipedia.org/wiki/Jump_point_search
 4. https://zerowidth.com/2013/05/05/jump-point-search-explained.html
 5. http://theory.stanford.edu/~amitp/GameProgramming/Variations.html
