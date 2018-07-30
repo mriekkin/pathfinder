@@ -42,9 +42,9 @@ public class AStar extends AbstractPathfinder {
             
             for (Node v : g.neighbours(u)) {
                 if (getDist(v) > getDist(u) + 1) {
-                    int priority = getDist(v) + heuristic(v, end);
                     setDist(v, getDist(u) + 1);
                     setPred(v, u);
+                    int priority = getDist(v) + heuristic(v, end);
                     q.add(new PriorityNode(v, priority));
                 }
             }
