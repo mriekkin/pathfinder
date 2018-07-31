@@ -42,8 +42,8 @@ public class ToggleObstacleListener extends MouseInputAdapter {
         Node node = panel.getNode(e.getX(), e.getY());
 
         if (node == null) return;
-        if (node.equals(g.getStart())) return;
-        if (node.equals(g.getEnd())) return;
+        if (node.equals(g.getSource())) return;
+        if (node.equals(g.getDest())) return;
 
         isActive = true;
         walkable = !node.isWalkable();
@@ -59,8 +59,8 @@ public class ToggleObstacleListener extends MouseInputAdapter {
         Node node = panel.getNode(e.getX(), e.getY());
 
         if (node == null) return;
-        if (node.equals(g.getStart())) return;
-        if (node.equals(g.getEnd())) return;
+        if (node.equals(g.getSource())) return;
+        if (node.equals(g.getDest())) return;
         if (node.isWalkable() == walkable) return;
 
         node.setWalkable(walkable);

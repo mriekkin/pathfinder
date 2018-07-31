@@ -16,7 +16,7 @@ public class MoveEndpointListener extends MouseInputAdapter {
     private final GridPanel panel;
     private final CurrentGraph g;
     private boolean isActive;
-    private boolean isStart;
+    private boolean isSource;
 
     /**
      * Constructs a <code>MoveEndpointListener</code> with the specified grid
@@ -36,14 +36,14 @@ public class MoveEndpointListener extends MouseInputAdapter {
         Node node = panel.getNode(e.getX(), e.getY());
         if (node == null) return;
 
-        if (node.equals(g.getStart())) {
-            isStart = true;
+        if (node.equals(g.getSource())) {
+            isSource = true;
             isActive = true;
             return;
         }
 
-        if (node.equals(g.getEnd())) {
-            isStart = false;
+        if (node.equals(g.getDest())) {
+            isSource = false;
             isActive = true;
         }
     }
@@ -54,14 +54,14 @@ public class MoveEndpointListener extends MouseInputAdapter {
 
         Node toNode = panel.getNode(e.getX(), e.getY());
         if (toNode == null) return;
-        if (toNode.equals(g.getStart())) return;
-        if (toNode.equals(g.getEnd())) return;
+        if (toNode.equals(g.getSource())) return;
+        if (toNode.equals(g.getDest())) return;
         if (!toNode.isWalkable()) return;
 
-        if (isStart)
-            g.setStart(toNode);
+        if (isSource)
+            g.setSource(toNode);
         else
-            g.setEnd(toNode);
+            g.setDest(toNode);
 
         panel.repaint();
     }

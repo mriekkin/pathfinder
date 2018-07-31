@@ -27,8 +27,8 @@ public class GraphWriter {
 
     private static String getSpecialCases(Graph g, Node node) {
         if (!node.isWalkable()) return "#";
-        if (node.equals(g.getStart())) return "S";
-        if (node.equals(g.getEnd())) return "E";
+        if (node.equals(g.getSource())) return "S";
+        if (node.equals(g.getDest())) return "E";
 
         return null;
     }

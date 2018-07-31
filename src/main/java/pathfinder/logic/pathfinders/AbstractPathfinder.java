@@ -61,7 +61,7 @@ public abstract class AbstractPathfinder implements Pathfinder {
             }
         }
 
-        setDist(g.getStart(), 0);
+        setDist(g.getSource(), 0);
         path = new ArrayList<>();
     }
 
@@ -148,7 +148,7 @@ public abstract class AbstractPathfinder implements Pathfinder {
     }
 
     private List<Node> constructPath() {
-        Node u = g.getEnd();
+        Node u = g.getDest();
         if (getPred(u) == null) {
             return new ArrayList<>();
         }

@@ -32,10 +32,10 @@ public class CurrentGraphTest {
     @Before
     public void setUp() {
         Pair dimensions = new Pair(10, 10);
-        Pair start = new Pair(0, 0);
-        Pair end = new Pair(9, 9);
-        graph = new Graph(dimensions, start, end);
-        graph2 = new Graph(dimensions, start, end);
+        Pair source = new Pair(0, 0);
+        Pair dest = new Pair(9, 9);
+        graph = new Graph(dimensions, source, dest);
+        graph2 = new Graph(dimensions, source, dest);
         current = new CurrentGraph(graph);
     }
 
@@ -64,33 +64,33 @@ public class CurrentGraphTest {
     @Test
     public void setGraphUpdatesTheCurrentGraph() {
         Pair dimensions = new Pair(30, 15);
-        Pair start = new Pair(0, 0);
-        Pair end = new Pair(29, 14);
-        Graph another = new Graph(dimensions, start, end);
+        Pair source = new Pair(0, 0);
+        Pair dest = new Pair(29, 14);
+        Graph another = new Graph(dimensions, source, dest);
         current.setGraph(another);
         assertEquals(another, current.getGraph());
     }
 
     @Test
-    public void getStartReturnsTheStartNode() {
-        assertEquals(graph.getStart(), current.getStart());
+    public void getSourceReturnsTheSourceNode() {
+        assertEquals(graph.getSource(), current.getSource());
     }
 
     @Test
-    public void getEndReturnsTheEndNode() {
-        assertEquals(graph.getEnd(), current.getEnd());
+    public void getDestReturnsTheDestinationNode() {
+        assertEquals(graph.getDest(), current.getDest());
     }
 
     @Test
-    public void setStartUpdatesTheStartNode() {
-        current.setStart(graph.getNode(1, 1));
-        assertEquals("(1, 1)", current.getStart().toString());
+    public void setSourceUpdatesTheSourceNode() {
+        current.setSource(graph.getNode(1, 1));
+        assertEquals("(1, 1)", current.getSource().toString());
     }
 
     @Test
-    public void setEndUpdatesTheEndNode() {
-        current.setEnd(graph.getNode(5, 5));
-        assertEquals("(5, 5)", current.getEnd().toString());
+    public void setDestUpdatesTheDestinationNode() {
+        current.setDest(graph.getNode(5, 5));
+        assertEquals("(5, 5)", current.getDest().toString());
     }
 
     @Test

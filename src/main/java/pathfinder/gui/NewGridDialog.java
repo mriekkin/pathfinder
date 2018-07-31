@@ -183,10 +183,10 @@ public class NewGridDialog {
          */
         public static Graph create(int cols, int rows) {
             Pair dimensions = new Pair(cols, rows);
-            Pair start = new Pair(0, 0);
-            Pair end = new Pair(cols - 1, rows - 1);
+            Pair source = new Pair(0, 0);
+            Pair dest = new Pair(cols - 1, rows - 1);
 
-            return new Graph(dimensions, start, end);
+            return new Graph(dimensions, source, dest);
         }
 
     }

@@ -7,39 +7,42 @@ import java.util.List;
  * A specialised graph data structure, which represents a 2D grid. A grid
  * is composed of nodes arranged to a rectangular matrix. Each node is indexed
  * by the familiar cartesian coordinates <code>(x, y)</code>, where coordinates
- * start from 0. Each graph has also one node labeled as <code>start</code> and
- * one node labeled as <code>end</code>. These are used by pathfinders as the
- * start and end nodes. Each node is either walkable or unwalkable. The
+ * start from 0. Each graph has also one node labeled as <code>source</code> and
+ * one node labeled as <code>dest</code>. These are used by pathfinders as the
+ * source and destination nodes. Each node is either walkable or unwalkable. The
  * unwalkable cells are obstacles. A path, as created by a pathfinder, visits
  * only walkable nodes.
  * <p>
  * Adjacent nodes are called neighbours and are connected by edges. This
- * implementation connects the usual horizontal and vertical neighbours (N, E,
- * S, W) but ignores diagonal neighbours. Hence a cell has at most 4 neighbours.
- * A node is connected only to those neighbours which are walkable. Obstacles
- * are not connected. At present, all edges have weight 1. This could be changed
- * to include more variability.
+ * implementation connects the usual horizontal and vertical neighbours (N,
+ * E, S, W) and diagonal neighbours (NE, NW, SE, SW). Hence a cell has at
+ * most 8 neighbours. A node is connected only to those neighbours which are
+ * walkable. Obstacles are not connected.
+ * <p>
+ * At present, we model only uniform-cost grid maps. Each straight
+ * (horizontal or vertical) move, from a node to one of its neighbours, costs 1;
+ * diagonal moves cost sqrt(2).
  */
 public class Graph {
 
     private final Node[][] nodes;
     private final int cols;
     private final int rows;
-    private Node start;
-    private Node end;
+    private Node source;
+    private Node dest;
 
     /**
      * Constructs a <code>Graph</code> with the specified dimensions, and the
-     * specified start and end nodes.
+     * specified source and destination nodes.
      *
      * @param dimensions the pair <code>(cols, rows)</code>, which represents
      * the number of columns and rows
-     * @param start the <code>(x, y)</code> coordinates of the the start node to
-     * be used by pathfinders
-     * @param end the <code>(x, y)</code> coordinates of the end node to be used
-     * by pathfinders
+     * @param source the <code>(x, y)</code> coordinates of the the source node
+     * to be used by pathfinders
+     * @param destination the <code>(x, y)</code> coordinates of the destination
+     * node to be used by pathfinders
      */
-    public Graph(Pair dimensions, Pair start, Pair end) {
+    public Graph(Pair dimensions, Pair source, Pair destination) {
         this.cols = dimensions.getLeft();
         this.rows = dimensions.getRight();
         this.nodes = new Node[rows][cols];
@@ -49,8 +52,8 @@ public class Graph {
             }
         }
 
-        this.start = getNode(start.getLeft(), start.getRight());
-        this.end = getNode(end.getLeft(), end.getRight());
+        this.source = getNode(source.getLeft(), source.getRight());
+        this.dest = getNode(destination.getLeft(), destination.getRight());
     }
 
     /**
@@ -91,47 +94,47 @@ public class Graph {
     }
 
     /**
-     * Returns the node labeled as a starting node.
+     * Returns the node labeled as a source node.
      *
-     * @return the node labeled as a starting node for this graph
-     * @see #setStart(Node)
+     * @return the node labeled as a source node for this graph
+     * @see #setSource(Node)
      */
-    public Node getStart() {
-        return start;
+    public Node getSource() {
+        return source;
     }
 
     /**
-     * Returns the node labeled as an end node.
+     * Returns the node labeled as a destination node.
      *
-     * @return the node labeled as an end node for this graph
-     * @see #setEnd(Node)
+     * @return the node labeled as a destination node for this graph
+     * @see #setDest(Node)
      */
-    public Node getEnd() {
-        return end;
+    public Node getDest() {
+        return dest;
     }
 
     /**
-     * Labels the specified node as the new starting node for this graph. Each
-     * graph has one node labeled as <code>start</code> and one node labeled as
-     * <code>end</code>. These are used by pathfinders as the start and end
-     * nodes.
+     * Labels the specified node as the new source node for this graph. Each
+     * graph has one node labeled as <code>source</code> and one node labeled as
+     * <code>dest</code>. These are used by pathfinders as the source and
+     * destination nodes.
      *
-     * @param start the node to be labeled as the new starting node
+     * @param source the node to be labeled as the new source node
      */
-    public void setStart(Node start) {
-        this.start = start;
+    public void setSource(Node source) {
+        this.source = source;
     }
 
     /**
-     * Labels the specified node as the new end node for this graph. Each graph
-     * has one node labeled as <code>start</code> and one node labeled as
-     * <code>end</code>. These are used by pathfinders as the start and end
-     * nodes.
+     * Labels the specified node as the new destination node for this graph.
+     * Each graph has one node labeled as <code>source</code> and one node
+     * labeled as <code>dest</code>. These are used by pathfinders as the source
+     * and destination nodes.
      *
-     * @param end the node to be labeled as the new end node
+     * @param dest the node to be labeled as the new destination node
      */
-    public void setEnd(Node end) {
-        this.end = end;
+    public void setDest(Node dest) {
+        this.dest = dest;
     }
 
     /**

@@ -12,9 +12,9 @@ public class GraphSetupTest {
     @Test
     public void testSetupSmallGrid() {
         Pair dimensions = new Pair(10, 10);
-        Pair start = new Pair(0, 0);
-        Pair end = new Pair(9, 0);
-        Graph g = new Graph(dimensions, start, end);
+        Pair source = new Pair(0, 0);
+        Pair dest = new Pair(9, 0);
+        Graph g = new Graph(dimensions, source, dest);
 
         for (int y = 0; y < 9; y++) {
             g.getNode(5, y).setWalkable(false);
@@ -37,9 +37,9 @@ public class GraphSetupTest {
     @Test
     public void testSetupBigGrid() {
         Pair dimensions = new Pair(30, 15);
-        Pair start = new Pair(8, 7);
-        Pair end = new Pair(17, 12);
-        Graph g = new Graph(dimensions, start, end);
+        Pair source = new Pair(8, 7);
+        Pair dest = new Pair(17, 12);
+        Graph g = new Graph(dimensions, source, dest);
 
         for (int y = 3; y <= 11; y++) {
             g.getNode(3, y).setWalkable(false);

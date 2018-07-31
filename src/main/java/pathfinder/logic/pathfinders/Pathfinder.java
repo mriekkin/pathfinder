@@ -63,10 +63,10 @@ public interface Pathfinder {
     Node getPred(Node u);
 
     /**
-     * Returns a shortest path from start to end. The parth is represented as a
-     * list of nodes. As there may be more than one shortest path, returns one
-     * of the possible paths. Which of the possible shortest paths is returned
-     * is unspecified.
+     * Returns a shortest path from source to destination. The parth is
+     * represented as a list of nodes. As there may be more than one shortest
+     * path, returns one of the possible paths. Which of the possible shortest
+     * paths is returned is unspecified.
      *
      * @return nodes which constitute one possible shortest path
      */

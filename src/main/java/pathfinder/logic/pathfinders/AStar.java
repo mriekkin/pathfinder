@@ -23,16 +23,16 @@ public class AStar extends AbstractPathfinder {
     @Override
     protected void init() {
         super.init();
-        Node start = g.getStart();
+        Node source = g.getSource();
         q = new PriorityQueue<>();
-        q.add(new PriorityNode(start, 0));
-        setDist(start, 0);
+        q.add(new PriorityNode(source, 0));
+        setDist(source, 0);
     }
 
     @Override
     public double run() {
         init();
-        Node end = g.getEnd();
+        Node end = g.getDest();
         while (!q.isEmpty()) {
             Node u = q.poll().node;
             if (getVisited(u)) continue;

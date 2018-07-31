@@ -57,9 +57,9 @@ public class App {
 
     private static Graph createDefaultGrid() {
         Pair dimensions = new Pair(30, 15);
-        Pair start = new Pair(8, 7);
-        Pair end = new Pair(17, 12);
-        Graph g = new Graph(dimensions, start, end);
+        Pair source = new Pair(8, 7);
+        Pair dest = new Pair(17, 12);
+        Graph g = new Graph(dimensions, source, dest);
 
         for (int y = 3; y <= 11; y++) {
             g.getNode(3, y).setWalkable(false);

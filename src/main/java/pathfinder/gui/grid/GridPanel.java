@@ -22,8 +22,8 @@ public class GridPanel extends JPanel {
 
     private static final Color borderColor = Color.BLACK;
     private static final Color defaultColor = new Color(0xffffff);
-    private static final Color startColor = new Color(0x00dd00);
-    private static final Color endColor = new Color(0xee4400);
+    private static final Color sourceColor = new Color(0x00dd00);
+    private static final Color destColor = new Color(0xee4400);
     private static final Color obstacleColor = new Color(0x808080);
     private static final Color visitedColor = new Color(0xafeeee);
     private static final Color pathColor = Color.YELLOW;
@@ -145,8 +145,8 @@ public class GridPanel extends JPanel {
     }
 
     private Color getNodeColor(Node node) {
-        if (node.equals(g.getStart())) return startColor;
-        if (node.equals(g.getEnd())) return endColor;
+        if (node.equals(g.getSource())) return sourceColor;
+        if (node.equals(g.getDest())) return destColor;
         if (!node.isWalkable()) return obstacleColor;
         if (pathfinder.getVisited(node)) return visitedColor;
 

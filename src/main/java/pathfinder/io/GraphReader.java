@@ -43,9 +43,9 @@ public class GraphReader {
             case '#': node.setWalkable(false); break;
             case '@': node.setWalkable(false); break;
 
-            // The start and end nodes
-            case 'S': g.setStart(node); break;
-            case 'E': g.setEnd(node); break;
+            // The source (S) and destination (E) nodes
+            case 'S': g.setSource(node); break;
+            case 'E': g.setDest(node); break;
         }
     }
 

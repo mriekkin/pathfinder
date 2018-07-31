@@ -75,51 +75,51 @@ public class CurrentGraph {
     }
 
     /**
-     * Returns the node labeled as a starting node for the current graph.
+     * Returns the node labeled as a source node for the current graph.
      *
-     * @return the node labeled as a starting node for the current graph
-     * @see #setStart(Node)
+     * @return the node labeled as a source node for the current graph
+     * @see #setSource(Node)
      */
-    public Node getStart() {
-        return g.getStart();
+    public Node getSource() {
+        return g.getSource();
     }
 
     /**
-     * Returns the node labeled as an end node for the current graph.
+     * Returns the node labeled as a destination node for the current graph.
      *
-     * @return the node labeled as an end node for this graph
-     * @see #setEnd(Node)
+     * @return the node labeled as a destination node for this graph
+     * @see #setDest(Node)
      */
-    public Node getEnd() {
-        return g.getEnd();
+    public Node getDest() {
+        return g.getDest();
     }
 
     /**
-     * Labels the specified node as the new starting node for the current graph.
-     * Each graph has one node labeled as <code>start</code> and one node
-     * labeled as <code>end</code>. These are used by pathfinders as the start
-     * and end nodes.
+     * Labels the specified node as the new source node for the current graph.
+     * Each graph has one node labeled as <code>source</code> and one node
+     * labeled as <code>dest</code>. These are used by pathfinders as the source
+     * and destination nodes.
      *
-     * @param start the node to be labeled as the new starting node
+     * @param source the node to be labeled as the new source node
      */
-    public void setStart(Node start) {
-        Node oldValue = g.getStart();
-        g.setStart(start);
-        pcs.firePropertyChange("start", oldValue, start);
+    public void setSource(Node source) {
+        Node oldValue = g.getSource();
+        g.setSource(source);
+        pcs.firePropertyChange("source", oldValue, source);
     }
 
     /**
-     * Labels the specified node as the new end node for the current graph. Each
-     * graph has one node labeled as <code>start</code> and one node labeled as
-     * <code>end</code>. These are used by pathfinders as the start and end
-     * nodes.
+     * Labels the specified node as the new destination node for the current
+     * graph. Each graph has one node labeled as <code>source</code> and one
+     * node labeled as <code>dest</code>. These are used by pathfinders as the
+     * source and destination nodes.
      *
-     * @param end the node to be labeled as the new end node
+     * @param dest the node to be labeled as the new destination node
      */
-    public void setEnd(Node end) {
-        Node oldValue = g.getEnd();
-        g.setEnd(end);
-        pcs.firePropertyChange("end", oldValue, end);
+    public void setDest(Node dest) {
+        Node oldValue = g.getDest();
+        g.setDest(dest);
+        pcs.firePropertyChange("dest", oldValue, dest);
     }
 
     /**
