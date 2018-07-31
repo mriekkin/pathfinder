@@ -25,7 +25,7 @@ import pathfinder.logic.pathfinders.*;
  */
 public class UserInterface implements Runnable, PropertyChangeListener {
 
-    private static final String[] ALGORITHMS = new String[]{"BFS", "Dijkstra", "A*"};
+    private static final String[] ALGORITHMS = new String[]{"Dijkstra", "A*"};
 
     private final CurrentGraph current;
     private Pathfinder pathfinder;
@@ -52,7 +52,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
      */
     public UserInterface(CurrentGraph current, PreferencesEditor prefs) {
         this.current = current;
-        this.pathfinder = new BFS(current.getGraph());
+        this.pathfinder = new Dijkstra(current.getGraph());
         this.prefs = prefs;
     }
 
@@ -151,9 +151,8 @@ public class UserInterface implements Runnable, PropertyChangeListener {
 
     private Pathfinder createPathfinder(Graph graph) {
         switch (algorithm.getSelectedIndex()) {
-            case 0: return new BFS(graph);
-            case 1: return new Dijkstra(graph);
-            case 2: return new AStar(graph);
+            case 0: return new Dijkstra(graph);
+            case 1: return new AStar(graph);
             default: return null;
         }
     }
