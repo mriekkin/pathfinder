@@ -33,13 +33,13 @@ public class Dijkstra extends AbstractPathfinder {
     @Override
     public double run() {
         init();
-        Node end = g.getDest();
+        Node dest = g.getDest();
         while (!q.isEmpty()) {
             Node u = q.poll().node;
             if (getVisited(u)) continue;
             setVisited(u, true);
 
-            if (u.equals(end)) break;
+            if (u.equals(dest)) break;
 
             for (Node v : g.neighbours(u)) {
                 double alt = getDist(u) + getDistAdj(u, v);
@@ -52,12 +52,12 @@ public class Dijkstra extends AbstractPathfinder {
             }
         }
 
-        if (getDist(end) == INFINITY) {
+        if (getDist(dest) == INFINITY) {
             return -1;
         }
 
         updatePath();
-        return getDist(end);
+        return getDist(dest);
     }
 
 }

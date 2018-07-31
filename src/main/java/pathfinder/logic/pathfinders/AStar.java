@@ -32,13 +32,13 @@ public class AStar extends AbstractPathfinder {
     @Override
     public double run() {
         init();
-        Node end = g.getDest();
+        Node dest = g.getDest();
         while (!q.isEmpty()) {
             Node u = q.poll().node;
             if (getVisited(u)) continue;
             setVisited(u, true);
             
-            if (u.equals(end)) break;
+            if (u.equals(dest)) break;
             
             for (Node v : g.neighbours(u)) {
                 double alt = getDist(u) + getDistAdj(u, v);
@@ -46,18 +46,18 @@ public class AStar extends AbstractPathfinder {
                 if (getDist(v) > alt) {
                     setDist(v, alt);
                     setPred(v, u);
-                    double priority = getDist(v) + heuristic(v, end);
+                    double priority = getDist(v) + heuristic(v, dest);
                     q.add(new PriorityNode(v, priority));
                 }
             }
         }
         
-        if (getDist(end) == INFINITY) {
+        if (getDist(dest) == INFINITY) {
             return -1;
         }
 
         updatePath();
-        return getDist(end);
+        return getDist(dest);
     }
 
     private double heuristic(Node a, Node b) {
