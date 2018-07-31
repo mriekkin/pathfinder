@@ -28,7 +28,7 @@ public interface Pathfinder {
      *
      * @return the length of a shortest path
      */
-    int run();
+    double run();
 
     /**
      * Returns the graph used by this pathfinder
@@ -52,7 +52,7 @@ public interface Pathfinder {
      * @param u the node whose distance to return
      * @return the current distance to the specified node
      */
-    int getDist(Node u);
+    double getDist(Node u);
 
     /**
      * Returns the current predecessor node for the specified node.

@@ -9,16 +9,16 @@ import pathfinder.logic.Node;
 class PriorityNode implements Comparable<PriorityNode> {
 
     public Node node;
-    public int priority;
+    public double priority;
 
-    public PriorityNode(Node node, int priority) {
+    public PriorityNode(Node node, double priority) {
         this.node = node;
         this.priority = priority;
     }
 
     @Override
     public int compareTo(PriorityNode p) {
-        return priority - p.priority;
+        return Double.compare(priority, p.priority);
     }
 
 }

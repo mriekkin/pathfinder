@@ -36,7 +36,7 @@ public class BFS extends AbstractPathfinder {
     }
 
     @Override
-    public int run() {
+    public double run() {
         init();
         Node end = g.getEnd();
         while (!q.isEmpty()) {
@@ -48,7 +48,7 @@ public class BFS extends AbstractPathfinder {
             for (Node v : g.neighbours(u)) {
                 if (!getVisited(v)) {
                     setVisited(v, true);
-                    setDist(v, getDist(u) + 1);
+                    setDist(v, getDist(u) + getDistAdj(u, v));
                     setPred(v, u);
                     q.add(v);
                 }

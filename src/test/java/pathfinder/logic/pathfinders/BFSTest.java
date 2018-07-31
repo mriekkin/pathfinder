@@ -7,6 +7,8 @@ import pathfinder.logic.Pair;
 
 public class BFSTest {
 
+    public static final double eps = 0.00001;
+
     @Test
     public void testInit() {
     }
@@ -18,7 +20,7 @@ public class BFSTest {
         Pair end = new Pair(9, 9);
         Graph g = new Graph(dimensions, start, end);
         Pathfinder pathfinder = new BFS(g);
-        assertEquals(18, pathfinder.run());
+        assertEquals(9 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
     @Test
@@ -33,7 +35,7 @@ public class BFSTest {
         }
 
         Pathfinder pathfinder = new BFS(g);
-        assertEquals(-1, pathfinder.run());
+        assertEquals(-1, pathfinder.run(), eps);
     }
 
 }

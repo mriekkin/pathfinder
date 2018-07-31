@@ -16,13 +16,15 @@ import pathfinder.logic.Node;
  */
 public abstract class AbstractPathfinder implements Pathfinder {
 
+    private static final double SQRT2 = Math.sqrt(2);
+
     /**
      * The graph used by this pathfinder.
      */
     protected final Graph g;
 
     private boolean[][] visited;
-    private int[][] dist;
+    private double[][] dist;
     private Node[][] pred;
     private List<Node> path;
 
@@ -34,7 +36,7 @@ public abstract class AbstractPathfinder implements Pathfinder {
     public AbstractPathfinder(Graph g) {
         this.g = g;
         this.visited = new boolean[g.getRows()][g.getCols()];
-        this.dist = new int[g.getRows()][g.getCols()];
+        this.dist = new double[g.getRows()][g.getCols()];
         this.pred = new Node[g.getRows()][g.getCols()];
 
         init();
@@ -74,7 +76,7 @@ public abstract class AbstractPathfinder implements Pathfinder {
     }
 
     @Override
-    public int getDist(Node u) {
+    public double getDist(Node u) {
         return dist[u.y()][u.x()];
     }
 
@@ -99,7 +101,7 @@ public abstract class AbstractPathfinder implements Pathfinder {
      * @param u the node whose distance is to be updated
      * @param dist the new distance to the specified node
      */
-    protected void setDist(Node u, int dist) {
+    protected void setDist(Node u, double dist) {
         this.dist[u.y()][u.x()] = dist;
     }
 
@@ -111,6 +113,21 @@ public abstract class AbstractPathfinder implements Pathfinder {
      */
     protected void setPred(Node u, Node pred) {
         this.pred[u.y()][u.x()] = pred;
+    }
+
+    /**
+     * Returns the distance between two adjacent nodes. Returns 1 for horizontal
+     * and vertical neighbours and sqrt(2) for diagonal neighbours.
+     *
+     * @param u the current node
+     * @param neighbour the neighbour whose distance is to be returned
+     * @return the distance between the two nodes
+     */
+    protected double getDistAdj(Node u, Node neighbour) {
+        if (u.x() == neighbour.x() || u.y() == neighbour.y())
+            return 1; // Horizontal or vertical neighbour
+
+        return SQRT2; // Diagonal neighbour
     }
 
     @Override

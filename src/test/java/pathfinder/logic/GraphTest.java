@@ -67,37 +67,47 @@ public class GraphTest {
     @Test
     public void neighboursReturnsListOfAdjacentWalkableCells() {
         List<Node> n = g.neighbours(5, 5);
-        assertEquals(4, n.size());
-        assertEquals("(5, 4)", n.get(0).toString());
-        assertEquals("(6, 5)", n.get(1).toString());
-        assertEquals("(5, 6)", n.get(2).toString());
+        assertEquals(8, n.size());
+        assertEquals("(4, 4)", n.get(0).toString());
+        assertEquals("(5, 4)", n.get(1).toString());
+        assertEquals("(6, 4)", n.get(2).toString());
         assertEquals("(4, 5)", n.get(3).toString());
+        assertEquals("(6, 5)", n.get(4).toString());
+        assertEquals("(4, 6)", n.get(5).toString());
+        assertEquals("(5, 6)", n.get(6).toString());
+        assertEquals("(6, 6)", n.get(7).toString());
     }
 
     @Test
     public void neighboursExcludesUnwalkableCells() {
+        g.getNode(4, 4).setWalkable(false);
         g.getNode(5, 4).setWalkable(false);
-        g.getNode(6, 5).setWalkable(false);
-        g.getNode(5, 6).setWalkable(false);
+        g.getNode(6, 4).setWalkable(false);
         g.getNode(4, 5).setWalkable(false);
+        g.getNode(6, 5).setWalkable(false);
+        g.getNode(4, 6).setWalkable(false);
+        g.getNode(5, 6).setWalkable(false);
+        g.getNode(6, 6).setWalkable(false);
         List<Node> n = g.neighbours(5, 5);
         assertTrue(n.isEmpty());
     }
 
     @Test
-    public void neighboursWorksInTheLowerLeftCorner() {
+    public void neighboursWorksInTheUpperLeftCorner() {
         List<Node> n = g.neighbours(0, 0);
-        assertEquals(2, n.size());
+        assertEquals(3, n.size());
         assertEquals("(1, 0)", n.get(0).toString());
         assertEquals("(0, 1)", n.get(1).toString());
+        assertEquals("(1, 1)", n.get(2).toString());
     }
 
     @Test
-    public void neighboursWorksInTheUpperRightCorner() {
+    public void neighboursWorksInTheLowerRightCorner() {
         List<Node> n = g.neighbours(9, 19);
-        assertEquals(2, n.size());
-        assertEquals("(9, 18)", n.get(0).toString());
-        assertEquals("(8, 19)", n.get(1).toString());
+        assertEquals(3, n.size());
+        assertEquals("(8, 18)", n.get(0).toString());
+        assertEquals("(9, 18)", n.get(1).toString());
+        assertEquals("(8, 19)", n.get(2).toString());
     }
 
     @Test

@@ -31,7 +31,7 @@ public class Dijkstra extends AbstractPathfinder {
     }
 
     @Override
-    public int run() {
+    public double run() {
         init();
         Node end = g.getEnd();
         while (!q.isEmpty()) {
@@ -42,8 +42,10 @@ public class Dijkstra extends AbstractPathfinder {
             if (u.equals(end)) break;
 
             for (Node v : g.neighbours(u)) {
-                if (getDist(v) > getDist(u) + 1) {
-                    setDist(v, getDist(u) + 1);
+                double alt = getDist(u) + getDistAdj(u, v);
+
+                if (getDist(v) > alt) {
+                    setDist(v, alt);
                     setPred(v, u);
                     q.add(new PriorityNode(v, getDist(v)));
                 }

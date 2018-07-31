@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 public class DijkstraTest {
 
+    public static final double eps = 0.00001;
+
     @Test
     public void findReturnsCorrectPathLength() {
         Pair dimensions = new Pair(10, 10);
@@ -14,7 +16,7 @@ public class DijkstraTest {
         Pair end = new Pair(9, 9);
         Graph g = new Graph(dimensions, start, end);
         Pathfinder pathfinder = new Dijkstra(g);
-        assertEquals(18, pathfinder.run());
+        assertEquals(9 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
     @Test
@@ -29,7 +31,7 @@ public class DijkstraTest {
         }
 
         Pathfinder pathfinder = new Dijkstra(g);
-        assertEquals(-1, pathfinder.run());
+        assertEquals(-1, pathfinder.run(), eps);
     }
 
 }

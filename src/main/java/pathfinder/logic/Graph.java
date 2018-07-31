@@ -137,10 +137,10 @@ public class Graph {
     /**
      * Returns the list of neighbours for the specified node.
      * <p>
-     * Adjacent nodes are called neighbours and are connected by vertices. This
+     * Adjacent nodes are called neighbours and are connected by edges. This
      * implementation connects the usual horizontal and vertical neighbours (N,
-     * E, S, W) but ignores diagonal neighbours. Hence a cell has at most 4
-     * neighbours. A node is connected only to those neighbours which are
+     * E, S, W) and diagonal neighbours (NE, NW, SE, SW). Hence a cell has at
+     * most 8 neighbours. A node is connected only to those neighbours which are
      * walkable. Obstacles are not connected.
      *
      * @param u the node whose neighbours are to be returned
@@ -154,10 +154,10 @@ public class Graph {
      * Returns the list of neighbours for the node at the specified coordinates
      * in this grid.
      * <p>
-     * Adjacent nodes are called neighbours and are connected by vertices. This
+     * Adjacent nodes are called neighbours and are connected by edges. This
      * implementation connects the usual horizontal and vertical neighbours (N,
-     * E, S, W) but ignores diagonal neighbours. Hence a cell has at most 4
-     * neighbours. A node is connected only to those neighbours which are
+     * E, S, W) and diagonal neighbours (NE, NW, SE, SW). Hence a cell has at
+     * most 8 neighbours. A node is connected only to those neighbours which are
      * walkable. Obstacles are not connected.
      *
      * @param x the x-coordinate of the node in this grid
@@ -165,25 +165,55 @@ public class Graph {
      * @return the list of neighbours for the node at the specified coordinates
      */
     public List<Node> neighbours(int x, int y) {
-        ArrayList<Node> adj = new ArrayList<>(4);
+        ArrayList<Node> neighbours = new ArrayList<>(8);
 
-        if (y > 0 && getNode(x, y-1).isWalkable()) {
-            adj.add(getNode(x, y-1));
+        getNeighboursAbove(x, y, neighbours);
+        getNeighboursMiddle(x, y, neighbours);
+        getNeighboursBelow(x, y, neighbours);
+
+        return neighbours;
+    }
+
+    private void getNeighboursAbove(int x, int y, ArrayList<Node> neighbours) {
+        if (isOk(x-1, y-1) && getNode(x-1, y-1).isWalkable()) {
+            neighbours.add(getNode(x-1, y-1));
         }
 
-        if (x+1 < cols && getNode(x+1, y).isWalkable()) {
-            adj.add(getNode(x+1, y));
+        if (isOk(x, y-1) && getNode(x, y-1).isWalkable()) {
+            neighbours.add(getNode(x, y-1));
         }
 
-        if (y+1 < rows && getNode(x, y+1).isWalkable()) {
-            adj.add(getNode(x, y+1));
+        if (isOk(x+1, y-1) && y > 0 && getNode(x+1, y-1).isWalkable()) {
+            neighbours.add(getNode(x+1, y-1));
+        }
+    }
+
+    private void getNeighboursMiddle(int x, int y, ArrayList<Node> neighbours) {
+        if (isOk(x-1, y) && getNode(x-1, y).isWalkable()) {
+            neighbours.add(getNode(x-1, y));
         }
 
-        if (x > 0 && getNode(x-1, y).isWalkable()) {
-            adj.add(getNode(x-1, y));
+        if (isOk(x+1, y) && getNode(x+1, y).isWalkable()) {
+            neighbours.add(getNode(x+1, y));
+        }
+    }
+
+    private void getNeighboursBelow(int x, int y, ArrayList<Node> neighbours) {
+        if (isOk(x-1, y+1) && getNode(x-1, y+1).isWalkable()) {
+            neighbours.add(getNode(x-1, y+1));
         }
 
-        return adj;
+        if (isOk(x, y+1) && getNode(x, y+1).isWalkable()) {
+            neighbours.add(getNode(x, y+1));
+        }
+
+        if (isOk(x+1, y+1) && getNode(x+1, y+1).isWalkable()) {
+            neighbours.add(getNode(x+1, y+1));
+        }
+    }
+
+    private boolean isOk(int x, int y) {
+        return x >= 0 && y >= 0 && x < cols && y < rows;
     }
 
 }
