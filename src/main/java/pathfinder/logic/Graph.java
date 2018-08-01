@@ -67,7 +67,7 @@ public class Graph {
      */
     public final Node getNode(int x, int y) {
         if (x < 0 || y < 0 || x >= cols || y >= rows) {
-            throw new IllegalArgumentException("Coordinates out of range (" + x + ", " + y + ")");
+            return null;
         }
 
         return nodes[y][x];

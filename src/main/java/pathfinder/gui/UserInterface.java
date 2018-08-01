@@ -25,7 +25,7 @@ import pathfinder.logic.pathfinders.*;
  */
 public class UserInterface implements Runnable, PropertyChangeListener {
 
-    private static final String[] ALGORITHMS = new String[]{"Dijkstra", "A*"};
+    private static final String[] ALGORITHMS = new String[]{"Dijkstra", "A*", "Jump point search"};
 
     private final CurrentGraph current;
     private Pathfinder pathfinder;
@@ -153,6 +153,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
         switch (algorithm.getSelectedIndex()) {
             case 0: return new Dijkstra(graph);
             case 1: return new AStar(graph);
+            case 2: return new JumpPointSearch(graph);
             default: return null;
         }
     }

@@ -3,14 +3,9 @@ package pathfinder.logic;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 public class GraphTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     Graph g;
 
@@ -27,31 +22,23 @@ public class GraphTest {
     }
 
     @Test
-    public void getNodeThrowsExceptionForNegativeX() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Coordinates out of range (-1, 0)");
-        g.getNode(-1, 0);
+    public void getNodeReturnsNullForNegativeX() {
+        assertNull(g.getNode(-1, 0));
     }
 
     @Test
-    public void getNodeThrowsExceptionForNegativeY() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Coordinates out of range (0, -1)");
-        g.getNode(0, -1);
+    public void getNodeReturnsNullForNegativeY() {
+        assertNull(g.getNode(0, -1));
     }
 
     @Test
-    public void getNodeThrowsExceptionTooLargeX() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Coordinates out of range (10, 19)");
-        g.getNode(10, 19);
+    public void getNodeReturnsNullForTooLargeX() {
+        assertNull(g.getNode(10, 19));
     }
 
     @Test
-    public void getNodeThrowsExceptionTooLargeY() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Coordinates out of range (9, 20)");
-        g.getNode(9, 20);
+    public void getNodeReturnsNullForTooLargeY() {
+        assertNull(g.getNode(9, 20));
     }
 
     @Test
