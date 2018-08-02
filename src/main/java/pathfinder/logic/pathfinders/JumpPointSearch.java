@@ -8,6 +8,8 @@ import pathfinder.logic.Node;
 
 public class JumpPointSearch extends AbstractPathfinder {
 
+    private static final double SQRT2 = Math.sqrt(2);
+
     private PriorityQueue<PriorityNode> q;
 
     public JumpPointSearch(Graph g) {
@@ -35,14 +37,9 @@ public class JumpPointSearch extends AbstractPathfinder {
             if (u.equals(dest)) break;
 
             for (Node v : identifySuccessors(u)) {
-                double alt = getDist(u) + getDistAdj(u, v);
-
-                if (getDist(v) > alt) {
-                    setDist(v, alt);
-                    setPred(v, u);
-                    double priority = getDist(v) + heuristic(v, dest);
-                    q.add(new PriorityNode(v, priority));
-                }
+                setPred(v, u);
+                double priority = getDist(v) + heuristic(v, dest);
+                q.add(new PriorityNode(v, priority));
             }
         }
 
@@ -54,11 +51,38 @@ public class JumpPointSearch extends AbstractPathfinder {
         return getDist(dest);
     }
 
+    private double heuristic(Node a, Node b) {
+        return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
+    }
+
+    private double dist(Node x, Node n) {
+        return octileDist(x, n);
+    }
+
+    private double octileDist(Node a, Node b) {
+        int dx = Math.abs(b.x() - a.x());
+        int dy = Math.abs(b.y() - a.y());
+        return 1 * (dx + dy) + (SQRT2 - 2 * 1) * Math.min(dx, dy);
+    }
+
     private List<Node> identifySuccessors(Node x) {
         List<Node> successors = new ArrayList<>();
         List<Node> neighbours = getPrunedNeighbours(getPred(x), x);
+        
+        for (Node n : neighbours) {
+            int dx = n.x() - x.x();
+            int dy = n.y() - x.y();
+            
+            n = jump(x, dx, dy);
+            
+            if (n != null) {
+                successors.add(n);
+                setDist(n, getDist(x) + dist(x, n));
+            }
+        }
 
-        return neighbours;
+        //return neighbours;
+        return successors;
     }
 
     protected List<Node> getPrunedNeighbours(Node p, Node u) {
@@ -128,10 +152,6 @@ public class JumpPointSearch extends AbstractPathfinder {
         return neighbours;
     }
 
-    private double heuristic(Node a, Node b) {
-        return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
-    }
-
     private int clamp(int val, int min, int max) {
         return Math.max(min, Math.min(max, val));
     }
@@ -151,6 +171,84 @@ public class JumpPointSearch extends AbstractPathfinder {
         }
 
         list.add(g.getNode(x, y));
+    }
+    
+    protected Node jump(Node x, int dx, int dy) {
+        Node n = step(x, dx, dy);
+        if (n == null || !n.isWalkable()) {
+            return null;
+        }
+        
+        if (n.equals(g.getDest())) {
+            return n;
+        }
+        
+        if (hasForcedNeighbour(x, n)) {
+            return n;
+        }
+        
+        if (dx != 0 && dy != 0) {
+            if (jump(n, dx, 0) != null) {
+                return n;
+            }
+            
+            if (jump(n, 0, dy) != null) {
+                return n;
+            }
+        }
+        
+        return jump(n, dx, dy);
+    }
+    
+    private Node step(Node x, int dx, int dy) {
+        return g.getNode(x.x() + dx, x.y() + dy);
+    }
+
+    private boolean hasForcedNeighbour(Node p, Node u) {
+        int x = u.x();
+        int y = u.y();
+        int dx = clamp(u.x() - p.x(), -1, 1);
+        int dy = clamp(u.y() - p.y(), -1, 1);
+
+        if (dy == 0) {
+            // A horizontal move
+
+            // Forced neighbours
+            // Return true if there's an obstacle on the path and the node itself is walkable
+            if (!isWalkable(x, y - 1) && isWalkable(x + dx, y - 1)) {
+                return true;
+            }
+
+            if (!isWalkable(x, y + 1) && isWalkable(x + dx, y + 1)) {
+                return true;
+            }
+        } else if (dx == 0) {
+            // A vertical move
+
+            // Forced neighbours
+            // Return true if there's an obstacle on the path and the node itself is walkable
+            if (!isWalkable(x - 1, y) && isWalkable(x - 1, y + dy)) {
+                return true;
+            }
+
+            if (!isWalkable(x + 1, y) && isWalkable(x + 1, y + dy)) {
+                return true;
+            }
+        } else {
+            // A diagonal move
+
+            // Forced neighbours
+            // Return true if there's an obstacle on the path and the node itself is walkable
+            if (!isWalkable(x - dx, y) && isWalkable(x - dx, y + dy)) {
+                return true;
+            }
+
+            if (!isWalkable(x, y - dy) && isWalkable(x + dx, y - dy)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
 }
