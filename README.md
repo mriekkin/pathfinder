@@ -14,5 +14,6 @@ This is a student project for the [algorithms and data structures](https://githu
 ### Weekly progress reports
 
 * [Weekly report #1](https://github.com/mriekkin/pathfinder/blob/master/doc/Weekly_report_1.md)
+* [Weekly report #2](https://github.com/mriekkin/pathfinder/blob/master/doc/Weekly_report_2.md)
 
 ### [Hour reporting](https://github.com/mriekkin/pathfinder/blob/master/doc/Hour_reporting.md)
