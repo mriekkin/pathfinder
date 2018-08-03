@@ -43,14 +43,12 @@ public abstract class AbstractPathfinder implements Pathfinder {
     }
 
     /**
-     * Initializes this pathfinder. One should recognize that <code>init</code>
-     * must be called before calling <code>run</code>. The initial call,
-     * however, is handled by the constructor of this class. Hence the users of
-     * this class may just call <code>run</code>.
+     * Initializes this pathfinder.
      * <p>
-     * If <code>init</code> is called again it resets this pathfinder into its
-     * initial state. One may then call <code>run</code> again. In this way it
-     * is possible to repeat the same algorithm multiple times.
+     * Each invocation of <code>run</code> begins with a call to
+     * <code>init</code>. Hence the users of this class don't have to call
+     * <code>init</code> themselves. However, if <code>init</code> is called, it
+     * resets this pathfinder into its initial state.
      */
     protected void init() {
         for (int y = 0; y < g.getRows(); y++) {
