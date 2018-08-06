@@ -37,15 +37,20 @@ public class GraphReader {
     private static void processNode(Graph g, Node node, char c) {
         switch (c) {
             // Passable terrain
-            case '.': node.setWalkable(true); break;
+            case '.':
+            case 'G':
+            case 'S': node.setWalkable(true); break;
 
             // Impassable terrain
-            case '#': node.setWalkable(false); break;
-            case '@': node.setWalkable(false); break;
+            case '#':
+            case '@':
+            case 'O':
+            case 'T':
+            case 'W': node.setWalkable(false); break;
 
-            // The source (S) and destination (E) nodes
-            case 'S': g.setSource(node); break;
-            case 'E': g.setDest(node); break;
+            // The source (A) and destination (B) nodes
+            case 'A': g.setSource(node); break;
+            case 'B': g.setDest(node); break;
         }
     }
 
