@@ -1,6 +1,7 @@
 package pathfinder.gui;
 
 import javax.swing.UIManager;
+import pathfinder.benchmark.Benchmark;
 import pathfinder.logic.*;
 
 /**
@@ -13,10 +14,23 @@ public class App {
     /**
      * Application entry point. Performs initial setup and launches the
      * application.
-     * 
+     *
      * @param args command line arguments
      */
     public static void main(String[] args) {
+        if (args.length > 0 && args[0].equalsIgnoreCase("-b")) {
+            runBenchmarkingMode(args);
+            return;
+        }
+
+        runVisualizationMode();
+    }
+
+    private static void runBenchmarkingMode(String[] args) {
+        new Benchmark(args).run();
+    }
+
+    private static void runVisualizationMode() {
         // This needs to be done first
         setSystemLaf();
 
