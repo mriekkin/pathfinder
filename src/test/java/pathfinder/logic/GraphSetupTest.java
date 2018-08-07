@@ -12,11 +12,11 @@ public class GraphSetupTest {
     @Test
     public void testSetupSmallGrid() {
         Pair dimensions = new Pair(10, 10);
-        Pair source = new Pair(0, 0);
-        Pair dest = new Pair(9, 0);
+        Pair source = new Pair(0, 9);
+        Pair dest = new Pair(9, 9);
         Graph g = new Graph(dimensions, source, dest);
 
-        for (int y = 0; y < 9; y++) {
+        for (int y = 1; y < 10; y++) {
             g.getNode(5, y).setWalkable(false);
         }
 
@@ -30,7 +30,7 @@ public class GraphSetupTest {
                 + ".....#....\n"
                 + ".....#....\n"
                 + ".....#....\n"
-                + "S....#...E",
+                + "A....#...B",
                 GraphWriter.plotGrid(g));
     }
 
@@ -38,7 +38,7 @@ public class GraphSetupTest {
     public void testSetupBigGrid() {
         Pair dimensions = new Pair(30, 15);
         Pair source = new Pair(8, 7);
-        Pair dest = new Pair(17, 12);
+        Pair dest = new Pair(17, 2);
         Graph g = new Graph(dimensions, source, dest);
 
         for (int y = 3; y <= 11; y++) {
@@ -46,17 +46,17 @@ public class GraphSetupTest {
             g.getNode(4, y).setWalkable(false);
         }
 
-        for (int y = 0; y <= 10; y++) {
+        for (int y = 4; y <= 14; y++) {
             g.getNode(13, y).setWalkable(false);
             g.getNode(14, y).setWalkable(false);
         }
 
-        for (int y = 8; y < 15; y++) {
+        for (int y = 0; y <= 6; y++) {
             g.getNode(21, y).setWalkable(false);
             g.getNode(22, y).setWalkable(false);
         }
 
-        for (int y = 8; y <= 9; y++) {
+        for (int y = 5; y <= 6; y++) {
             g.getNode(23, y).setWalkable(false);
             g.getNode(24, y).setWalkable(false);
             g.getNode(25, y).setWalkable(false);
@@ -65,12 +65,12 @@ public class GraphSetupTest {
         assertEquals(""
                 + ".....................##.......\n"
                 + ".....................##.......\n"
-                + ".................E...##.......\n"
+                + ".................B...##.......\n"
                 + "...##................##.......\n"
                 + "...##........##......##.......\n"
                 + "...##........##......#####....\n"
                 + "...##........##......#####....\n"
-                + "...##...S....##...............\n"
+                + "...##...A....##...............\n"
                 + "...##........##...............\n"
                 + "...##........##...............\n"
                 + "...##........##...............\n"

@@ -17,10 +17,10 @@ public class GraphReader {
             Graph g = new Graph(dimensions, tmp, tmp);
 
             String nodes;
-            int row = g.getRows() - 1;
+            int row = 0;
             while ((nodes = reader.readLine()) != null) {
                 processRow(g, row, nodes);
-                row--;
+                row++;
             }
 
             return g;
