@@ -17,8 +17,6 @@ import pathfinder.logic.Node;
  */
 public class JumpPointSearch extends AbstractPathfinder {
 
-    private static final double SQRT2 = Math.sqrt(2);
-
     private PriorityQueue<PriorityNode> q;
     private final NeighbourPruningRules prune;
     private final Jump jump;
@@ -96,17 +94,11 @@ public class JumpPointSearch extends AbstractPathfinder {
     }
 
     private double heuristic(Node a, Node b) {
-        return octileDist(a, b);
+        return Heuristics.octileDist(a, b);
     }
 
     private double dist(Node x, Node n) {
-        return octileDist(x, n);
-    }
-
-    private double octileDist(Node a, Node b) {
-        int dx = Math.abs(b.x() - a.x());
-        int dy = Math.abs(b.y() - a.y());
-        return 1 * (dx + dy) + (SQRT2 - 2 * 1) * Math.min(dx, dy);
+        return Heuristics.octileDist(x, n);
     }
 
 }

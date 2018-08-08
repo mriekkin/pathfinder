@@ -61,7 +61,7 @@ public class AStar extends AbstractPathfinder {
     }
 
     private double heuristic(Node a, Node b) {
-        return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
+        return Heuristics.octileDist(a, b);
     }
 
 }
