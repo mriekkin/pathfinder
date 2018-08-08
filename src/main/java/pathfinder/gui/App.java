@@ -27,7 +27,12 @@ public class App {
     }
 
     private static void runBenchmarkingMode(String[] args) {
-        new Benchmark(args).run();
+        if (args.length < 2) {
+            System.out.println("No scenario file specified");
+            return;
+        }
+
+        new Benchmark(args[1]).run();
     }
 
     private static void runVisualizationMode() {
