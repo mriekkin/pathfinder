@@ -178,7 +178,9 @@ public class Graph {
     }
 
     private void getNeighboursAbove(int x, int y, ArrayList<Node> neighbours) {
-        if (isOk(x-1, y-1) && getNode(x-1, y-1).isWalkable()) {
+        if (isOk(x-1, y-1) && getNode(x-1, y-1).isWalkable()
+                && getNode(x-1, y).isWalkable()
+                && getNode(x, y-1).isWalkable()) {
             neighbours.add(getNode(x-1, y-1));
         }
 
@@ -186,7 +188,9 @@ public class Graph {
             neighbours.add(getNode(x, y-1));
         }
 
-        if (isOk(x+1, y-1) && y > 0 && getNode(x+1, y-1).isWalkable()) {
+        if (isOk(x+1, y-1) && getNode(x+1, y-1).isWalkable()
+                && getNode(x+1, y).isWalkable()
+                && getNode(x, y-1).isWalkable()) {
             neighbours.add(getNode(x+1, y-1));
         }
     }
@@ -202,7 +206,9 @@ public class Graph {
     }
 
     private void getNeighboursBelow(int x, int y, ArrayList<Node> neighbours) {
-        if (isOk(x-1, y+1) && getNode(x-1, y+1).isWalkable()) {
+        if (isOk(x-1, y+1) && getNode(x-1, y+1).isWalkable()
+                && getNode(x-1, y).isWalkable()
+                && getNode(x, y+1).isWalkable()) {
             neighbours.add(getNode(x-1, y+1));
         }
 
@@ -210,7 +216,9 @@ public class Graph {
             neighbours.add(getNode(x, y+1));
         }
 
-        if (isOk(x+1, y+1) && getNode(x+1, y+1).isWalkable()) {
+        if (isOk(x+1, y+1) && getNode(x+1, y+1).isWalkable()
+                && getNode(x+1, y).isWalkable()
+                && getNode(x, y+1).isWalkable()) {
             neighbours.add(getNode(x+1, y+1));
         }
     }
