@@ -30,6 +30,12 @@ public class ScenarioReaderTest {
     }
 
     @Test
+    public void canReadEmptyFileWithNoErrors() throws ScenarioFileException, IOException {
+        List<Experiment> experiments = reader.read(Paths.get("grids/tests/empty_file.map.scen"));
+        assertEquals(0, experiments.size());
+    }
+
+    @Test
     public void throwsExceptionIfVersionNumberOtherThan1() throws ScenarioFileException, IOException {
         thrown.expect(ScenarioFileException.class);
         thrown.expectMessage("Invalid version number");

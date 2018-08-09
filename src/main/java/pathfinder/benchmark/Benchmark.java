@@ -13,9 +13,11 @@ public class Benchmark {
 
     private List<Experiment> experiments;
     private Path mapDirectory;
+    private Timer timer;
 
     public Benchmark(String scenarioFile) {
         loadScenario(scenarioFile);
+        timer = new Timer();
     }
 
     private void loadScenario(String file) {
@@ -42,7 +44,9 @@ public class Benchmark {
         }
 
         try {
-            RunExperiments runner = new RunExperiments(experiments, REPLICATES, mapDirectory);
+            RunScenario runner = new RunScenario(experiments, REPLICATES,
+                    mapDirectory, timer, System.out);
+
             runner.run();
         } catch (IOException e) {
             System.out.println("Cannot run scenario");

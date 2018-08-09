@@ -1,24 +1,34 @@
 package pathfinder.benchmark;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.file.Path;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
-import pathfinder.logic.Node;
 import pathfinder.logic.pathfinders.*;
 
-public class RunExperiments {
+public class RunScenario {
 
     private final List<Experiment> experiments;
     private final int replicates;
     private final Path mapDirectory;
+    private final Timer timer;
+    private final PrintStream out;
+    private final DecimalFormat format;
 
-    public RunExperiments(List<Experiment> experiments, int replicates, Path mapDirectory) {
+    public RunScenario(List<Experiment> experiments, int replicates,
+            Path mapDirectory, Timer timer, OutputStream out) {
         this.experiments = experiments;
         this.replicates = replicates;
         this.mapDirectory = mapDirectory;
+        this.timer = timer;
+        this.out = new PrintStream(out);
+        this.format = getDistFormat();
     }
 
     public void run() throws IOException {
@@ -29,11 +39,13 @@ public class RunExperiments {
         // We assume that in one scenario file all experiments use the same map
         Graph g = loadFirstGraph();
         List<Pathfinder> algorithms = getAlgorithms(g);
+        RunExperiment runner = new RunExperiment(g, algorithms, replicates, timer);
 
-        System.out.println("Results");
+        out.println("Results");
 
         for (Experiment e : experiments) {
-            runExperiment(g, e, algorithms);
+            Result[] results = runner.run(e);
+            printRow(e, results);
         }
     }
 
@@ -45,45 +57,10 @@ public class RunExperiments {
         return algorithms;
     }
 
-    private void runExperiment(Graph g, Experiment e, List<Pathfinder> algorithms) {
-        updateSourceAndDest(g, e);
-
-        Result[] results = new Result[algorithms.size()];
-        for (int i = 0; i < algorithms.size(); i++) {
-            results[i] = runAlgorithm(e, algorithms.get(i));
-        }
-
-        printRow(e, results);
-    }
-
-    private Result runAlgorithm(Experiment e, Pathfinder algorithm) {
-        long time = 0;
-        double dist = 0;
-        for (int i = 0; i < replicates; i++) {
-            // Time one pathfinding operation (one replicate)
-            long start = System.currentTimeMillis();
-            dist += algorithm.run();
-            long end = System.currentTimeMillis();
-
-            time += end - start;
-        }
-
-        time = time / replicates; // Average over replicates
-        dist = dist / replicates;
-        return new Result(e, time, dist);
-    }
-
     private Graph loadFirstGraph() throws IOException {
         String mapName = experiments.get(0).getMap();
         Path mapFile = mapDirectory.resolve(mapName);
         return GraphReader.readFile(mapFile);
-    }
-
-    private void updateSourceAndDest(Graph g, Experiment e) {
-        Node source = g.getNode(e.getSourceX(), e.getSourceY());
-        Node dest = g.getNode(e.getDestX(), e.getDestY());
-        g.setSource(source);
-        g.setDest(dest);
     }
 
     private void printRow(Experiment e, Result[] results) {
@@ -96,10 +73,16 @@ public class RunExperiments {
 
         for (Result result : results) {
             row.append("\t");
-            row.append(result.getDist());
+            row.append(format.format(result.getDist()));
         }
 
-        System.out.println(row);
+        out.println(row);
+    }
+
+    private DecimalFormat getDistFormat() {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        return new DecimalFormat("0.00000000", symbols);
     }
 
 }
