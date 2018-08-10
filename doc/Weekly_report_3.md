@@ -1,8 +1,8 @@
-# Week 2
+# Week 3
 
 [Hour reporting](Hour_reporting.md)
 
-## What happened during week 2
+## What happened during week 3
 
 In this week I designed and implemented the benchmark mode.
 
