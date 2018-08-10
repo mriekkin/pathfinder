@@ -17,3 +17,13 @@
 | 1.8.   | Wed     | 8 h   | Research, implemented neighbour pruning rules for JPS  |
 | 2.8.   | Thu     | 5 h   | Implemented jumping for JPS -> first version of JPS    |
 | 3.8.   | Fri     | 5 h   | Revised the first version of JPS, second weekly report |
+
+## Week 3
+
+| Date   | Weekday | Hours | What was done                                          |
+| ------ | ------- | ----- | ------------------------------------------------------ |
+| 6.8.   | Mon     | 4 h   | Research: studied the paper by Sturtevant              |
+| 7.8.   | Tue     | 8 h   | The first draft of the benchmark mode                  |
+| 8.8.   | Wed     | 8 h   | The second draft of the benchmark mode                 |
+| 9.8.   | Thu     | 8 h   | The third draft of the benchmark mode                  |
+| 10.8.  | Fri     | 8 h   | Completed the benchmark mode (first complete version)  |
