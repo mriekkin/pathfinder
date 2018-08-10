@@ -36,16 +36,16 @@ public class ScenarioReaderTest {
     }
 
     @Test
+    public void throwsExceptionIfNoSuchFileExists() throws ScenarioFileException, IOException {
+        thrown.expect(NoSuchFileException.class);
+        reader.read(Paths.get("grids/tests/non-existent_file.map.scen"));
+    }
+
+    @Test
     public void throwsExceptionIfVersionNumberOtherThan1() throws ScenarioFileException, IOException {
         thrown.expect(ScenarioFileException.class);
         thrown.expectMessage("Invalid version number");
         reader.read(Paths.get("grids/tests/invalid_version.map.scen"));
-    }
-
-    @Test
-    public void throwsExceptionIfNoSuchFileExists() throws ScenarioFileException, IOException {
-        thrown.expect(NoSuchFileException.class);
-        reader.read(Paths.get("grids/tests/non-existent_file.map.scen"));
     }
 
 }

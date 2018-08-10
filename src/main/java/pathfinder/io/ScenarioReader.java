@@ -49,7 +49,7 @@ public class ScenarioReader {
 
     private void checkVersionNumber(final BufferedReader reader) throws ScenarioFileException, IOException {
         String firstLine = reader.readLine().toLowerCase();
-        if (!firstLine.equals("version 1")) {
+        if (!(firstLine.equals("version 1") || firstLine.equals("version 1.0"))) {
             throw new ScenarioFileException("Invalid version number", firstLine);
         }
     }

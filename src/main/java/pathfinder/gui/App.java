@@ -32,7 +32,7 @@ public class App {
             return;
         }
 
-        new Benchmark(args[1]).run();
+        new Benchmark(args[1], System.out).run();
     }
 
     private static void runVisualizationMode() {
