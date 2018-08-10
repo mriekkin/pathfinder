@@ -12,18 +12,31 @@ import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
 import pathfinder.logic.pathfinders.*;
 
+/**
+ * Runs individual scenarios, which consist of a list of experiments.
+ * <p>
+ * Typically this list of experiments is defined in a scenario file.
+ *
+ * @see RunExperiment
+ */
 public class RunScenario {
 
-    private final List<Experiment> experiments;
     private final int replicates;
     private final Path mapDirectory;
     private final Timer timer;
     private final PrintStream out;
     private final DecimalFormat format;
 
-    public RunScenario(List<Experiment> experiments, int replicates,
-            Path mapDirectory, Timer timer, OutputStream out) {
-        this.experiments = experiments;
+    /**
+     * Constructs a <code>RunScenario</code> object with the specified
+     * properties.
+     *
+     * @param replicates the number of times each experiment is to be repeated
+     * @param mapDirectory path of the directory which contains the map files
+     * @param timer a Timer object which is to be used for timing the operations
+     * @param out an output stream where the results are to be printed
+     */
+    public RunScenario(int replicates, Path mapDirectory, Timer timer, OutputStream out) {
         this.replicates = replicates;
         this.mapDirectory = mapDirectory;
         this.timer = timer;
@@ -31,13 +44,24 @@ public class RunScenario {
         this.format = getDistFormat();
     }
 
-    public void run() throws IOException {
+    /**
+     * Runs the specified list of experiments (one scenario) and prints out the
+     * results.
+     * <p>
+     * This method assumes that the specified experiments use the same map.
+     *
+     * @param experiments a list of experiments to be run
+     * @throws IOException if the map file referenced by the experiments cannot
+     * be read
+     */
+    public void run(List<Experiment> experiments) throws IOException {
         if (experiments.isEmpty()) {
             return;
         }
 
-        // We assume that in one scenario file all experiments use the same map
-        Graph g = loadFirstGraph();
+        // Since each scenario file refers to only one map
+        // we assume here that the specified experiments use the same map
+        Graph g = loadGraph(experiments.get(0));
         List<Pathfinder> algorithms = getAlgorithms(g);
         RunExperiment runner = new RunExperiment(g, algorithms, replicates, timer);
 
@@ -57,9 +81,9 @@ public class RunScenario {
         return algorithms;
     }
 
-    private Graph loadFirstGraph() throws IOException {
-        String mapName = experiments.get(0).getMap();
-        Path mapFile = mapDirectory.resolve(mapName);
+    private Graph loadGraph(Experiment e) throws IOException {
+        String filename = e.getMap();
+        Path mapFile = mapDirectory.resolve(filename);
         return GraphReader.readFile(mapFile);
     }
 

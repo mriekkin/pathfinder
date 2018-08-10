@@ -31,9 +31,9 @@ public class RunScenarioTest {
     @Test
     public void exampleScenarioPrintsExpectedResults() throws Exception {
         List<Experiment> experiments = new ScenarioReader().read(SCENARIO_FILE);
-        RunScenario runner = new RunScenario(experiments, REPLICATES, MAP_DIRECTORY, timer, out);
+        RunScenario runner = new RunScenario(REPLICATES, MAP_DIRECTORY, timer, out);
 
-        runner.run();
+        runner.run(experiments);
 
         // Column headers: bucket, time_Dijkstra, time_A*, dist_Dijkstra, dist_A*
         // Times are 1 because we use the stub timer which always returns 1
@@ -66,8 +66,8 @@ public class RunScenarioTest {
     @Test
     public void emptyScenarioPrintsNothing() throws Exception {
         List<Experiment> experiments = new ScenarioReader().read(Paths.get("grids/tests/empty_file.map.scen"));
-        RunScenario runner = new RunScenario(experiments, REPLICATES, MAP_DIRECTORY, timer, out);
-        runner.run();
+        RunScenario runner = new RunScenario(REPLICATES, MAP_DIRECTORY, timer, out);
+        runner.run(experiments);
         assertEquals("", outContent.toString());
     }
 

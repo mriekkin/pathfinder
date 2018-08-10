@@ -10,15 +10,33 @@ import java.util.List;
 import pathfinder.io.ScenarioFileException;
 import pathfinder.io.ScenarioReader;
 
+/**
+ * Main class for the benchmark mode.
+ * <p>
+ * The main job of this class is to wire things together. It delegates the
+ * majority of the work to {@link ScenarioReader} and {@link RunScenario}. This
+ * class also catches any exceptions, should they arise, and prints their
+ * contents.
+ */
 public class Benchmark {
 
+    /**
+     * The number of times each experiment should be replicated.
+     */
     public static final int REPLICATES = 10;
 
     private List<Experiment> experiments;
     private Path mapDirectory;
-    private Timer timer;
-    private PrintStream out;
+    private final Timer timer;
+    private final PrintStream out;
 
+    /**
+     * Constructs a <code>Benchmark</code> object with the specified scenario
+     * file and output stream. Loads the specified scenario file.
+     *
+     * @param scenarioFile a scenario file to be loaded
+     * @param out an output stream where the results are to be printed
+     */
     public Benchmark(String scenarioFile, OutputStream out) {
         this.out = new PrintStream(out);
         this.timer = new Timer();
@@ -45,16 +63,17 @@ public class Benchmark {
         }
     }
 
+    /**
+     * Runs the scenario which was specified upon construction.
+     */
     public void run() {
         if (experiments.isEmpty()) {
             return;
         }
 
         try {
-            RunScenario runner = new RunScenario(experiments, REPLICATES,
-                    mapDirectory, timer, out);
-
-            runner.run();
+            RunScenario runner = new RunScenario(REPLICATES, mapDirectory, timer, out);
+            runner.run(experiments);
         } catch (IOException e) {
             out.println("Cannot run scenario");
             out.println("   " + e);
