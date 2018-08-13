@@ -1,6 +1,5 @@
 package pathfinder.logic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +29,7 @@ public class Graph {
     private final int rows;
     private Node source;
     private Node dest;
+    private final Neighbours neighbours;
 
     /**
      * Constructs a <code>Graph</code> with the specified dimensions, and the
@@ -54,6 +54,7 @@ public class Graph {
 
         this.source = getNode(source.getLeft(), source.getRight());
         this.dest = getNode(destination.getLeft(), destination.getRight());
+        this.neighbours = new Neighbours(this, false);
     }
 
     /**
@@ -168,63 +169,7 @@ public class Graph {
      * @return the list of neighbours for the node at the specified coordinates
      */
     public List<Node> neighbours(int x, int y) {
-        ArrayList<Node> neighbours = new ArrayList<>(8);
-
-        getNeighboursAbove(x, y, neighbours);
-        getNeighboursMiddle(x, y, neighbours);
-        getNeighboursBelow(x, y, neighbours);
-
-        return neighbours;
-    }
-
-    private void getNeighboursAbove(int x, int y, ArrayList<Node> neighbours) {
-        if (isOk(x-1, y-1) && getNode(x-1, y-1).isWalkable()
-                && getNode(x-1, y).isWalkable()
-                && getNode(x, y-1).isWalkable()) {
-            neighbours.add(getNode(x-1, y-1));
-        }
-
-        if (isOk(x, y-1) && getNode(x, y-1).isWalkable()) {
-            neighbours.add(getNode(x, y-1));
-        }
-
-        if (isOk(x+1, y-1) && getNode(x+1, y-1).isWalkable()
-                && getNode(x+1, y).isWalkable()
-                && getNode(x, y-1).isWalkable()) {
-            neighbours.add(getNode(x+1, y-1));
-        }
-    }
-
-    private void getNeighboursMiddle(int x, int y, ArrayList<Node> neighbours) {
-        if (isOk(x-1, y) && getNode(x-1, y).isWalkable()) {
-            neighbours.add(getNode(x-1, y));
-        }
-
-        if (isOk(x+1, y) && getNode(x+1, y).isWalkable()) {
-            neighbours.add(getNode(x+1, y));
-        }
-    }
-
-    private void getNeighboursBelow(int x, int y, ArrayList<Node> neighbours) {
-        if (isOk(x-1, y+1) && getNode(x-1, y+1).isWalkable()
-                && getNode(x-1, y).isWalkable()
-                && getNode(x, y+1).isWalkable()) {
-            neighbours.add(getNode(x-1, y+1));
-        }
-
-        if (isOk(x, y+1) && getNode(x, y+1).isWalkable()) {
-            neighbours.add(getNode(x, y+1));
-        }
-
-        if (isOk(x+1, y+1) && getNode(x+1, y+1).isWalkable()
-                && getNode(x+1, y).isWalkable()
-                && getNode(x, y+1).isWalkable()) {
-            neighbours.add(getNode(x+1, y+1));
-        }
-    }
-
-    private boolean isOk(int x, int y) {
-        return x >= 0 && y >= 0 && x < cols && y < rows;
+        return neighbours.getNeighbours(x, y);
     }
 
 }
