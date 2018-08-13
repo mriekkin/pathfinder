@@ -54,9 +54,14 @@ public class JumpPointSearch extends AbstractPathfinder {
             if (u.equals(dest)) break;
 
             for (Node v : identifySuccessors(u)) {
-                setPred(v, u);
-                double priority = getDist(v) + heuristic(v, dest);
-                q.add(new PriorityNode(v, priority));
+                double alt = getDist(u) + dist(u, v);
+
+                if (getDist(v) > alt) {
+                    setDist(v, alt);
+                    setPred(v, u);
+                    double priority = getDist(v) + heuristic(v, dest);
+                    q.add(new PriorityNode(v, priority));
+                }
             }
         }
 
@@ -86,7 +91,6 @@ public class JumpPointSearch extends AbstractPathfinder {
 
             if (n != null) {
                 successors.add(n);
-                setDist(n, getDist(x) + dist(x, n));
             }
         }
 
