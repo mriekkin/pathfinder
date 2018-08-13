@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
+import pathfinder.logic.Neighbours;
 
 /**
  * Implements neighbour pruning rules for Jump point search.
@@ -20,9 +21,14 @@ import pathfinder.logic.Node;
 public class NeighbourPruningRules {
 
     private final Graph g;
+    private final Neighbours n;
 
     public NeighbourPruningRules(Graph g) {
         this.g = g;
+
+        // This returns the unpruned neighbours of a node
+        // For this we allow corner cutting
+        this.n = new Neighbours(g, true);
     }
 
     /**
@@ -36,7 +42,7 @@ public class NeighbourPruningRules {
         ArrayList<Node> neighbours = new ArrayList<>();
         if (p == null) {
             // No pruning for the source node
-            return g.neighbours(u);
+            return n.getNeighbours(u);
         }
 
         int x = u.x();
