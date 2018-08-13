@@ -2,6 +2,7 @@ package pathfinder.io;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import pathfinder.logic.Graph;
@@ -12,6 +13,12 @@ public class GraphReader {
 
     public static Graph readFile(Path path) throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(path)) {
+            return read(reader);
+        }
+    }
+
+    public static Graph read(Reader r) throws IOException {
+        try (BufferedReader reader = new BufferedReader(r)) {
             Pair dimensions = readHeader(reader);
             Pair tmp = new Pair(0, 0);
             Graph g = new Graph(dimensions, tmp, tmp);
