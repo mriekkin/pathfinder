@@ -1,8 +1,20 @@
-package pathfinder.logic;
+package pathfinder.logic.neighbours;
 
 import java.util.ArrayList;
 import java.util.List;
+import pathfinder.logic.Graph;
+import pathfinder.logic.Node;
 
+/**
+ * Implements the identification of neighbour nodes (with or without
+ * corner-cutting).
+ * <p>
+ * Adjacent nodes are called neighbours and are connected by edges. This
+ * implementation connects the usual horizontal and vertical neighbours (N, E,
+ * S, W) and diagonal neighbours (NE, NW, SE, SW). Hence a cell has at most 8
+ * neighbours. A node is connected only to those neighbours which are walkable.
+ * Obstacles are not connected.
+ */
 public class Neighbours {
 
     /**
@@ -29,12 +41,6 @@ public class Neighbours {
 
     /**
      * Returns the list of neighbours for the specified node.
-     * <p>
-     * Adjacent nodes are called neighbours and are connected by edges. This
-     * implementation connects the usual horizontal and vertical neighbours (N,
-     * E, S, W) and diagonal neighbours (NE, NW, SE, SW). Hence a cell has at
-     * most 8 neighbours. A node is connected only to those neighbours which are
-     * walkable. Obstacles are not connected.
      *
      * @param u the node whose neighbours are to be returned
      * @return the list of neighbours for the specified node
@@ -46,12 +52,6 @@ public class Neighbours {
     /**
      * Returns the list of neighbours for the node at the specified coordinates
      * in this grid.
-     * <p>
-     * Adjacent nodes are called neighbours and are connected by edges. This
-     * implementation connects the usual horizontal and vertical neighbours (N,
-     * E, S, W) and diagonal neighbours (NE, NW, SE, SW). Hence a cell has at
-     * most 8 neighbours. A node is connected only to those neighbours which are
-     * walkable. Obstacles are not connected.
      *
      * @param x the x-coordinate of the node in this grid
      * @param y the y-coordinate of the node in this grid

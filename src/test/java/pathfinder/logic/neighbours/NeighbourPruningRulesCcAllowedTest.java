@@ -1,4 +1,4 @@
-package pathfinder.logic.pathfinders;
+package pathfinder.logic.neighbours;
 
 import java.util.List;
 import org.junit.Before;
@@ -8,21 +8,21 @@ import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 import pathfinder.logic.Pair;
 
-public class NeighbourPruningRulesTest {
+public class NeighbourPruningRulesCcAllowedTest {
 
     Graph g;
 
     @Before
     public void setUp() {
         Pair dimensions = new Pair(10, 10);
-        Pair source = new Pair(0, 0);
+        Pair source = new Pair(1, 1);
         Pair dest = new Pair(9, 9);
         g = new Graph(dimensions, source, dest);
     }
 
     @Test
     public void returnsNaturalNeighboursForHorizontalMove() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 5);
         Node x = g.getNode(5, 5);
         List<Node> neighbours = prune.getPrunedNeighbours(p, x);
@@ -32,7 +32,7 @@ public class NeighbourPruningRulesTest {
 
     @Test
     public void returnsForcedNeighboursForHorizontalMove() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 5);
         Node x = g.getNode(5, 5);
         g.getNode(5, 4).setWalkable(false); // Add obstacles,
@@ -46,7 +46,7 @@ public class NeighbourPruningRulesTest {
 
     @Test
     public void returnsNaturalNeighboursForVerticalMove() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(5, 4);
         Node x = g.getNode(5, 5);
         List<Node> neighbours = prune.getPrunedNeighbours(p, x);
@@ -56,7 +56,7 @@ public class NeighbourPruningRulesTest {
 
     @Test
     public void returnsForcedNeighboursForVerticalMove() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(5, 4);
         Node x = g.getNode(5, 5);
         g.getNode(4, 5).setWalkable(false); // Add obstacles,
@@ -70,7 +70,7 @@ public class NeighbourPruningRulesTest {
 
     @Test
     public void returnsNaturalNeighboursForDiagonalMove() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 6);
         Node x = g.getNode(5, 5);
         List<Node> neighbours = prune.getPrunedNeighbours(p, x);
@@ -82,7 +82,7 @@ public class NeighbourPruningRulesTest {
 
     @Test
     public void returnsForcedNeighboursForDiagonalMove() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 6);
         Node x = g.getNode(5, 5);
         g.getNode(4, 5).setWalkable(false); // Add obstacles,
@@ -98,7 +98,7 @@ public class NeighbourPruningRulesTest {
 
     @Test
     public void doesNotReturnUnwalkableNaturalNeighbours() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 5); // Horizontal move
         Node x = g.getNode(5, 5);
         g.getNode(6, 5).setWalkable(false); // Block the 1 natural neighbour
@@ -108,7 +108,7 @@ public class NeighbourPruningRulesTest {
 
     @Test
     public void doesNotReturnUnwalkableForcedNeighbours() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 5); // Horizontal move
         Node x = g.getNode(5, 5);
         g.getNode(5, 4).setWalkable(false); // Add obstacles to get 2 forced neighbours
@@ -122,7 +122,7 @@ public class NeighbourPruningRulesTest {
 
     @Test
     public void irrelevantObstaclesDoNotCreateForcedNeighbours() {
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 5); // Horizontal move
         Node x = g.getNode(5, 5);
         g.getNode(4, 4).setWalkable(false); // Block all "irrelevant" neighbours,
@@ -130,6 +130,15 @@ public class NeighbourPruningRulesTest {
         List<Node> neighbours = prune.getPrunedNeighbours(p, x);
         assertEquals(1, neighbours.size()); // No forced neighbours (only the 1 natural neighbour)
         assertEquals("(6, 5)", neighbours.get(0).toString());
+    }
+
+    @Test
+    public void returnsUnprunedNeighboursForSourceNode() {
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
+        Node p = null; // The source node has no predecessor
+        Node x = g.getNode(1, 1);
+        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        assertEquals(8, neighbours.size()); // Returns all 8 possible neighbours
     }
 
 }

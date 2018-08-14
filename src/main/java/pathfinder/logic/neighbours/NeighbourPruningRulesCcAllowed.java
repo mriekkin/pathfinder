@@ -1,29 +1,34 @@
-package pathfinder.logic.pathfinders;
+package pathfinder.logic.neighbours;
 
 import java.util.ArrayList;
 import java.util.List;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
-import pathfinder.logic.Neighbours;
 
 /**
- * Implements neighbour pruning rules for Jump point search.
+ * Implements neighbour pruning rules for Jump point search (with
+ * corner-cutting).
  * <p>
  * Pruning eliminates nodes which do not have to be evaluated in order to reach
  * the destination node optimally. This class implements neighbour pruning rules
- * as described in the original JPS paper by Harabor and Grastien.
+ * as described in the <b>first</b> JPS paper by Harabor and Grastien.
  *
  * @see
  * <a href="https://www.aaai.org/ocs/index.php/AAAI/AAAI11/paper/download/3761/4007">Harabor,
  * D. and Grastien, A. (2011). "Online Graph Pruning for Pathfinding on Grid
  * Maps", 25th National Conference on Artificial Intelligence, AAAI.</a>
  */
-public class NeighbourPruningRules {
+public class NeighbourPruningRulesCcAllowed implements NeighbourPruningRules {
 
     private final Graph g;
     private final Neighbours n;
 
-    public NeighbourPruningRules(Graph g) {
+    /**
+     * Constructs this object with the specified graph.
+     *
+     * @param g the graph to be used by this object
+     */
+    public NeighbourPruningRulesCcAllowed(Graph g) {
         this.g = g;
 
         // This returns the unpruned neighbours of a node
@@ -31,13 +36,7 @@ public class NeighbourPruningRules {
         this.n = new Neighbours(g, true);
     }
 
-    /**
-     * Returns the pruned set of neighbours for the specified node u.
-     *
-     * @param p the predecessor of u
-     * @param u the current node
-     * @return pruned set of neighbours for the specified node
-     */
+    @Override
     public List<Node> getPrunedNeighbours(Node p, Node u) {
         ArrayList<Node> neighbours = new ArrayList<>();
         if (p == null) {
@@ -58,7 +57,7 @@ public class NeighbourPruningRules {
             addIfWalkable(x + dx, y, neighbours);
 
             // Forced neighbours
-            // Add if there's an obstacle on the path and the node itself is walkable
+            // Add if the alternate path is blocked and the node itself is walkable
             if (!isWalkable(x, y - 1)) {
                 addIfWalkable(x + dx, y - 1, neighbours);
             }
@@ -74,7 +73,7 @@ public class NeighbourPruningRules {
             addIfWalkable(x, y + dy, neighbours);
 
             // Forced neighbours
-            // Add if there's an obstacle on the path and the node itself is walkable
+            // Add if the alternate path is blocked and the node itself is walkable
             if (!isWalkable(x - 1, y)) {
                 addIfWalkable(x - 1, y + dy, neighbours);
             }
@@ -92,7 +91,7 @@ public class NeighbourPruningRules {
             addIfWalkable(x + dx, y, neighbours);
 
             // Forced neighbours
-            // Add if there's an obstacle on the path and the node itself is walkable
+            // Add if the alternate path is blocked and the node itself is walkable
             if (!isWalkable(x - dx, y)) {
                 addIfWalkable(x - dx, y + dy, neighbours);
             }
@@ -105,13 +104,7 @@ public class NeighbourPruningRules {
         return neighbours;
     }
 
-    /**
-     * Returns true if the specified node u has a forced neighbour.
-     *
-     * @param p the predecessor of u
-     * @param u the current node
-     * @return true if the specified node has a forced neighbour
-     */
+    @Override
     public boolean hasForcedNeighbour(Node p, Node u) {
         int x = u.x();
         int y = u.y();
@@ -151,6 +144,11 @@ public class NeighbourPruningRules {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean canMoveDiagonally(Node u, int dx, int dy) {
+        return g.getNode(u.x() + dx, u.y() + dy) != null;
     }
 
     private int clamp(int val, int min, int max) {
