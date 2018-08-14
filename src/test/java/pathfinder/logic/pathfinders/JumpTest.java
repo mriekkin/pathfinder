@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
+import pathfinder.logic.neighbours.*;
 
 public class JumpTest {
 
@@ -27,12 +28,37 @@ public class JumpTest {
                 + "..........\n"
                 + "..........\n"
                 + "..........\n"));
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Jump jump = new Jump(g, prune);
         Node x = g.getNode(0, 4);
         int dx = 1;
         int dy = 0;
         assertEquals("(5, 4)", jump.jump(x, dx, dy).toString());
+    }
+
+    @Test
+    public void returnsJumpPointSuccessorForHorizontalJumpWhenNoCc() throws IOException {
+        Graph g = GraphReader.read(new StringReader(""
+                + "type octile\n"
+                + "height 10\n"
+                + "width 10\n"
+                + "map\n"
+                + "..........\n"
+                + "..........\n"
+                + "..........\n"
+                + "..........\n"
+                + "x.....y...\n"
+                + ".....#....\n"
+                + "..........\n"
+                + "..........\n"
+                + "..........\n"
+                + "..........\n"));
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
+        Jump jump = new Jump(g, prune);
+        Node x = g.getNode(0, 4);
+        int dx = 1;
+        int dy = 0;
+        assertEquals("(6, 4)", jump.jump(x, dx, dy).toString());
     }
 
     @Test
@@ -52,7 +78,32 @@ public class JumpTest {
                 + "..........\n"
                 + "..........\n"
                 + "..........\n"));
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
+        Jump jump = new Jump(g, prune);
+        Node x = g.getNode(0, 0);
+        int dx = 1;
+        int dy = 1;
+        assertEquals("(4, 4)", jump.jump(x, dx, dy).toString());
+    }
+
+    @Test
+    public void returnsJumpPointSuccessorForDiagonalJumpWhenNoCc() throws IOException {
+        Graph g = GraphReader.read(new StringReader(""
+                + "type octile\n"
+                + "height 10\n"
+                + "width 10\n"
+                + "map\n"
+                + "x.........\n"
+                + "..........\n"
+                + "..........\n"
+                + "..........\n"
+                + "....y.....\n"
+                + ".....#....\n"
+                + "..........\n"
+                + "..........\n"
+                + "..........\n"
+                + "..........\n"));
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
         Jump jump = new Jump(g, prune);
         Node x = g.getNode(0, 0);
         int dx = 1;
@@ -73,12 +124,33 @@ public class JumpTest {
                 + "#....#.\n"
                 + ".x...y.\n"
                 + "#......\n"));
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Jump jump = new Jump(g, prune);
         Node x = g.getNode(1, 3);
         int dx = 1;
         int dy = 0;
         assertEquals("(5, 3)", jump.jump(x, dx, dy).toString());
+    }
+
+    @Test
+    public void returnsJumpPointSuccessorForExampleAWhenNoCc() throws IOException {
+        // This is from Figure 1(a) in the JPS paper by Harabor and Grastien
+        Graph g = GraphReader.read(new StringReader(""
+                + "type octile\n"
+                + "height 5\n"
+                + "width 7\n"
+                + "map\n"
+                + ".......\n"
+                + ".......\n"
+                + "#....#.\n"
+                + ".x....y\n"
+                + "#......\n"));
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
+        Jump jump = new Jump(g, prune);
+        Node x = g.getNode(1, 3);
+        int dx = 1;
+        int dy = 0;
+        assertEquals("(6, 3)", jump.jump(x, dx, dy).toString());
     }
 
     @Test
@@ -94,7 +166,28 @@ public class JumpTest {
                 + ".x...#.\n"
                 + ".#...#.\n"
                 + ".#.....\n"));
-        NeighbourPruningRules prune = new NeighbourPruningRules(g);
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
+        Jump jump = new Jump(g, prune);
+        Node x = g.getNode(1, 2);
+        int dx = 1;
+        int dy = -1;
+        assertEquals("(3, 0)", jump.jump(x, dx, dy).toString());
+    }
+
+    @Test
+    public void returnsJumpPointSuccessorForExampleBWhenNoCc() throws IOException {
+        // This is from Figure 1(b) in the JPS paper by Harabor and Grastien
+        Graph g = GraphReader.read(new StringReader(""
+                + "type octile\n"
+                + "height 5\n"
+                + "width 7\n"
+                + "map\n"
+                + "...y...\n"
+                + ".....#.\n"
+                + ".x...#.\n"
+                + ".#...#.\n"
+                + ".#.....\n"));
+        NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
         Jump jump = new Jump(g, prune);
         Node x = g.getNode(1, 2);
         int dx = 1;

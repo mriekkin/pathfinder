@@ -1,5 +1,6 @@
 package pathfinder.logic.pathfinders;
 
+import pathfinder.logic.neighbours.NeighbourPruningRules;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 
@@ -64,6 +65,10 @@ public class Jump {
     }
 
     private Node step(Node x, int dx, int dy) {
+        if (!prune.canMoveDiagonally(x, dx, dy)) {
+            return null;
+        }
+
         return g.getNode(x.x() + dx, x.y() + dy);
     }
 

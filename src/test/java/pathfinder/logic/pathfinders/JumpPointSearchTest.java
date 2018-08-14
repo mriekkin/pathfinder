@@ -8,6 +8,7 @@ import org.junit.Before;
 import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Pair;
+import pathfinder.logic.neighbours.*;
 
 public class JumpPointSearchTest {
 
@@ -23,16 +24,20 @@ public class JumpPointSearchTest {
         g = new Graph(dimensions, source, dest);
     }
 
+    public NeighbourPruningRules getPrune(Graph graph) {
+        return new NeighbourPruningRulesCcDisallowed(graph);
+    }
+
     @Test
     public void returnsCorrectPathLength() {
-        Pathfinder pathfinder = new JumpPointSearch(g);
+        Pathfinder pathfinder = new JumpPointSearch(g, getPrune(g));
         assertEquals(9 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
     @Test
     public void returnsCorrectPathLengthForSmallGrid() throws IOException {
         Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
-        Pathfinder pathfinder = new JumpPointSearch(small);
+        Pathfinder pathfinder = new JumpPointSearch(small, getPrune(small));
         assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
@@ -42,7 +47,7 @@ public class JumpPointSearchTest {
             g.getNode(5, y).setWalkable(false);
         }
 
-        Pathfinder pathfinder = new JumpPointSearch(g);
+        Pathfinder pathfinder = new JumpPointSearch(g, getPrune(g));
         assertEquals(-1, pathfinder.run(), eps);
     }
 

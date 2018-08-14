@@ -1,5 +1,7 @@
 package pathfinder.logic.pathfinders;
 
+import pathfinder.logic.neighbours.NeighbourPruningRules;
+import pathfinder.logic.neighbours.NeighbourPruningRulesCcDisallowed;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -14,6 +16,10 @@ import pathfinder.logic.Node;
  * <a href="https://www.aaai.org/ocs/index.php/AAAI/AAAI11/paper/download/3761/4007">Harabor,
  * D. and Grastien, A. (2011). "Online Graph Pruning for Pathfinding on Grid
  * Maps", 25th National Conference on Artificial Intelligence, AAAI.</a>
+ * @see
+ * <a href="https://www.aaai.org/ocs/index.php/SOCS/SOCS12/paper/download/5396/5212">Harabor,
+ * D. and Grastien, A. (2012). "The JPS Pathfinding System", 26th National
+ * Conference on Artificial Intelligence, AAAI.</a>
  */
 public class JumpPointSearch extends AbstractPathfinder {
 
@@ -23,14 +29,15 @@ public class JumpPointSearch extends AbstractPathfinder {
 
     /**
      * Constructs a <code>JumpPointSearch</code> object with the specified
-     * graph.
+     * graph and neighbour pruning rules.
      *
-     * @param g the graph to be used by this pathfinder
+     * @param g the graph to be used by this object
+     * @param prune neigbour pruning rules to be used by this object
      */
-    public JumpPointSearch(Graph g) {
+    public JumpPointSearch(Graph g, NeighbourPruningRules prune) {
         super(g);
-        prune = new NeighbourPruningRules(g);
-        jump = new Jump(g, prune);
+        this.prune = prune;
+        this.jump = new Jump(g, prune);
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
+import pathfinder.logic.neighbours.*;
 import pathfinder.logic.pathfinders.*;
 
 /**
@@ -77,8 +78,13 @@ public class RunScenario {
         List<Pathfinder> algorithms = new ArrayList<>();
         algorithms.add(new Dijkstra(g));
         algorithms.add(new AStar(g));
-        //algorithms.add(new JumpPointSearch(g));
+        algorithms.add(new JumpPointSearch(g, getPrune(g)));
         return algorithms;
+    }
+
+    private static NeighbourPruningRules getPrune(Graph g) {
+        // In the benchmarking mode corner-cutting is always disabled
+        return new NeighbourPruningRulesCcDisallowed(g);
     }
 
     private Graph loadGraph(Experiment e) throws IOException {

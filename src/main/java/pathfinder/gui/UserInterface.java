@@ -7,6 +7,7 @@ import javax.swing.*;
 import pathfinder.gui.actions.*;
 import pathfinder.gui.grid.*;
 import pathfinder.logic.*;
+import pathfinder.logic.neighbours.*;
 import pathfinder.logic.pathfinders.*;
 
 /**
@@ -153,9 +154,14 @@ public class UserInterface implements Runnable, PropertyChangeListener {
         switch (algorithm.getSelectedIndex()) {
             case 0: return new Dijkstra(graph);
             case 1: return new AStar(graph);
-            case 2: return new JumpPointSearch(graph);
+            case 2: return new JumpPointSearch(graph, getPrune(graph));
             default: return null;
         }
+    }
+
+    private static NeighbourPruningRules getPrune(Graph graph) {
+        // TODO: Add a preference option for selecting this
+        return new NeighbourPruningRulesCcDisallowed(graph);
     }
 
     @Override
