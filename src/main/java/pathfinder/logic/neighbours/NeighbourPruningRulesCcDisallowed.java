@@ -151,9 +151,11 @@ public class NeighbourPruningRulesCcDisallowed implements NeighbourPruningRules 
     }
 
     @Override
-    public boolean canMoveDiagonally(Node u, int dx, int dy) {
+    public boolean isValidMove(Node u, int dx, int dy) {
         int x = u.x();
         int y = u.y();
+        dx = clamp(dx, -1, 1);
+        dy = clamp(dy, -1, 1);
         return isWalkable(x + dx, y) && isWalkable(x, y + dy);
     }
 

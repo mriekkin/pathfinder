@@ -147,8 +147,12 @@ public class NeighbourPruningRulesCcAllowed implements NeighbourPruningRules {
     }
 
     @Override
-    public boolean canMoveDiagonally(Node u, int dx, int dy) {
-        return g.getNode(u.x() + dx, u.y() + dy) != null;
+    public boolean isValidMove(Node u, int dx, int dy) {
+        int x = u.x();
+        int y = u.y();
+        dx = clamp(dx, -1, 1);
+        dy = clamp(dy, -1, 1);
+        return g.getNode(x + dx, y + dy) != null;
     }
 
     private int clamp(int val, int min, int max) {

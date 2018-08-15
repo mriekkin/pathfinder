@@ -65,7 +65,7 @@ public class Jump {
     }
 
     private Node step(Node x, int dx, int dy) {
-        if (!prune.canMoveDiagonally(x, dx, dy)) {
+        if (!prune.isValidMove(x, dx, dy)) {
             return null;
         }
 

@@ -27,15 +27,18 @@ public interface NeighbourPruningRules {
     boolean hasForcedNeighbour(Node p, Node u);
 
     /**
-     * Returns true if it's possible to move from the specified node u in the
-     * specified direction (dx, dy).
+     * Returns true if it's possible to take one step: starting from the
+     * specified node u and moving in the specified direction (dx, dy).
+     * <p>
+     * The main purpose of this method is to provide an easy way to check the
+     * validity of diagonal moves.
      *
      * @param u the current node
-     * @param dx the change in x-coordinate
-     * @param dy the change in y-coordinate
+     * @param dx the change in x-coordinate (should be 0 or 1)
+     * @param dy the change in y-coordinate (should be 0 or 1)
      * @return true if it's possible to move from the specified node in the
      * specified direction
      */
-    boolean canMoveDiagonally(Node u, int dx, int dy);
+    boolean isValidMove(Node u, int dx, int dy);
 
 }
