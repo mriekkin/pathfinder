@@ -3,6 +3,7 @@ package pathfinder.logic.pathfinders;
 import java.util.PriorityQueue;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
+import pathfinder.logic.neighbours.Neighbours;
 
 /**
  * Implements Dijkstra's algorithm for finding the shortest path between two
@@ -11,14 +12,18 @@ import pathfinder.logic.Node;
 public class Dijkstra extends AbstractPathfinder {
 
     private PriorityQueue<PriorityNode> q;
+    private final Neighbours n;
 
     /**
-     * Constructs a <code>Dijkstra</code> object with the specified graph.
+     * Constructs a <code>Dijkstra</code> object with the specified graph and
+     * neighbours object.
      *
      * @param g the graph to be used by this pathfinder
+     * @param n the neighbours object to be used by this pathfinder
      */
-    public Dijkstra(Graph g) {
+    public Dijkstra(Graph g, Neighbours n) {
         super(g);
+        this.n = n;
     }
 
     @Override
@@ -41,7 +46,7 @@ public class Dijkstra extends AbstractPathfinder {
 
             if (u.equals(dest)) break;
 
-            for (Node v : g.neighbours(u)) {
+            for (Node v : n.getNeighbours(u)) {
                 double alt = getDist(u) + getDistAdj(u, v);
 
                 if (getDist(v) > alt) {

@@ -9,7 +9,38 @@ import pathfinder.logic.*;
  */
 public class App {
 
-    private static final int DEFAULT_CELL_SIZE = 20;
+    /**
+     * The default size of a single cell on screen in pixels. A larger cell
+     * size, naturally, allows one to see more detail. A smaller cell size
+     * allows one to view much larger grids without the need for scrolling.
+     * <p>
+     * The user can change the value of this option in the preferences dialog.
+     */
+    public static final int GUI_DEFAULT_CELL_SIZE = 20;
+
+    /**
+     * Whether corner-cutting is allowed in the visualization mode. If
+     * corner-cutting is allowed, it's possible to take a diagonal shortcut
+     * around each corner.
+     * <p>
+     * The user can change the value of this option in the preferences dialog.
+     */
+    public static final boolean GUI_DEFAULT_CORNER_CUTTING = false;
+
+    /**
+     * Whether corner-cutting is allowed in the benchmark mode. If
+     * corner-cutting is allowed, it's possible to take a diagonal shortcut
+     * around each corner.
+     * <p>
+     * Corner-cutting should be disabled to get standardized results. The
+     * problem sets from Sturtevant assume that corner-cutting is disabled.
+     */
+    public static final boolean BENCHMARK_CORNER_CUTTING = false;
+
+    /**
+     * The number of times each experiment is replicated in the benchmark mode.
+     */
+    public static final int BENCHMARK_REPLICATES = 10;
 
     /**
      * Application entry point. Performs initial setup and launches the
@@ -32,7 +63,8 @@ public class App {
             return;
         }
 
-        new Benchmark(args[1], System.out).run();
+        new Benchmark(args[1], BENCHMARK_REPLICATES, BENCHMARK_CORNER_CUTTING, System.out)
+                .run();
     }
 
     private static void runVisualizationMode() {
@@ -41,7 +73,7 @@ public class App {
 
         Graph graph = createDefaultGrid();
         CurrentGraph current = new CurrentGraph(graph);
-        PreferencesEditor prefs = new PreferencesEditor(DEFAULT_CELL_SIZE);
+        PreferencesEditor prefs = new PreferencesEditor(GUI_DEFAULT_CELL_SIZE, GUI_DEFAULT_CORNER_CUTTING);
 
         UserInterface gui = new UserInterface(current, prefs);
 
@@ -60,6 +92,7 @@ public class App {
         // In practice this happends when the cell size option is changed
         // The view will update to reflect the new cell size
         prefs.addPropertyChangeListener("cellSize", gui);
+        prefs.addPropertyChangeListener("corner-cutting", gui);
     }
 
     private static void setSystemLaf() {

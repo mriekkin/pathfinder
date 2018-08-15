@@ -1,7 +1,6 @@
 package pathfinder.logic.pathfinders;
 
 import pathfinder.logic.neighbours.NeighbourPruningRules;
-import pathfinder.logic.neighbours.NeighbourPruningRulesCcDisallowed;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;

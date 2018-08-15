@@ -20,13 +20,10 @@ import pathfinder.io.ScenarioReader;
  */
 public class Benchmark {
 
-    /**
-     * The number of times each experiment should be replicated.
-     */
-    public static final int REPLICATES = 10;
-
     private List<Experiment> experiments;
     private Path mapDirectory;
+    private final int replicates;
+    private final boolean cornerCutting;
     private final Timer timer;
     private final PrintStream out;
 
@@ -35,10 +32,14 @@ public class Benchmark {
      * file and output stream. Loads the specified scenario file.
      *
      * @param scenarioFile a scenario file to be loaded
+     * @param replicates the number of times each experiment is to be repeated
+     * @param cornerCutting whether corner-cutting is allowed
      * @param out an output stream where the results are to be printed
      */
-    public Benchmark(String scenarioFile, OutputStream out) {
+    public Benchmark(String scenarioFile, int replicates, boolean cornerCutting, OutputStream out) {
         this.out = new PrintStream(out);
+        this.replicates = replicates;
+        this.cornerCutting = cornerCutting;
         this.timer = new Timer();
         loadScenario(scenarioFile);
     }
@@ -72,7 +73,7 @@ public class Benchmark {
         }
 
         try {
-            RunScenario runner = new RunScenario(REPLICATES, mapDirectory, timer, out);
+            RunScenario runner = new RunScenario(replicates, mapDirectory, timer, cornerCutting, out);
             runner.run(experiments);
         } catch (IOException e) {
             out.println("Cannot run scenario");

@@ -14,6 +14,9 @@ import static org.junit.Assert.*;
  */
 public class BenchmarkTest {
 
+    private static final int REPLICATES = 10;
+    private static final boolean CC = false;
+
     ByteArrayOutputStream outContent;
     PrintStream out;
 
@@ -25,7 +28,7 @@ public class BenchmarkTest {
 
     @Test
     public void exampleScenarioPrintsExpectedResults() {
-        Benchmark b = new Benchmark("grids/tests/example.map.scen", out);
+        Benchmark b = new Benchmark("grids/tests/example.map.scen", REPLICATES, CC, out);
         b.run();
         // Column headers: bucket, time_Dijkstra, time_A*, dist_Dijkstra, dist_A*
         // Times are 1 because we use the stub timer which always returns 1
@@ -56,14 +59,14 @@ public class BenchmarkTest {
 
     @Test
     public void emptyScenarioPrintsNothing() {
-        Benchmark b = new Benchmark("grids/tests/empty_file.map.scen", out);
+        Benchmark b = new Benchmark("grids/tests/empty_file.map.scen", REPLICATES, CC, out);
         b.run();
         assertEquals("", outContent.toString());
     }
 
     @Test
     public void printsErrorMessageIfScenarioFileDoesNotExists() {
-        Benchmark b = new Benchmark("grids/tests/non-existent_file.map.scen", out);
+        Benchmark b = new Benchmark("grids/tests/non-existent_file.map.scen", REPLICATES, CC, out);
         assertEquals(""
                 + "Cannot load scenario\n"
                 + "   java.nio.file.NoSuchFileException: grids/tests/non-existent_file.map.scen\n",
@@ -73,7 +76,7 @@ public class BenchmarkTest {
     @Test
     public void printsErrorMessageIfScenarioFileHasInvalidVersionNumber() {
         // The version number should be 1 but in this case it isn't
-        Benchmark b = new Benchmark("grids/tests/invalid_version.map.scen", out);
+        Benchmark b = new Benchmark("grids/tests/invalid_version.map.scen", REPLICATES, CC, out);
         assertEquals(""
                 + "Cannot load scenario\n"
                 + "   pathfinder.io.ScenarioFileException: Invalid version number\n"
@@ -84,7 +87,7 @@ public class BenchmarkTest {
     @Test
     public void printsErrorMessageIfScenarioFileHasMissingColumn() {
         // One line in the scenario file is missing the first column
-        Benchmark b = new Benchmark("grids/tests/missing_column.map.scen", out);
+        Benchmark b = new Benchmark("grids/tests/missing_column.map.scen", REPLICATES, CC, out);
         assertEquals(""
                 + "Cannot load scenario\n"
                 + "   pathfinder.io.ScenarioFileException: Invalid experiment definition: Missing column(s)\n"
@@ -95,7 +98,7 @@ public class BenchmarkTest {
     @Test
     public void printsErrorMessageIfScenarioFileHasInvalidValue() {
         // One line in the scenario file has an invalid value
-        Benchmark b = new Benchmark("grids/tests/invalid_value.map.scen", out);
+        Benchmark b = new Benchmark("grids/tests/invalid_value.map.scen", REPLICATES, CC, out);
         assertEquals(""
                 + "Cannot load scenario\n"
                 + "   pathfinder.io.ScenarioFileException: Invalid experiment definition: Invalid value\n"
@@ -107,7 +110,7 @@ public class BenchmarkTest {
     @Test
     public void printsErrorMessageIfScenarioFileContainsInvalidMapName() {
         // The scenario file refers to a map which doesn't exist
-        Benchmark b = new Benchmark("grids/tests/invalid_map.map.scen", out);
+        Benchmark b = new Benchmark("grids/tests/invalid_map.map.scen", REPLICATES, CC, out);
         b.run();
         assertEquals(""
                 + "Cannot run scenario\n"

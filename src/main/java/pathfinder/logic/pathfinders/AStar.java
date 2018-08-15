@@ -3,6 +3,7 @@ package pathfinder.logic.pathfinders;
 import java.util.PriorityQueue;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
+import pathfinder.logic.neighbours.Neighbours;
 
 /**
  * Implements the A* algorithm for the shortest path between two nodes.
@@ -10,14 +11,18 @@ import pathfinder.logic.Node;
 public class AStar extends AbstractPathfinder {
 
     private PriorityQueue<PriorityNode> q;
+    private final Neighbours n;
 
     /**
-     * Constructs an <code>AStar</code> object with the specified graph.
+     * Constructs an <code>AStar</code> object with the specified graph and
+     * neighbours object.
      *
      * @param g the graph to be used by this pathfinder
+     * @param n the neighbours object to be used by this pathfinder
      */
-    public AStar(Graph g) {
+    public AStar(Graph g, Neighbours n) {
         super(g);
+        this.n = n;
     }
 
     @Override
@@ -40,7 +45,7 @@ public class AStar extends AbstractPathfinder {
             
             if (u.equals(dest)) break;
             
-            for (Node v : g.neighbours(u)) {
+            for (Node v : n.getNeighbours(u)) {
                 double alt = getDist(u) + getDistAdj(u, v);
 
                 if (getDist(v) > alt) {

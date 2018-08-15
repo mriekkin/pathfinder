@@ -25,6 +25,7 @@ public class RunScenario {
     private final int replicates;
     private final Path mapDirectory;
     private final Timer timer;
+    private final boolean cornerCutting;
     private final PrintStream out;
     private final DecimalFormat format;
 
@@ -35,12 +36,14 @@ public class RunScenario {
      * @param replicates the number of times each experiment is to be repeated
      * @param mapDirectory path of the directory which contains the map files
      * @param timer a Timer object which is to be used for timing the operations
+     * @param cornerCutting whether corner-cutting is allowed
      * @param out an output stream where the results are to be printed
      */
-    public RunScenario(int replicates, Path mapDirectory, Timer timer, OutputStream out) {
+    public RunScenario(int replicates, Path mapDirectory, Timer timer, boolean cornerCutting, OutputStream out) {
         this.replicates = replicates;
         this.mapDirectory = mapDirectory;
         this.timer = timer;
+        this.cornerCutting = cornerCutting;
         this.out = new PrintStream(out);
         this.format = getDistFormat();
     }
@@ -76,15 +79,18 @@ public class RunScenario {
 
     private List<Pathfinder> getAlgorithms(Graph g) {
         List<Pathfinder> algorithms = new ArrayList<>();
-        algorithms.add(new Dijkstra(g));
-        algorithms.add(new AStar(g));
+        algorithms.add(new Dijkstra(g, getNeighbours(g)));
+        algorithms.add(new AStar(g, getNeighbours(g)));
         algorithms.add(new JumpPointSearch(g, getPrune(g)));
         return algorithms;
     }
 
-    private static NeighbourPruningRules getPrune(Graph g) {
-        // In the benchmarking mode corner-cutting is always disabled
-        return new NeighbourPruningRulesCcDisallowed(g);
+    private Neighbours getNeighbours(Graph g) {
+        return new Neighbours(g, cornerCutting);
+    }
+
+    private NeighbourPruningRules getPrune(Graph g) {
+        return NeighbourPruningRulesFactory.get(g, cornerCutting);
     }
 
     private Graph loadGraph(Experiment e) throws IOException {

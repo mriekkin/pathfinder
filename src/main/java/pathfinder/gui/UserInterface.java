@@ -53,8 +53,8 @@ public class UserInterface implements Runnable, PropertyChangeListener {
      */
     public UserInterface(CurrentGraph current, PreferencesEditor prefs) {
         this.current = current;
-        this.pathfinder = new Dijkstra(current.getGraph());
         this.prefs = prefs;
+        this.pathfinder = new Dijkstra(current.getGraph(), getNeighbours(current.getGraph()));
     }
 
     @Override
@@ -152,16 +152,19 @@ public class UserInterface implements Runnable, PropertyChangeListener {
 
     private Pathfinder createPathfinder(Graph graph) {
         switch (algorithm.getSelectedIndex()) {
-            case 0: return new Dijkstra(graph);
-            case 1: return new AStar(graph);
+            case 0: return new Dijkstra(graph, getNeighbours(graph));
+            case 1: return new AStar(graph, getNeighbours(graph));
             case 2: return new JumpPointSearch(graph, getPrune(graph));
             default: return null;
         }
     }
 
-    private static NeighbourPruningRules getPrune(Graph graph) {
-        // TODO: Add a preference option for selecting this
-        return new NeighbourPruningRulesCcDisallowed(graph);
+    private Neighbours getNeighbours(Graph graph) {
+        return new Neighbours(graph, prefs.isCornerCuttingAllowed());
+    }
+
+    private NeighbourPruningRules getPrune(Graph graph) {
+        return NeighbourPruningRulesFactory.get(graph, prefs.isCornerCuttingAllowed());
     }
 
     @Override
@@ -182,6 +185,18 @@ public class UserInterface implements Runnable, PropertyChangeListener {
             // The view will update to reflect the new cell size
             resize();
         }
+
+        // The corner-cutting option has been updated to a new value
+        if ("corner-cutting".equals(propertyName)) {
+            boolean cornerCutting = (boolean) evt.getNewValue();
+            setCornerCutting(cornerCutting);
+        }
+    }
+
+    private void setCornerCutting(boolean isAllowed) {
+        // Re-create the pathfinder
+        pathfinder = createPathfinder(current.getGraph());
+        grid.setPathfinder(pathfinder);
     }
 
     private void resize() {

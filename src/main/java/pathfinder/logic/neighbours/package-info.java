@@ -1,5 +1,5 @@
 /**
- * Identification of neighbour nodes. Concepts relevant to this package are
+ * The identification of neighbour nodes. Concepts relevant to this package are
  * corner-cutting and pruning.
  * <p>
  * Corner-cutting refers to taking a diagonal shortcut around a corner. In

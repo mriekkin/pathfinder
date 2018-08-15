@@ -7,10 +7,15 @@ import pathfinder.logic.Graph;
 import pathfinder.logic.Pair;
 import static org.junit.Assert.*;
 import pathfinder.io.GraphReader;
+import pathfinder.logic.neighbours.Neighbours;
 
 public class DijkstraTest {
 
     public static final double eps = 0.00001;
+
+    private static Neighbours getNeighbours(Graph g) {
+        return new Neighbours(g, false);
+    }
 
     @Test
     public void returnsCorrectPathLength() {
@@ -18,14 +23,14 @@ public class DijkstraTest {
         Pair source = new Pair(0, 0);
         Pair dest = new Pair(9, 9);
         Graph g = new Graph(dimensions, source, dest);
-        Pathfinder pathfinder = new Dijkstra(g);
+        Pathfinder pathfinder = new Dijkstra(g, getNeighbours(g));
         assertEquals(9 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
     @Test
     public void returnsCorrectPathLengthForSmallGrid() throws IOException {
         Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
-        Pathfinder pathfinder = new Dijkstra(small);
+        Pathfinder pathfinder = new Dijkstra(small, getNeighbours(small));
         assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
@@ -40,7 +45,7 @@ public class DijkstraTest {
             g.getNode(5, y).setWalkable(false);
         }
 
-        Pathfinder pathfinder = new Dijkstra(g);
+        Pathfinder pathfinder = new Dijkstra(g, getNeighbours(g));
         assertEquals(-1, pathfinder.run(), eps);
     }
 

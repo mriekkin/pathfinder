@@ -15,6 +15,7 @@ public class RunScenarioTest {
     private static final int REPLICATES = 1;
     private static final Path SCENARIO_FILE = Paths.get("grids/tests/example.map.scen");
     private static final Path MAP_DIRECTORY = SCENARIO_FILE.getParent();
+    private static final boolean CC = false;
 
     ByteArrayOutputStream outContent;
     PrintStream out;
@@ -31,7 +32,7 @@ public class RunScenarioTest {
     @Test
     public void exampleScenarioPrintsExpectedResults() throws Exception {
         List<Experiment> experiments = new ScenarioReader().read(SCENARIO_FILE);
-        RunScenario runner = new RunScenario(REPLICATES, MAP_DIRECTORY, timer, out);
+        RunScenario runner = new RunScenario(REPLICATES, MAP_DIRECTORY, timer, CC, out);
 
         runner.run(experiments);
 
@@ -66,7 +67,7 @@ public class RunScenarioTest {
     @Test
     public void emptyScenarioPrintsNothing() throws Exception {
         List<Experiment> experiments = new ScenarioReader().read(Paths.get("grids/tests/empty_file.map.scen"));
-        RunScenario runner = new RunScenario(REPLICATES, MAP_DIRECTORY, timer, out);
+        RunScenario runner = new RunScenario(REPLICATES, MAP_DIRECTORY, timer, CC, out);
         runner.run(experiments);
         assertEquals("", outContent.toString());
     }

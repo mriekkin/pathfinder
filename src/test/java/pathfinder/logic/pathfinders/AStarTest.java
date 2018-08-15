@@ -7,13 +7,14 @@ import static org.junit.Assert.*;
 import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Pair;
+import pathfinder.logic.neighbours.Neighbours;
 
 public class AStarTest {
 
     public static final double eps = 0.00001;
 
-    @Test
-    public void testInit() {
+    private static Neighbours getNeighbours(Graph g) {
+        return new Neighbours(g, false);
     }
 
     @Test
@@ -22,14 +23,14 @@ public class AStarTest {
         Pair source = new Pair(0, 0);
         Pair dest = new Pair(9, 9);
         Graph g = new Graph(dimensions, source, dest);
-        Pathfinder pathfinder = new AStar(g);
+        Pathfinder pathfinder = new AStar(g, getNeighbours(g));
         assertEquals(9 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
     @Test
     public void returnsCorrectPathLengthForSmallGrid() throws IOException {
         Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
-        Pathfinder pathfinder = new AStar(small);
+        Pathfinder pathfinder = new AStar(small, getNeighbours(small));
         assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
@@ -44,7 +45,7 @@ public class AStarTest {
             g.getNode(5, y).setWalkable(false);
         }
 
-        Pathfinder pathfinder = new AStar(g);
+        Pathfinder pathfinder = new AStar(g, getNeighbours(g));
         assertEquals(-1, pathfinder.run(), eps);
     }
 

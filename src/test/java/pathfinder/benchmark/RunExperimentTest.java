@@ -9,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
+import pathfinder.logic.neighbours.Neighbours;
 import pathfinder.logic.pathfinders.Dijkstra;
 import pathfinder.logic.pathfinders.Pathfinder;
 
@@ -21,7 +22,7 @@ public class RunExperimentTest {
     public void setUp() throws IOException {
         Graph g = GraphReader.readFile(Paths.get("grids/tests/small.map"));
         List<Pathfinder> algorithms = new ArrayList<>();
-        algorithms.add(new Dijkstra(g));
+        algorithms.add(new Dijkstra(g, new Neighbours(g, false)));
 
         Timer mockTimer = new MockTimer();
         runner = new RunExperiment(g, algorithms, 10, mockTimer);
