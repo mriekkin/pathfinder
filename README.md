@@ -10,6 +10,8 @@ This is a student project for the [algorithms and data structures](https://githu
 ## Documentation
 
 ### [Design document](https://github.com/mriekkin/pathfinder/blob/master/doc/Design_document.md)
+### [Implementation document](https://github.com/mriekkin/pathfinder/blob/master/doc/Implementation_document.md)
+### [Testing document](https://github.com/mriekkin/pathfinder/blob/master/doc/Testing_document.md)
 
 ### Weekly progress reports
 
