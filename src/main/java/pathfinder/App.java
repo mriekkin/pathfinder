@@ -1,7 +1,9 @@
-package pathfinder.gui;
+package pathfinder;
 
 import javax.swing.UIManager;
 import pathfinder.benchmark.Benchmark;
+import pathfinder.gui.PreferencesEditor;
+import pathfinder.gui.UserInterface;
 import pathfinder.logic.*;
 
 /**
@@ -89,7 +91,7 @@ public class App {
         current.addPropertyChangeListener("graph", gui);
 
         // The GUI needs to be notified when application preferences are updated
-        // In practice this happends when the cell size option is changed
+        // In practice this happends when one of the available options is changed
         // The view will update to reflect the new cell size
         prefs.addPropertyChangeListener("cellSize", gui);
         prefs.addPropertyChangeListener("corner-cutting", gui);

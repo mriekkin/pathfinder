@@ -1,5 +1,5 @@
 /**
- * Views such as the main window and dialogs for the visualization mode.
+ * The visualization mode.
  * <p>
  * The design of this application is based on the model-view pattern. In this
  * pattern the model and view are separated, as in the model-view-controller

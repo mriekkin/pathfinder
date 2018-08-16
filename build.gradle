@@ -31,11 +31,11 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
-mainClassName = 'pathfinder.gui.App'
+mainClassName = 'pathfinder.App'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'pathfinder.gui.App'
+        attributes 'Main-Class': 'pathfinder.App'
     }
 }
 
