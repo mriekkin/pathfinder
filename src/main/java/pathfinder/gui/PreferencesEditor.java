@@ -163,7 +163,7 @@ public class PreferencesEditor {
     }
 
     private void addCornerCutting(JPanel content) {
-        cornerCuttingCb = new JCheckBox("Allow corner-cutting", isCornerCuttingAllowed());
+        cornerCuttingCb = new JCheckBox("Corner-cutting", isCornerCuttingAllowed());
 
         content.add(cornerCuttingCb, getConstraints(0, 1, 2, 1));
     }
@@ -223,7 +223,7 @@ public class PreferencesEditor {
         c.gridy = y;
         c.gridwidth = w;
         c.gridheight = h;
-        c.insets = new Insets(5, 5, 5, 5);
+        c.insets = new Insets(2, 2, 2, 2);
 
         return c;
     }
