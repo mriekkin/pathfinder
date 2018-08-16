@@ -51,25 +51,4 @@ public class GraphTest {
         assertEquals(20, g.getRows());
     }
 
-    @Test
-    public void neighboursReturnsListOfAdjacentWalkableCells() {
-        List<Node> n = g.neighbours(5, 5);
-        assertEquals(8, n.size());
-        assertEquals("(4, 4)", n.get(0).toString());
-        assertEquals("(5, 4)", n.get(1).toString());
-        assertEquals("(6, 4)", n.get(2).toString());
-        assertEquals("(4, 5)", n.get(3).toString());
-        assertEquals("(6, 5)", n.get(4).toString());
-        assertEquals("(4, 6)", n.get(5).toString());
-        assertEquals("(5, 6)", n.get(6).toString());
-        assertEquals("(6, 6)", n.get(7).toString());
-    }
-
-    @Test
-    public void neighboursAcceptsNodeObjectAsArgument() {
-        List<Node> list1 = g.neighbours(5, 5);
-        List<Node> list2 = g.neighbours(g.getNode(5, 5));
-        assertEquals(list1, list2);
-    }
-
 }

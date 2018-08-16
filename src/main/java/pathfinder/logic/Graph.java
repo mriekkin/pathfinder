@@ -32,7 +32,6 @@ public class Graph {
     private final int rows;
     private Node source;
     private Node dest;
-    private final Neighbours neighbours;
 
     /**
      * Constructs a <code>Graph</code> with the specified dimensions, and the
@@ -57,7 +56,6 @@ public class Graph {
 
         this.source = getNode(source.getLeft(), source.getRight());
         this.dest = getNode(destination.getLeft(), destination.getRight());
-        this.neighbours = new Neighbours(this, false);
     }
 
     /**
@@ -139,28 +137,6 @@ public class Graph {
      */
     public void setDest(Node dest) {
         this.dest = dest;
-    }
-
-    /**
-     * Returns the list of neighbours for the specified node.
-     *
-     * @param u the node whose neighbours are to be returned
-     * @return the list of neighbours for the specified node
-     */
-    public List<Node> neighbours(Node u) {
-        return neighbours(u.x(), u.y());
-    }
-
-    /**
-     * Returns the list of neighbours for the node at the specified coordinates
-     * in this grid.
-     *
-     * @param x the x-coordinate of the node in this grid
-     * @param y the y-coordinate of the node in this grid
-     * @return the list of neighbours for the node at the specified coordinates
-     */
-    public List<Node> neighbours(int x, int y) {
-        return neighbours.getNeighbours(x, y);
     }
 
 }
