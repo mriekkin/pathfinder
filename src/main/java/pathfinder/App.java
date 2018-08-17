@@ -112,7 +112,7 @@ public class App {
     private static Graph createDefaultGrid() {
         Pair dimensions = new Pair(30, 15);
         Pair source = new Pair(8, 7);
-        Pair dest = new Pair(17, 12);
+        Pair dest = new Pair(17, 2);
         Graph g = new Graph(dimensions, source, dest);
 
         for (int y = 3; y <= 11; y++) {
@@ -120,17 +120,17 @@ public class App {
             g.getNode(4, y).setWalkable(false);
         }
 
-        for (int y = 0; y <= 10; y++) {
+        for (int y = 4; y <= 14; y++) {
             g.getNode(13, y).setWalkable(false);
             g.getNode(14, y).setWalkable(false);
         }
 
-        for (int y = 8; y < 15; y++) {
+        for (int y = 0; y <= 6; y++) {
             g.getNode(21, y).setWalkable(false);
             g.getNode(22, y).setWalkable(false);
         }
 
-        for (int y = 8; y <= 9; y++) {
+        for (int y = 5; y <= 6; y++) {
             g.getNode(23, y).setWalkable(false);
             g.getNode(24, y).setWalkable(false);
             g.getNode(25, y).setWalkable(false);

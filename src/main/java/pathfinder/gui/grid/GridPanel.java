@@ -101,16 +101,16 @@ public class GridPanel extends JPanel {
         g2.setColor(borderColor);
         g2.setStroke(borderStroke);
 
-        int cellSize = getTotalSize();
+        int totalSize = getTotalSize();
         int width = computeWidth();
         int height = computeHeight();
 
         for (int y = 0; y <= g.getRows(); y++) {
-            g2.drawLine(0, y * cellSize, width, y * cellSize);
+            g2.drawLine(0, y * totalSize, width, y * totalSize);
         }
 
         for (int x = 0; x <= g.getCols(); x++) {
-            g2.drawLine(x * cellSize, 0, x * cellSize, height);
+            g2.drawLine(x * totalSize, 0, x * totalSize, height);
         }
     }
 
@@ -136,10 +136,8 @@ public class GridPanel extends JPanel {
 
     private void paintNode(Graphics2D g2, Node node) {
         int totalSize = getTotalSize();
-        int lastRow = (g.getRows()-1) * totalSize + borderSize;
         int fillX = node.x() * totalSize + borderSize;
         int fillY = node.y() * totalSize + borderSize;
-        fillY = lastRow - fillY;
         g2.setColor(getNodeColor(node));
         g2.fillRect(fillX, fillY, cellSize, cellSize);
     }
@@ -160,12 +158,10 @@ public class GridPanel extends JPanel {
         int[] xPoints = new int[path.size()];
         int[] yPoints = new int[path.size()];
         final int totalSize = getTotalSize();
-        final int lastRow = g.getRows() * totalSize;
         int i = 0;
         for (Node node : path) {
             xPoints[i] = node.x() * totalSize + borderSize + cellSize/2;
             yPoints[i] = node.y() * totalSize + borderSize + cellSize/2;
-            yPoints[i] = lastRow - yPoints[i];
             i++;
         }
 
@@ -191,7 +187,6 @@ public class GridPanel extends JPanel {
     protected Node getNode(int pointX, int pointY) {
         int x = pointX / getTotalSize();
         int y = pointY / getTotalSize();
-        y = g.getRows() - 1 - y;
 
         if (x < 0 || x >= g.getCols()) return null;
         if (y < 0 || y >= g.getRows()) return null;
