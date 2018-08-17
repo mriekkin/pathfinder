@@ -1,5 +1,10 @@
 package pathfinder.logic.datastructures;
 
+/**
+ * A resizable array which implements the <code>List</code> interface.
+ *
+ * @param <E> the type of elements in this list
+ */
 public class ArrayList<E> implements List<E> {
 
     private E[] table;
@@ -14,7 +19,7 @@ public class ArrayList<E> implements List<E> {
 
     /**
      * Constructs an empty list with the specified initial capacity
-     * 
+     *
      * @param capacity initial capacity of this list
      */
     public ArrayList(int capacity) {

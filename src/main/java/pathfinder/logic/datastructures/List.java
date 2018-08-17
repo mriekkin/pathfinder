@@ -1,5 +1,10 @@
 package pathfinder.logic.datastructures;
 
+/**
+ * An ordered collection.
+ *
+ * @param <E> the type of elements in this list
+ */
 public interface List<E> {
 
     /**
@@ -19,9 +24,9 @@ public interface List<E> {
 
     /**
      * Inserts the specified element at the specified position in this list
-     * 
+     *
      * @param index index at which the specified element is to be inserted
-     * @param element element to be inserted 
+     * @param element element to be inserted
      */
     void add(int index, E element);
 
