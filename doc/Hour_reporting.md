@@ -27,3 +27,13 @@
 | 8.8.   | Wed     | 8 h   | The second draft of the benchmark mode                 |
 | 9.8.   | Thu     | 8 h   | The third draft of the benchmark mode                  |
 | 10.8.  | Fri     | 8 h   | Completed the benchmark mode (first complete version)  |
+
+## Week 4
+
+| Date   | Weekday | Hours | What was done                                                        |
+| ------ | ------- | ----- | -------------------------------------------------------------------- |
+| 13.8.  | Mon     |  8 h  | Tested my JPS implementation and fixed two major bugs                |
+| 14.8.  | Tue     | 10 h  | Implemented a version of JPS without corner-cutting                  |
+| 15.8.  | Wed     |  8 h  | Implemented an option to choose whether corner-cutting is allowed    |
+| 16.8.  | Thu     |  8 h  | Began to write the implementation document (class structure)         |
+| 17.8.  | Fri     | 10 h  | Wrote a section on performance testing, bug fixing, merged ArrayList |
