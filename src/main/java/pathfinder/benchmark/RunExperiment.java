@@ -16,9 +16,9 @@ import pathfinder.logic.pathfinders.Pathfinder;
  * The constructor of this class also accepts the number of replicates. When an
  * experiment is run, it is repeated a specified number of times (the number of
  * replicates) for each algorithm. In other words, the reported results are
- * averages because each experiment is replicated a specified number of times.
+ * medians because each experiment is replicated a specified number of times.
  * This means running the same shortest path problem for multiple times and
- * taking the average of the running times.
+ * taking the median of the running times.
  *
  * @see Experiment
  * @see Result

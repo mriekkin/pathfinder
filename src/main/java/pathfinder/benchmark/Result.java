@@ -2,13 +2,13 @@ package pathfinder.benchmark;
 
 /**
  * Represents the results of a single experiment. Each experiment represents one
- * shortest path problem. Hence the results include the average time taken to
- * solve the problem (time) and the average length of the computed shortest path
+ * shortest path problem. Hence the results include the median time taken to
+ * solve the problem (time) and the median length of the computed shortest path
  * (distance).
  * <p>
- * The reported results are averages because each experiment is replicated a
+ * The reported results are medians because each experiment is replicated a
  * specified number of times. This means running the same shortest path problem
- * for multiple times and taking the average of the running times.
+ * for multiple times and taking the median of the running times.
  */
 public class Result {
 
