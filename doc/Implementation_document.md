@@ -30,6 +30,17 @@ Algorithms can be compared by running the same set of problems for a number of a
 
 Each problem represents a small experiment. Each experiment should also be replicated a specified number of times to obtain reliable results. This means running the same shortest path problem for multiple times and taking the median of the running times.
 
-The image below presents the results of running a single scenario.
+The figure below presents the results of running a single scenario.
 
-![The results of running a single scenario](img/lak100d_results2.png)
+![The results of running a single scenario](img/lak100d_results_avg.png)
+![The results of running a single scenario](img/lak100d_results_median.png)
+
+From the figure it is apparent that, for most problems, A* is faster than Dijkstra and JPS is faster than A*. On the other hand, when path lengths approach the maximum, the performance of Dijkstra and A* is roughly the same.
+
+**A:*** From the figure it is apparent that, for most problems, A* is faster than Dijkstra. The average speedup, however, is only 1.6, which is perhaps a bit disappointing. The maximum observed speedup, excluding outliers, is around 2.5.
+
+When path lengths approach the maximum, the performance of Dijkstra and A* is roughly the same. This indicates that for sufficiently long paths both Dijkstra and A* expand roughly the same set of nodes. The figure below indicates that this is because each map has limited width and height, which constrains the search. In other words, even though Dijkstra has a tendency to search radially the limits of the map constrain this radial expansion.
+
+**JPS:** For path lengths >50 JPS is faster than both Dijkstra and A*. The average speedup compared to Dijkstra is 3.7, and the average speedup compared to A* is 2.6.
+
+![Visualization for one benchmark problem](img/lak100d_visualization.png)
