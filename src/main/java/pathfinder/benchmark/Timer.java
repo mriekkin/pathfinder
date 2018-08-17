@@ -20,7 +20,7 @@ public class Timer {
      * Resets the internal clock of this timer.
      */
     public void reset() {
-        start = System.currentTimeMillis();
+        start = System.nanoTime();
     }
 
     /**
@@ -30,8 +30,8 @@ public class Timer {
      * @return the elapsed time in milliseconds
      * @see #reset()
      */
-    public long getElapsedTime() {
-        return System.currentTimeMillis() - start;
+    public double getElapsedTime() {
+        return (System.nanoTime()- start) / 1000000.0;
     }
 
 }

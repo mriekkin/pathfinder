@@ -27,7 +27,8 @@ public class RunScenario {
     private final Timer timer;
     private final boolean cornerCutting;
     private final PrintStream out;
-    private final DecimalFormat format;
+    private final DecimalFormat timeFormat;
+    private final DecimalFormat distFormat;
 
     /**
      * Constructs a <code>RunScenario</code> object with the specified
@@ -45,7 +46,8 @@ public class RunScenario {
         this.timer = timer;
         this.cornerCutting = cornerCutting;
         this.out = new PrintStream(out);
-        this.format = getDistFormat();
+        this.timeFormat = getTimeFormat();
+        this.distFormat = getDistFormat();
     }
 
     /**
@@ -104,21 +106,29 @@ public class RunScenario {
         row.append(e.getBucket());
         for (Result result : results) {
             row.append("\t");
-            row.append(result.getTime());
+            row.append(timeFormat.format(result.getTime()));
         }
 
         for (Result result : results) {
             row.append("\t");
-            row.append(format.format(result.getDist()));
+            row.append(distFormat.format(result.getDist()));
         }
 
         out.println(row);
     }
 
+    private DecimalFormat getTimeFormat() {
+        return new DecimalFormat("0.000", getSymbols());
+    }
+
     private DecimalFormat getDistFormat() {
+        return new DecimalFormat("0.00000000", getSymbols());
+    }
+
+    private DecimalFormatSymbols getSymbols() {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator('.');
-        return new DecimalFormat("0.00000000", symbols);
+        return symbols;
     }
 
 }

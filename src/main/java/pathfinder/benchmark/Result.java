@@ -13,7 +13,7 @@ package pathfinder.benchmark;
 public class Result {
 
     private final Experiment experiment;
-    private final long time;
+    private final double time;
     private final double dist;
 
     /**
@@ -25,7 +25,7 @@ public class Result {
      * @param time time taken to solve the problem (in milliseconds)
      * @param dist length of the computed shortest path
      */
-    public Result(Experiment experiment, long time, double dist) {
+    public Result(Experiment experiment, double time, double dist) {
         this.experiment = experiment;
         this.time = time;
         this.dist = dist;
@@ -45,7 +45,7 @@ public class Result {
      *
      * @return the time taken to solve the problem (in milliseconds)
      */
-    public long getTime() {
+    public double getTime() {
         return time;
     }
 

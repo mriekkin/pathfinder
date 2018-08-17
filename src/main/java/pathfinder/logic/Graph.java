@@ -1,7 +1,6 @@
 package pathfinder.logic;
 
 import pathfinder.logic.neighbours.Neighbours;
-import java.util.List;
 
 /**
  * A specialised graph data structure, which represents a 2D grid. A grid

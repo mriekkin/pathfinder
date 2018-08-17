@@ -64,18 +64,18 @@ public class RunExperiment {
     }
 
     private Result runAlgorithm(Experiment e, Pathfinder algorithm) {
-        long time = 0;
-        double dist = 0;
+        double[] time = new double[replicates];
+        double[] dist = new double[replicates];
         for (int i = 0; i < replicates; i++) {
             // Time one pathfinding operation (one replicate)
             timer.reset();
-            dist += algorithm.run();
-            time += timer.getElapsedTime();
+            dist[i] = algorithm.run();
+            time[i] = timer.getElapsedTime();
         }
 
-        time = time / replicates; // Average over replicates
-        dist = dist / replicates;
-        return new Result(e, time, dist);
+        double t = Statistics.median(time); // Take the median of replicates
+        double d = Statistics.median(dist);
+        return new Result(e, t, d);
     }
 
     private void updateSourceAndDest(Experiment e) {

@@ -52,7 +52,7 @@ public class RunExperimentTest {
         // For this we've created a simple mock timer which always returns 1.
         Result[] results = runner.run(smallExperiment);
         Result result = results[0];
-        assertEquals(1, result.getTime());
+        assertEquals(1, result.getTime(), 0.000001);
     }
 
 }

@@ -7,7 +7,7 @@ package pathfinder.benchmark;
 public class MockTimer extends Timer {
 
     @Override
-    public long getElapsedTime() {
+    public double getElapsedTime() {
         return 1;
     }
 
