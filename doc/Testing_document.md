@@ -10,7 +10,7 @@ Tämä dokumentti on vielä luonnosteluasteella. Olen kuitenkin kirjoittanut tä
 
    Kattava, realistinen (pelit). Polut pitkiä, joten pienetkin virheet poluissa kumuloituvat. Arvot ilmoitettu 8 desimaalin tarkkuudella, joten pienetkin virheet havaittavissa. Voitaneen olettaa, että useimmat virheet tai poikkeamat saadaan tällä tavalla esiin.
 
-   Tämä kehitys ollut nähtävissä devaamisen aikana. Meni jonkin aikaa, että arvot saatiin mätsäämään referensseihin. A*:n tapauksessa piti vaihtaa heuristiikka Manhattanista "octileen". JSP:n tapauksessa piti fiksata joukko bugeja, ja toteuttaa "no corner-cutting" -optio. Varsinkin JSP:n tapauksessa oli havaittavissa, että arvot pikkuhiljaa konvergoituivat kohti oikeita arvoja jokaisen muutoksen myötä. Tällä hetkellä tarkkuus poluissa noin luokkaa 10^(-6). Kahdessa viimeisessä desimaalissa edelleen pientä heittoa. Voisikohan kenties johtua laskennan aikana tapahtuvista liukulukujen pyöristysvirheistä.
+   Tämä kehitys ollut nähtävissä devaamisen aikana. Meni jonkin aikaa, että arvot saatiin mätsäämään referensseihin. A*:n tapauksessa piti vaihtaa heuristiikka Manhattanista "octileen". JPS:n tapauksessa piti fiksata joukko bugeja, ja toteuttaa "no corner-cutting" -optio. Varsinkin JPS:n tapauksessa oli havaittavissa, että arvot pikkuhiljaa konvergoituivat kohti oikeita arvoja jokaisen muutoksen myötä. Tällä hetkellä tarkkuus poluissa noin luokkaa 10^(-6). Kahdessa viimeisessä desimaalissa edelleen pientä heittoa. Voisikohan kenties johtua laskennan aikana tapahtuvista liukulukujen pyöristysvirheistä.
 
 2. Yksityiskohtaiset yksikkötestit jokaiselle osa-alueelle.
 
@@ -28,6 +28,6 @@ Toistaiseksi olen tehnyt seuraavista vasta kohdan 1. Niinpä kohdat 2 ja 3 ovatk
 
    Benchmarkkien tuloksien perusteella voi arvioida aikaa, joka menee eri ongelmien ratkomiseen. Esim. nykyisten testien perusteella yhden ongelman ratkomiseen menee omalla koneella aikaa luokkaa 10 ms. Mutta onko 10 ms hyvä vai huono tulos? Onko oma toteutus hyvin kirjoitettu? Sen selvittämiseksi pitäisi varmaankin ladata jostakin referenssitoteutukset, ajaa niitä, ja sitten vertailla tuloksia omaan ohjelmaan. Tämä jää varmaan kuitenkin tekemättä.
 
-4. Verkon koon ja polun pituuden vaikutus suorituskykyyn, asymptoottinen suorituskyky (iso O)
+3. Verkon koon ja polun pituuden vaikutus suorituskykyyn, asymptoottinen suorituskyky (iso O)
 
    Tämän avulla saataisiin esiin se, miten nopeus riippuu verkon koosta. Pahimpien tapauksien aikavaativuuden selvitämiseksi pitäisi kuitenkin ilmeisesti generoida patologisia tapauksia. Tämä olisi varmasti mielenkiintoinen, mutta en tiedä, missä määrin ehdin tekemään? Nykyisessä analyysissä (1.) tulee esiin suoritusaika suhteessa polun pituuteen.
