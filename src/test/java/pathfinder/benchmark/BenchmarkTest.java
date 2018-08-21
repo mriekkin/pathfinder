@@ -34,7 +34,6 @@ public class BenchmarkTest {
         // We use regular expressions to match the time columns
         // Distances should match the reference values (and be the same for all algorithms)
         assertTrue(outContent.toString().matches(""
-                + "Results\n"
                 + "0	[0-9]+\\.[0-9]{3}	[0-9]+\\.[0-9]{3}	[0-9]+\\.[0-9]{3}	2.82842712	2.82842712	2.82842712\n"
                 + "0	[0-9]+\\.[0-9]{3}	[0-9]+\\.[0-9]{3}	[0-9]+\\.[0-9]{3}	2.41421356	2.41421356	2.41421356\n"
                 + "0	[0-9]+\\.[0-9]{3}	[0-9]+\\.[0-9]{3}	[0-9]+\\.[0-9]{3}	3.82842712	3.82842712	3.82842712\n"

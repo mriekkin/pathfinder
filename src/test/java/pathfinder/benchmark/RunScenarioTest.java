@@ -40,7 +40,6 @@ public class RunScenarioTest {
         // Times are 1 because we use the stub timer which always returns 1
         // Distances should match the reference values (and be the same for all algorithms)
         assertEquals(""
-                + "Results\n"
                 + "0	1.000	1.000	1.000	2.82842712	2.82842712	2.82842712\n"
                 + "0	1.000	1.000	1.000	2.41421356	2.41421356	2.41421356\n"
                 + "0	1.000	1.000	1.000	3.82842712	3.82842712	3.82842712\n"

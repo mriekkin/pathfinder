@@ -71,8 +71,7 @@ public class RunScenario {
         List<Pathfinder> algorithms = getAlgorithms(g);
         RunExperiment runner = new RunExperiment(g, algorithms, replicates, timer);
 
-        //out.println("Results");
-
+        // Run each experiment and print the results
         for (Experiment e : experiments) {
             Result[] results = runner.run(e);
             printRow(e, results);
