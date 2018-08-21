@@ -1,0 +1,37 @@
+#!/bin/bash
+run_problem_set() {
+    local prob_set=$1
+    local timestamp="$(date +%y%m%d_%H%M%S)"
+    local dir="results/$timestamp/$prob_set"
+    if [ ! -d "$dir" ]; then
+        mkdir "results/$timestamp"
+        mkdir "$dir"
+    fi
+
+    echo ""
+    echo "Starting problem set $prob_set..."
+    echo "Created directory $dir..."
+
+    for filename in grids/$prob_set/*.map.scen; do
+        echo ""
+        echo "Processing scenario $filename"
+        echo ""
+        local results_file="$dir/$(basename "$filename" .map.scen).csv"
+        java -jar build/libs/pathfinder.jar -b "$filename" | tee "$results_file"
+    done
+
+    echo ""
+    echo "Finished problem set $prob_set"
+}
+
+sigint() {
+    exit 1
+}
+
+trap sigint INT
+
+gradle jar
+run_problem_set "da2"
+run_problem_set "dao"
+run_problem_set "sc1"
+run_problem_set "bg512"
