@@ -4,9 +4,9 @@
 %
 %===============================================================================
 DIRECTORY = "data/180821/dao";
-SAVE_FILENAME = "img/results_dao.png";
+SAVE_FILENAME = "img/dao_results.png";
 PLOT_SCENARIOS = [];
-RUNNING_TIMES_EXPLANATION_FILENAME = "img/running_times_explanation_dao.png";
+SCENARIO_RUNNING_TIMES_FILENAME = "img/dao_scenario_running_times.png";
 
 files = dir(fullfile(DIRECTORY, "*.csv"));
 if size(files, 1) == 0
@@ -64,12 +64,12 @@ for i = 1:size(files, 1)
     % Plot results for individual scenarios
     %
     %===========================================================================
-    if ismember(i, PLOT_SCENARIOS)
-        img_path = fullfile("img", "scenarios");
-        mkdir img_path;
-        [filepath,name,ext] = fileparts(filename);
-        plot_result(i, B, fullfile(img_path, strcat(name, ".png")));
-    end
+%    if ismember(i, PLOT_SCENARIOS)
+%        img_path = fullfile("img", "scenarios");
+%        mkdir img_path;
+%        [filepath,name,ext] = fileparts(filename);
+%        plot_result(i, B, fullfile(img_path, strcat(name, ".png")));
+%    end
 
     %===========================================================================
     %
@@ -81,19 +81,19 @@ for i = 1:size(files, 1)
 
         subplot(1, 3, 1)
         plot(b, t_D, "k"); hold on;
-        title(strcat("Running times for Dijkstra (scenarios with >200 buckets)"))
+        title(strcat("Running times for Dijkstra\n(scenarios with >200 buckets)"))
         xlabel("Bucket")
         ylabel("Average time (ms)")
 
         subplot(1, 3, 2)
-        plot(b, t_Astar, "k");
-        title(strcat("Running times for A* (scenarios with >200 buckets)"))
+        plot(b, t_Astar, "k"); hold on;
+        title(strcat("Running times for A*\n(scenarios with >200 buckets)"))
         xlabel("Bucket")
         ylabel("Average time (ms)")
 
         subplot(1, 3, 3)
-        plot(b, t_JPS, "k");
-        title(strcat("Running times for JPS (scenarios with >200 buckets)"))
+        plot(b, t_JPS, "k"); hold on;
+        title(strcat("Running times for JPS\n(scenarios with >200 buckets)"))
         xlabel("Bucket")
         ylabel("Average time (ms)")
     end
@@ -108,7 +108,8 @@ for i = 1:size(files, 1)
     max_buckets = max(max_buckets, buckets);
 end
 
-saveas(f, RUNNING_TIMES_EXPLANATION_FILENAME);
+resize_figure(figure(2), 1000, 230);
+print(SCENARIO_RUNNING_TIMES_FILENAME, "-dpng");
 
 % Drop rows which are all zeros
 t = t(1:max_buckets, :);
