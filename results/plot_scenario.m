@@ -1,4 +1,4 @@
-FILE = "dao/orz900d.csv";
+FILE = "data/180821/dao/orz900d.csv";
 FIGURE = 3;
 SAVE_FILENAME = "";
 

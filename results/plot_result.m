@@ -10,11 +10,10 @@ function plot_result(fig, B, filename)
 
     % Plot of the running time
     subplot(1, 3, 1)
-%    figure(1)
+%    figure(11)
     plot(b, t_D, "b"); hold on;
     plot(b, t_Astar, "g");
     plot(b, t_JPS, "y");
-    %axis square;
     legend("D", "A*", "JPS", "location", "northwest")
     title("Running time")
     xlabel("Bucket")
@@ -22,10 +21,9 @@ function plot_result(fig, B, filename)
 
     % Plot of the speedup factor (compared to Dijkstra)
     subplot(1, 3, 2)
-%    figure(2)
+%    figure(12)
     plot(b, t_D ./ t_Astar, "g"); hold on;
     plot(b, t_D ./ t_JPS, "y");
-    %axis square;
     legend("A*", "JPS", "location", "northwest")
     title("Speedup over Dijkstra")
     xlabel("Bucket")
@@ -33,15 +31,14 @@ function plot_result(fig, B, filename)
 
     % Plot of the speedup factor (compared to A*)
     subplot(1, 3, 3)
-%    figure(3)
+%    figure(13)
     plot(b, t_Astar ./ t_JPS, "y");
-    %axis square;
     legend("JPS", "location", "northwest")
     title("Speedup over A*")
     xlabel("Bucket")
     ylabel("Average speedup factor")
 
     if !isempty(filename)
-        saveas(f, strcat(filename, ".png"))
+        saveas(f, filename)
     end
 end
