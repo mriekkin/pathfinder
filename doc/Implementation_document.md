@@ -26,13 +26,32 @@ The diagram below represents a simplified class diagram for the benchmark mode.
 
 ## Performance Testing
 
-Algorithms can be compared by running the same set of problems for a number of algorithms. Hence, the basic idea of the benchmark mode is to run a large number of problems for the same set of algorithms. This means running multiple problems on any single map with different source and destination nodes. It also means running the same set of algorithms on a variety of different maps. This means running multiple scenarios and averaging the results.
+Algorithms can be compared by running the same set of problems for a number of algorithms. Hence, the basic idea of the benchmark mode is to run a large number of problems for the same set of algorithms. This means running multiple problems on any single map with different source and destination nodes. It also means running the same set of algorithms on a variety of different maps.
 
-Each problem represents a small experiment. Each experiment should also be replicated a specified number of times to obtain reliable results. This means running the same shortest path problem for multiple times and taking the median of the running times.
+### Experimental setup
+
+We run an experiment designed to compare the performance of three algorithms: Dijkstra, A* and Jump point search (JPS). We use our own implementations written in Java. The code for these implementations is available in this GitHub repository.
+
+We use standard benchmark problem sets [1] available from the site [movingai.com/benchmarks/](https://www.movingai.com/benchmarks/). We use the following problem sets extracted from commercial video games:
+
+* **Dragon Age: Origins (DAO).** 156 maps with a total of 155&nbsp;620 instances.
+* **Dragon Age 2 (DA2).** 67 maps with a total of 67&nbsp;200 instances.
+* **Baldurs Gate II, scaled to 512x512 (BG512).** 75 maps with a total of 122&nbsp;600 instances.
+* **Starcraft (SC1).** 75 maps with a total of 211&nbsp;390 instances.
+
+As intended in the problem sets, we disallow corner-cutting diagonal movement.
+
+We measure performance in terms of running time. To measure running time we compute each problem instance 10 times, and store the median running time for each algorithm. We use the median instead of the mean because, in Java, garbage collection (GC) and just-in-time (JIT) compilation may introduce outliers, which we'd like to exclude from the analysis.
+
+We run the experiments on a 2013 MacBook Pro running macOS High Sierra. Our test machine has a 2.4 GHz Intel Core i5 processor and 8 GB of RAM.
 
 ### Results for a single scenario
 
-The figure below presents the results of running a single scenario (dao/lak100d). From the figure it is apparent that, for most problems, A* is faster than Dijkstra and JPS is faster than A*. On the other hand, when path lengths approach the maximum, the performance of Dijkstra and A* is roughly the same.
+We would like to describe running time as a function of path length. The problem sets categorize problems into larger buckets. Given the optimal solution length, the bucket for a path of length L is floor(L/4). Each bucket on each map contains at most 10 problems. To describe running time across similar problem instances we use the median running time averaged across buckets. We average (within each bucket) across all problem instances in the same problem set. This gives us the average running time for each bucket. In other words, we get the average running time as a function of path length.
+
+Running time is described first in absolute terms (milliseconds), and then mostly in relative terms (speedup). The speedup factor is the ratio of two running times. It is the relative improvement to the time taken to solve a given problem. A speedup factor of 2.0 implies that the running time is twice as fast, that is the problem can be solved in half the time.
+
+The figure below presents the results of running a single scenario. The scenario in question is "lak100d" from the DAO problem set.
 
 ![The results of running a single scenario](img/lak100d_results_avg.png)
 
@@ -44,7 +63,7 @@ The figure below presents the results of running a single scenario (dao/lak100d)
 
 ## Aggregated results
 
-Below are the aggregated results for two scenarios
+Below are the aggregated results for two problem sets: DAO and DA2.
 
 ![Results for the problem set DAO](img/dao_results.png)
 ![Results for the problem set DA2](img/da2_results.png)
@@ -52,3 +71,7 @@ Below are the aggregated results for two scenarios
 Explanation for the "jumps"
 
 ![Scenario running times for DAO](img/dao_scenario_running_times.png)
+
+## References
+
+[1] Sturtevant, N. (2012), "Benchmarks for Grid-Based Pathfinding", IEEE Transactions on Computational Intelligence and AI in Games, 4(2): 144-148.
