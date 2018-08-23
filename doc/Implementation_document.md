@@ -43,7 +43,7 @@ As intended in the problem sets, we disallow corner-cutting diagonal movement.
 
 We measure performance in terms of running time. To measure running time we compute each problem instance 10 times, and store the median running time for each algorithm. We use the median instead of the mean because, in Java, garbage collection (GC) and just-in-time (JIT) compilation may introduce outliers, which we'd like to exclude from the analysis.
 
-We run the experiments on a 2013 MacBook Pro running macOS High Sierra. Our test machine has a 2.4 GHz Intel Core i5 processor and 8 GB of RAM.
+We run the experiments on a 2013 MacBook Pro running macOS High Sierra. Our test machine has a 2.4 GHz Intel Core i5 processor and 8 GB of RAM. We use Java SE Runtime Environment 8.
 
 ### Results for a single scenario
 
@@ -72,6 +72,8 @@ Below are the aggregated results for three problem sets: DAO, DA2 and BG512.
 ![Results for the problem set DAO](img/dao_results.png)
 ![Results for the problem set DA2](img/da2_results.png)
 ![Results for the problem set BG512](img/bg512_results.png)
+
+Running times are in the range of 0-40 ms. The DAO problem set has the longest running times. In general running times increase as a function of path length. In other words, longer paths tend to take a longer time to compute. The BG512 set, however, is a peculiar exception to this rule. Many of the curves also have "jumps". These are studied more closely below.
 
 Explanation for the "jumps"
 
