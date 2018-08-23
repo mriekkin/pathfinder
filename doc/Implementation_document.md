@@ -12,7 +12,7 @@ The graphs represented in this program are 2-dimensional uniform-cost grids. Hen
 
 The diagram below represents a simplified class diagram for the visualization mode. It represents only those classes which are relevant to application logic. In addition, the visualization mode includes many GUI specific classes which are not shown here.
 
-![Class diagram for the visualization mode](img/gui_structure.png)
+![Class diagram for the visualization mode](img/structure_gui.png)
 
 Central concepts in the benchmark mode are scenarios and experiments. Scenarios are sets of experiments and each experiment represents a single benchmark problem. Scenarios (sets of benchmark problems) are stored in CSV files, where each row represents a single experiment.
 
@@ -20,13 +20,13 @@ The main class, Benchmark, uses two classes to handle the workload: ScenarioRead
 
 The diagram below represents a simplified class diagram for the benchmark mode.
 
-![Class diagram for the benchmark mode](img/benchmark_structure.png)
+![Class diagram for the benchmark mode](img/structure_benchmark.png)
 
-![Class diagram for RunExperiment](img/runexperiment_structure.png)
+![Class diagram for RunExperiment](img/structure_runexperiment.png)
 
 ## Performance Testing
 
-Algorithms can be compared by running the same set of problems for a number of algorithms. Hence, the basic idea of the benchmark mode is to run a large number of problems for the same set of algorithms. This means running multiple problems on any single map with different source and destination nodes. It also means running the same set of algorithms on a variety of different maps.
+Algorithms can be compared by running the same set of problems for a number of algorithms. This means running multiple problems on any single map with different source and destination nodes. It also means running the same set of algorithms on a variety of different maps.
 
 ### Experimental setup
 
@@ -47,7 +47,9 @@ We run the experiments on a 2013 MacBook Pro running macOS High Sierra. Our test
 
 ### Results for a single scenario
 
-We would like to describe running time as a function of path length. The problem sets categorize problems into larger buckets. Given the optimal solution length, the bucket for a path of length L is floor(L/4). Each bucket on each map contains at most 10 problems. To describe running time across similar problem instances we use the median running time averaged across buckets. We average (within each bucket) across all problem instances in the same problem set. This gives us the average running time for each bucket. In other words, we get the average running time as a function of path length.
+The problem sets categorize problems into larger buckets. Given the optimal solution length, the bucket for a path of length L is floor(L/4). Reporting results in buckets reduces the variance and makes it easier to compare similar problems across maps. Each bucket on each map contains at most 10 problems. [1]
+
+We would like to describe running time as a function of path length. To describe running time across similar problem instances we use the median running time averaged across buckets. We average (within each bucket) across problem instances in the same scenario. This gives us the average running time for each bucket. In other words, we get the average running time as a function of path length.
 
 Running time is described first in absolute terms (milliseconds), and then mostly in relative terms (speedup). The speedup factor is the ratio of two running times. It is the relative improvement to the time taken to solve a given problem. A speedup factor of 2.0 implies that the running time is twice as fast, that is the problem can be solved in half the time.
 
@@ -63,10 +65,13 @@ The figure below presents the results of running a single scenario. The scenario
 
 ## Aggregated results
 
-Below are the aggregated results for two problem sets: DAO and DA2.
+Again, we would like to describe running time as a function of path length. In this case we average (within each bucket) across all problem instances in the same problem set. This gives us the average running time for each bucket. In other words, we get the average running time as a function of path length.
+
+Below are the aggregated results for three problem sets: DAO, DA2 and BG512.
 
 ![Results for the problem set DAO](img/dao_results.png)
 ![Results for the problem set DA2](img/da2_results.png)
+![Results for the problem set BG512](img/bg512_results.png)
 
 Explanation for the "jumps"
 
