@@ -1,4 +1,4 @@
-function plot_result(fig, B, filename)
+function plot_result(fig, B, filename, y_limits)
     f = figure(fig);
 
     % Extract column data
@@ -23,6 +23,9 @@ function plot_result(fig, B, filename)
     title("Running time")
     xlabel("Bucket")
     ylabel("Average time (ms)")
+    if length(y_limits) > 0
+        ylim(y_limits(1, 1:2));
+    end
 
     % Plot of the speedup factor (compared to Dijkstra)
     subplot(1, 3, 2)
@@ -33,6 +36,9 @@ function plot_result(fig, B, filename)
     title("Speedup over Dijkstra")
     xlabel("Bucket")
     ylabel("Average speedup factor")
+    if length(y_limits) > 0
+        ylim(y_limits(2, 1:2));
+    end
 
     % Plot of the speedup factor (compared to A*)
     subplot(1, 3, 3)
@@ -42,8 +48,11 @@ function plot_result(fig, B, filename)
     title("Speedup over A*")
     xlabel("Bucket")
     ylabel("Average speedup factor")
+    if length(y_limits) > 0
+        ylim(y_limits(3, 1:2));
+    end
 
-    resize_figure(f, 1000, 260);
+    resize_figure(f, 1000, 230);
 
     if !isempty(filename)
         print(filename, "-dpng")

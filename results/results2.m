@@ -3,10 +3,15 @@
 % Settings
 %
 %===============================================================================
-DIRECTORY = "data/180821/dao";
-SAVE_FILENAME = "img/dao_results.png";
+TIMESTAMP = "180821";
+PROBLEM_SET = "dao";
+FIG1_Y_LIMITS = [[0 40]; [0 12]; [0 6]];
 PLOT_SCENARIOS = [];
-SCENARIO_RUNNING_TIMES_FILENAME = "img/dao_scenario_running_times.png";
+
+% These are derived from the values above
+DIRECTORY = fullfile("data", TIMESTAMP, PROBLEM_SET);
+SAVE_FILENAME = fullfile("img", strcat(PROBLEM_SET, "_results.png"));
+SCENARIO_RUNNING_TIMES_FILENAME = fullfile("img", strcat(PROBLEM_SET, "_scenario_running_times.png"));
 
 files = dir(fullfile(DIRECTORY, "*.csv"));
 if size(files, 1) == 0
@@ -17,6 +22,9 @@ end
 t = zeros(1024, 7);
 n = zeros(1024, 7);
 max_buckets = 0;
+
+% Clear figures
+clf(1); clf(2);
 
 for i = 1:size(files, 1)
     %===========================================================================
@@ -68,7 +76,7 @@ for i = 1:size(files, 1)
 %        img_path = fullfile("img", "scenarios");
 %        mkdir img_path;
 %        [filepath,name,ext] = fileparts(filename);
-%        plot_result(i, B, fullfile(img_path, strcat(name, ".png")));
+%        plot_result(i, B, fullfile(img_path, strcat(name, ".png")), []);
 %    end
 
     %===========================================================================
@@ -124,4 +132,4 @@ t_avg = t ./ n;
 % Plot the average over scenarios
 %
 %===========================================================================
-plot_result(1, t_avg, SAVE_FILENAME);
+plot_result(1, t_avg, SAVE_FILENAME, FIG1_Y_LIMITS);

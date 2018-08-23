@@ -5,6 +5,7 @@
 %===============================================================================
 DIRECTORY = "data/180821/dao";
 SAVE_FILENAME = "img/dao_results.png";
+Y_LIMITS = [[0 40]; [0 12]; [0 6]];
 
 files = dir(fullfile(DIRECTORY, "*.csv"));
 if size(files, 1) == 0
@@ -15,6 +16,9 @@ end
 t = zeros(1024, 7);
 n = zeros(1024, 7);
 max_buckets = 0;
+
+% Clear figures
+clf(1);
 
 for i = 1:size(files, 1)
     %===========================================================================
@@ -80,4 +84,4 @@ t_avg = t ./ n;
 % Plot the average over scenarios
 %
 %===========================================================================
-plot_result(1, t_avg, SAVE_FILENAME);
+plot_result(1, t_avg, SAVE_FILENAME, Y_LIMITS);
