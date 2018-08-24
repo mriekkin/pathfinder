@@ -1,6 +1,7 @@
 FILE = "data/180821/dao/orz900d.csv";
 FIGURE = 3;
 SAVE_FILENAME = "";
+Y_LIMITS = [];
 
 % Load the file
 A = load("-ascii", FILE);
@@ -26,5 +27,8 @@ for k = 1:buckets
     B(k, :) = mean(bucket_data);
 end
 
+% Clear figures
+clf(figure(FIGURE));
+
 % Plot the graph
-plot_result(FIGURE, B, SAVE_FILENAME);
+plot_result(FIGURE, B, SAVE_FILENAME, Y_LIMITS);

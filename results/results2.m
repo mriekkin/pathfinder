@@ -24,7 +24,7 @@ n = zeros(1024, 7);
 max_buckets = 0;
 
 % Clear figures
-clf(1); clf(2);
+clf(figure(1)); clf(figure(2));
 
 for i = 1:size(files, 1)
     %===========================================================================
