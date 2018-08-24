@@ -75,7 +75,9 @@ Below are the aggregated results for three problem sets: DAO, DA2 and BG512.
 
 Running times are in the range of 0-40 ms. The DAO problem set has the longest running times. In general running times increase as a function of path length. In other words, longer paths tend to take a longer time to compute. The BG512 set, however, is a peculiar exception to this rule. Many of the curves also have "jumps". These are studied more closely below.
 
-Explanation for the "jumps"
+JPS obtains a 3-5 times speedup compared to A*, and a 3-10 times speedup compared to Dijkstra. The speedup compared to Dijkstra is most pronounced for relatively short paths, and in particular for the BG512 problem set. This is probably due the different nature of the problem sets. The titles in the Dragon Age series are role-playing games (RPG), where the maps are more linear; Baldur's Gate on the other hand is a real-time strategy game (RTS), where the maps are more two-dimensional.
+
+Explanation for the "jumps": Some individual scenarios are much faster/slower than the average. The difference in running times is large enough to skew the average downwards/upwards. When such a scenario ends (the scenarios have different lengths), the average shifts abruptly in the opposite direction. This process is depicted in the picture below, which shows the running times for individual scenarios in the DAO problem set.
 
 ![Scenario running times for DAO](img/dao_scenario_running_times.png)
 
