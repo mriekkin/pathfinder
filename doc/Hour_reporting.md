@@ -37,3 +37,13 @@
 | 15.8.  | Wed     |  8 h  | Implemented an option to choose whether corner-cutting is allowed    |
 | 16.8.  | Thu     |  8 h  | Began to write the implementation document (class structure)         |
 | 17.8.  | Fri     | 10 h  | Wrote a section on performance testing, bug fixing, merged ArrayList |
+
+## Week 5
+
+| Date   | Weekday | Hours | What was done                                                         |
+| ------ | ------- | ----- | --------------------------------------------------------------------- |
+| 20.8.  | Mon     |  8 h  | Wrote scripts to run the benchmarks & process the results (no commit) |
+| 21.8.  | Tue     |  8 h  | Wrote scripts to run the benchmarks & process the results (committed) |
+| 22.8.  | Wed     | 10 h  | Studied the results, wrote a section on performance testing           |
+| 23.8.  | Thu     | 10 h  | Studied the results, peer review                                      |
+| 24.8.  | Fri     |  2 h  | Worked on the ArrayList implementation, weekly report                 |
