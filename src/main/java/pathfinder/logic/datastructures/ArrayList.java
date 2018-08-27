@@ -22,6 +22,7 @@ public class ArrayList<E> implements List<E> {
      *
      * @param capacity initial capacity of this list
      */
+    @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
         if (capacity <= 0)
             throw new IllegalArgumentException("Capacity non-positive: " + capacity);
@@ -71,6 +72,7 @@ public class ArrayList<E> implements List<E> {
         return element;
     }
 
+    @SuppressWarnings("unchecked")
     private void resize(int capacity) {
         E[] copy = (E[]) new Object[capacity];
         System.arraycopy(table, 0, copy, 0, n);

@@ -37,7 +37,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
     private JMenuItem settings;
     private JButton find;
     private JButton reset;
-    private JComboBox algorithm;
+    private JComboBox<String> algorithm;
     private GridPanel grid;
     private JScrollPane scroll;
     private ToggleObstacleListener mouseListener1;
@@ -98,7 +98,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
     private void addButtonRowOnTop(final Container pane) {
         find = new JButton("Find");
         reset = new JButton("Reset");
-        algorithm = new JComboBox(ALGORITHMS);
+        algorithm = new JComboBox<>(ALGORITHMS);
 
         addActionListeners();
 
