@@ -29,9 +29,7 @@ public class MinHeap<E extends Comparable<E>> extends AbstractCollection<E> impl
      */
     @SuppressWarnings("unchecked")
     public MinHeap(int capacity) {
-        if (capacity <= 0) {
-            throw new IllegalArgumentException("Capacity non-positive: " + capacity);
-        }
+        requirePositive("capacity", capacity);
 
         // Since the generic type is bounded,
         // the backing array should be of the bounding type
@@ -80,11 +78,6 @@ public class MinHeap<E extends Comparable<E>> extends AbstractCollection<E> impl
     @Override
     public int size() {
         return n;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return n == 0;
     }
 
     private boolean isFull() {

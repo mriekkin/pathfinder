@@ -29,12 +29,12 @@ public class ArrayListTest {
     @Test
     public void constructorThrowsExceptionForZeroCapacity() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Capacity non-positive: 0");
+        thrown.expectMessage("Non-positive capacity: 0");
         list = new ArrayList<>(0);
     }
 
     @Test
-    public void getReturnsItemAtSpecifiedPosition() {
+    public void getReturnsElementAtSpecifiedPosition() {
         assertEquals("Zero", list.get(0));
         assertEquals("One", list.get(1));
         assertEquals("Two", list.get(2));
@@ -58,7 +58,7 @@ public class ArrayListTest {
     }
 
     @Test
-    public void addAppendsItemToTheEndOfList() {
+    public void addAppendsElementToTheEndOfList() {
         list.add("Six");
         assertEquals("Six", list.get(6));
     }
@@ -226,7 +226,7 @@ public class ArrayListTest {
     }
 
     @Test
-    public void sizeReturnsTheNumberOfItems() {
+    public void sizeReturnsTheNumberOfElements() {
         assertEquals(6, list.size());
     }
 

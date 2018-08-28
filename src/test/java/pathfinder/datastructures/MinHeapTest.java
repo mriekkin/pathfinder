@@ -29,7 +29,7 @@ public class MinHeapTest {
     @Test
     public void constructorThrowsExceptionIfInitialCapacityNonPositive() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Capacity non-positive: 0");
+        thrown.expectMessage("Non-positive capacity: 0");
         heap = new MinHeap<>(0);
     }
 

@@ -27,9 +27,7 @@ public class ArrayList<E> extends AbstractCollection<E> implements List<E> {
      */
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        if (capacity <= 0)
-            throw new IllegalArgumentException("Capacity non-positive: " + capacity);
-
+        requirePositive("capacity", capacity);
         this.table = (E[]) new Object[capacity];
         this.n = 0;
     }
@@ -91,11 +89,6 @@ public class ArrayList<E> extends AbstractCollection<E> implements List<E> {
     @Override
     public int size() {
         return n;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return n == 0;
     }
 
     private boolean isFull() {
