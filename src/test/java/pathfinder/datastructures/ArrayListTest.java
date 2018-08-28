@@ -126,8 +126,12 @@ public class ArrayListTest {
     @Test
     public void addResizesWhenFull() {
         list = new ArrayList<>(1); // initial capacity 1
-        list.add("Zero"); list.add("One"); list.add("Two"); list.add("Three");
-        list.add("Four"); list.add("Five");
+        list.add("Zero");
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.add("Four");
+        list.add("Five");
         assertEquals("Zero", list.get(0));
         assertEquals("One", list.get(1));
         assertEquals("Two", list.get(2));
@@ -216,6 +220,12 @@ public class ArrayListTest {
     }
 
     @Test
+    public void clearRemovesAllOfTheElements() {
+        list.clear();
+        assertEquals(0, list.size());
+    }
+
+    @Test
     public void sizeReturnsTheNumberOfItems() {
         assertEquals(6, list.size());
     }
@@ -229,6 +239,52 @@ public class ArrayListTest {
     @Test
     public void isEmptyReturnsFalseForNonEmptyList() {
         assertFalse(list.isEmpty());
+    }
+
+    @Test
+    public void equalsReturnsTrueForTheSameObject() {
+        assertTrue(list.equals(list));
+    }
+
+    @Test
+    public void equalsReturnsTrueForOtherListWithEqualElements() {
+        ArrayList<String> list2 = new ArrayList<>();
+        list2.add("Zero");
+        list2.add("One");
+        list2.add("Two");
+        list2.add("Three");
+        list2.add("Four");
+        list2.add("Five");
+        assertTrue(list.equals(list2));
+    }
+
+    @Test
+    public void equalsReturnsFalseWhenOtherIsNull() {
+        assertFalse(list.equals(null));
+    }
+
+    @Test
+    public void equalsReturnsFalseWhenOtherIsOfDifferentType() {
+        assertFalse(list.equals(new Integer(1)));
+    }
+
+    @Test
+    public void equalsReturnsFalseForOtherListOfUnequalLength() {
+        ArrayList<String> list2 = new ArrayList<>();
+        list2.add("Zero");
+        assertFalse(list.equals(list2));
+    }
+
+    @Test
+    public void equalsReturnsFalseForOtherListOfEqualLengthButDifferentElements() {
+        ArrayList<String> list2 = new ArrayList<>();
+        list2.add("0");
+        list2.add("1");
+        list2.add("2");
+        list2.add("3");
+        list2.add("4");
+        list2.add("5");
+        assertFalse(list.equals(list2));
     }
 
     @Test

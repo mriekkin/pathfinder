@@ -1,5 +1,7 @@
 package pathfinder.datastructures;
 
+import java.util.Iterator;
+
 /**
  * A priority queue.
  * <p>
@@ -7,19 +9,15 @@ package pathfinder.datastructures;
  *
  * @param <E> the type of elements in this priority queue
  */
-public interface PriorityQueue<E extends Comparable<E>> {
+public interface PriorityQueue<E extends Comparable<E>> extends Collection<E> {
 
     /**
      * Inserts the specified element into this priority queue.
      *
      * @param e the element to add
      */
+    @Override
     void add(E e);
-
-    /**
-     * Removes all of the elements from this priority queue.
-     */
-    void clear();
 
     /**
      * Returns the minimal element in this priority queue, or returns null if
@@ -38,17 +36,12 @@ public interface PriorityQueue<E extends Comparable<E>> {
     E poll();
 
     /**
-     * Returns the number of elements in this priority queue.
+     * Returns an iterator over the elements in this queue. The iterator does
+     * not return the elements in any particular order.
      *
-     * @return the number of elements
+     * @return an iterator over the elements in this queue
      */
-    int size();
-
-    /**
-     * Returns true if this priority queue has no elements.
-     *
-     * @return true if this queue has no elements, false otherwise
-     */
-    boolean isEmpty();
+    @Override
+    Iterator<E> iterator();
 
 }

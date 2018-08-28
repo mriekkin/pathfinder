@@ -1,5 +1,7 @@
 package pathfinder.datastructures;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -146,6 +148,33 @@ public class MinHeapTest {
         heap.poll();
         heap.poll();
         assertEquals(0, heap.size());
+    }
+
+    @Test
+    public void iteratorReturnsNextElement() {
+        Iterator<Integer> iter = heap.iterator();
+        assertEquals(true, iter.hasNext());
+        assertEquals(Integer.valueOf(10), iter.next());
+        assertEquals(Integer.valueOf(11), iter.next());
+        assertEquals(Integer.valueOf(12), iter.next());
+        assertEquals(Integer.valueOf(13), iter.next());
+        assertEquals(Integer.valueOf(14), iter.next());
+        assertEquals(Integer.valueOf(15), iter.next());
+        assertEquals(false, iter.hasNext());
+    }
+
+    @Test
+    public void iteratorThrowsNoSuchElementExceptionAfterLastElement() {
+        thrown.expect(NoSuchElementException.class);
+        thrown.expectMessage("No such element: index = 6");
+        Iterator<Integer> iter = heap.iterator();
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
     }
 
 }

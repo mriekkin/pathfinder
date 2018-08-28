@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  *
  * @param <E> the type of elements in this list
  */
-public class ArrayList<E> implements List<E> {
+public class ArrayList<E> extends AbstractCollection<E> implements List<E> {
 
     private E[] table;
     private int n;
@@ -75,6 +75,11 @@ public class ArrayList<E> implements List<E> {
         return element;
     }
 
+    @Override
+    public void clear() {
+        n = 0;
+    }
+
     @SuppressWarnings("unchecked")
     private void resize(int capacity) {
         E[] copy = (E[]) new Object[capacity];
@@ -97,6 +102,24 @@ public class ArrayList<E> implements List<E> {
         return n == table.length;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+
+        final ArrayList<?> other = (ArrayList<?>) o;
+        if (this.n != other.n)
+            return false;
+
+        for (int i = 0; i < n; i++) {
+            if (!get(i).equals(other.get(i)))
+                return false;
+        }
+
+        return true;
+    }
+
     /**
      * Returns an iterator over the elements in this list.
      *
@@ -107,6 +130,10 @@ public class ArrayList<E> implements List<E> {
         return new Iter();
     }
 
+    /**
+     * An iterator over the elements in this list. This iterator returns the
+     * elements in sequential order.
+     */
     private class Iter implements Iterator<E> {
 
         private int index;

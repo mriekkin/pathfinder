@@ -5,7 +5,7 @@ package pathfinder.datastructures;
  *
  * @param <E> the type of elements in this list
  */
-public interface List<E> extends Iterable<E> {
+public interface List<E> extends Collection<E> {
 
     /**
      * Returns the element at the specified position in this list
@@ -20,6 +20,7 @@ public interface List<E> extends Iterable<E> {
      *
      * @param e element to be appended to this list
      */
+    @Override
     void add(E e);
 
     /**
@@ -39,17 +40,13 @@ public interface List<E> extends Iterable<E> {
     E remove(int index);
 
     /**
-     * Returns the number of elements in this list
+     * Returns true if thist list and the specified list contain the same
+     * objects in the same order.
      *
-     * @return the number of elements in this list
+     * @param o the object to be compared for equality with this list
+     * @return true if the specified object is equal to this list
      */
-    int size();
-
-    /**
-     * Returns true if this list contains no elements
-     *
-     * @return true if this list contains no elements
-     */
-    boolean isEmpty();
+    @Override
+    public boolean equals(Object o);
 
 }

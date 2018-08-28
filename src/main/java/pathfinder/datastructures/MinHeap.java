@@ -1,5 +1,8 @@
 package pathfinder.datastructures;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * A binary min-heap which implements the <code>PriorityQueue</code> interface.
  * <p>
@@ -7,7 +10,7 @@ package pathfinder.datastructures;
  *
  * @param <E> the type of elements held in this min-heap
  */
-public class MinHeap<E extends Comparable<E>> implements PriorityQueue<E> {
+public class MinHeap<E extends Comparable<E>> extends AbstractCollection<E> implements PriorityQueue<E> {
 
     private E[] A;
     private int n;
@@ -141,19 +144,35 @@ public class MinHeap<E extends Comparable<E>> implements PriorityQueue<E> {
     }
 
     @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append('[');
-        for (int i = 0; i < n; i++) {
-            s.append(A[i]);
+    public Iterator<E> iterator() {
+        return new Iter();
+    }
 
-            if (i+1 < n) {
-                s.append(", ");
-            }
+    /**
+     * An iterator over the elements in this queue. This iterator does not
+     * return the elements in any particular order.
+     */
+    private class Iter implements Iterator<E> {
+
+        private int index;
+
+        public Iter() {
+            this.index = 0;
         }
 
-        s.append(']');
-        return s.toString();
+        @Override
+        public boolean hasNext() {
+            return index < n;
+        }
+
+        @Override
+        public E next() {
+            if (index >= n)
+                throw new NoSuchElementException("No such element: index = " + index);
+
+            return A[index++];
+        }
+
     }
 
 }
