@@ -1,5 +1,6 @@
-package pathfinder.logic.datastructures;
+package pathfinder.datastructures;
 
+import pathfinder.datastructures.ArrayList;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;

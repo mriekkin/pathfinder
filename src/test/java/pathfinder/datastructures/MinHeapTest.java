@@ -1,5 +1,6 @@
-package pathfinder.logic.datastructures;
+package pathfinder.datastructures;
 
+import pathfinder.datastructures.MinHeap;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

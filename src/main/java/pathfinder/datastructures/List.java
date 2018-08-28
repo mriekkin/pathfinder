@@ -1,4 +1,4 @@
-package pathfinder.logic.datastructures;
+package pathfinder.datastructures;
 
 /**
  * An ordered collection.

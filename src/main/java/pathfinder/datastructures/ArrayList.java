@@ -1,4 +1,4 @@
-package pathfinder.logic.datastructures;
+package pathfinder.datastructures;
 
 /**
  * A resizable array which implements the <code>List</code> interface.

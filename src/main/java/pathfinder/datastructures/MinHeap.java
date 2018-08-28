@@ -1,4 +1,4 @@
-package pathfinder.logic.datastructures;
+package pathfinder.datastructures;
 
 /**
  * A binary min-heap which implements the <code>PriorityQueue</code> interface.
