@@ -1,9 +1,9 @@
 package pathfinder.logic.pathfinders;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import pathfinder.datastructures.ArrayList;
+import pathfinder.datastructures.ArrayStack;
 import pathfinder.datastructures.List;
+import pathfinder.datastructures.Stack;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 
@@ -152,7 +152,7 @@ public abstract class AbstractPathfinder implements Pathfinder {
         }
 
         // Traverse predecessor relationships
-        Deque<Node> s = new ArrayDeque<>();
+        Stack<Node> s = new ArrayStack<>();
         while (u != null) {
             s.push(u);
             u = getPred(u);
