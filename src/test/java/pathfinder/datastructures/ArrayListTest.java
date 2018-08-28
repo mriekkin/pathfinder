@@ -1,6 +1,7 @@
 package pathfinder.datastructures;
 
-import pathfinder.datastructures.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
@@ -9,10 +10,10 @@ import org.junit.rules.ExpectedException;
 
 public class ArrayListTest {
 
-    ArrayList<String> list;
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    ArrayList<String> list;
 
     @Before
     public void setUp() {
@@ -228,6 +229,33 @@ public class ArrayListTest {
     @Test
     public void isEmptyReturnsFalseForNonEmptyList() {
         assertFalse(list.isEmpty());
+    }
+
+    @Test
+    public void iteratorReturnsNextElement() {
+        Iterator<String> iter = list.iterator();
+        assertEquals(true, iter.hasNext());
+        assertEquals("Zero", iter.next());
+        assertEquals("One", iter.next());
+        assertEquals("Two", iter.next());
+        assertEquals("Three", iter.next());
+        assertEquals("Four", iter.next());
+        assertEquals("Five", iter.next());
+        assertEquals(false, iter.hasNext());
+    }
+
+    @Test
+    public void iteratorThrowsNoSuchElementExceptionAfterLastElement() {
+        thrown.expect(NoSuchElementException.class);
+        thrown.expectMessage("No such element: index = 6");
+        Iterator<String> iter = list.iterator();
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
     }
 
 }

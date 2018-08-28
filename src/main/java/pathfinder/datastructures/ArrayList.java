@@ -1,5 +1,8 @@
 package pathfinder.datastructures;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * A resizable array which implements the <code>List</code> interface.
  *
@@ -92,6 +95,39 @@ public class ArrayList<E> implements List<E> {
 
     private boolean isFull() {
         return n == table.length;
+    }
+
+    /**
+     * Returns an iterator over the elements in this list.
+     *
+     * @return an iterator over the elements in this list
+     */
+    @Override
+    public Iterator<E> iterator() {
+        return new Iter();
+    }
+
+    private class Iter implements Iterator<E> {
+
+        private int index;
+
+        public Iter() {
+            this.index = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < n;
+        }
+
+        @Override
+        public E next() {
+            if (index >= n)
+                throw new NoSuchElementException("No such element: index = " + index);
+
+            return get(index++);
+        }
+
     }
 
 }

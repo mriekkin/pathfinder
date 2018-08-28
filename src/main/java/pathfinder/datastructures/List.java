@@ -5,7 +5,7 @@ package pathfinder.datastructures;
  *
  * @param <E> the type of elements in this list
  */
-public interface List<E> {
+public interface List<E> extends Iterable<E> {
 
     /**
      * Returns the element at the specified position in this list
