@@ -1,9 +1,9 @@
 package pathfinder.logic.pathfinders;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
+import pathfinder.datastructures.ArrayList;
+import pathfinder.datastructures.List;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 
@@ -151,13 +151,20 @@ public abstract class AbstractPathfinder implements Pathfinder {
             return new ArrayList<>();
         }
 
+        // Traverse predecessor relationships
         Deque<Node> s = new ArrayDeque<>();
         while (u != null) {
             s.push(u);
             u = getPred(u);
         }
 
-        return new ArrayList<>(s);
+        // Empty the stack (returns the nodes in proper order)
+        ArrayList<Node> p = new ArrayList<>();
+        while (!s.isEmpty()) {
+            p.add(s.pop());
+        }
+
+        return p;
     }
 
 }

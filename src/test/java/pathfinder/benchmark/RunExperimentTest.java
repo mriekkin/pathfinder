@@ -2,11 +2,11 @@ package pathfinder.benchmark;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import pathfinder.datastructures.ArrayList;
+import pathfinder.datastructures.List;
 import pathfinder.io.GraphReader;
 import pathfinder.logic.Graph;
 import pathfinder.logic.neighbours.Neighbours;

@@ -1,6 +1,6 @@
 package pathfinder.logic.neighbours;
 
-import java.util.List;
+import pathfinder.datastructures.List;
 import pathfinder.logic.Node;
 
 /**

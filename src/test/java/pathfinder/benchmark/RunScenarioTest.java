@@ -4,10 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import pathfinder.datastructures.List;
 import pathfinder.io.ScenarioReader;
 
 public class RunScenarioTest {

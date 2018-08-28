@@ -1,9 +1,9 @@
 package pathfinder.logic.neighbours;
 
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import pathfinder.datastructures.List;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 import pathfinder.logic.Pair;

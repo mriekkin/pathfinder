@@ -1,6 +1,6 @@
 package pathfinder.logic.pathfinders;
 
-import java.util.List;
+import pathfinder.datastructures.List;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 

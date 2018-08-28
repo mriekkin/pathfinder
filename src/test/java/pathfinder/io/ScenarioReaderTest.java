@@ -3,13 +3,13 @@ package pathfinder.io;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import pathfinder.benchmark.Experiment;
+import pathfinder.datastructures.List;
 
 public class ScenarioReaderTest {
 

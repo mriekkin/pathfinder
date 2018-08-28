@@ -1,12 +1,12 @@
 package pathfinder.logic.pathfinders;
 
-import pathfinder.logic.neighbours.NeighbourPruningRules;
-import java.util.ArrayList;
-import java.util.List;
+import pathfinder.datastructures.ArrayList;
+import pathfinder.datastructures.List;
 import pathfinder.datastructures.MinHeap;
 import pathfinder.datastructures.PriorityQueue;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
+import pathfinder.logic.neighbours.NeighbourPruningRules;
 
 /**
  * Implements the Jump point search (JPS) algorithm for finding the shortest

@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import pathfinder.benchmark.Experiment;
+import pathfinder.datastructures.ArrayList;
+import pathfinder.datastructures.List;
 
 /**
  * Reads the contents of a scenario file, and returns the corresponding list of

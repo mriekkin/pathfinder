@@ -1,7 +1,7 @@
 package pathfinder.logic.neighbours;
 
-import java.util.ArrayList;
-import java.util.List;
+import pathfinder.datastructures.ArrayList;
+import pathfinder.datastructures.List;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 

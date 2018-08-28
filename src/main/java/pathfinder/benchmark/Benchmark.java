@@ -5,8 +5,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import pathfinder.datastructures.ArrayList;
+import pathfinder.datastructures.List;
 import pathfinder.io.ScenarioFileException;
 import pathfinder.io.ScenarioReader;
 
