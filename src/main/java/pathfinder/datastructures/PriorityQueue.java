@@ -44,4 +44,11 @@ public interface PriorityQueue<E extends Comparable<E>> {
      */
     int size();
 
+    /**
+     * Returns true if this priority queue has no elements.
+     *
+     * @return true if this queue has no elements, false otherwise
+     */
+    boolean isEmpty();
+
 }

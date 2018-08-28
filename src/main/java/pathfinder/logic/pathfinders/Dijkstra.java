@@ -1,6 +1,7 @@
 package pathfinder.logic.pathfinders;
 
-import java.util.PriorityQueue;
+import pathfinder.datastructures.MinHeap;
+import pathfinder.datastructures.PriorityQueue;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 import pathfinder.logic.neighbours.Neighbours;
@@ -30,7 +31,7 @@ public class Dijkstra extends AbstractPathfinder {
     protected void init() {
         super.init();
         Node source = g.getSource();
-        q = new PriorityQueue<>();
+        q = new MinHeap<>();
         q.add(new PriorityNode(source, 0));
         setDist(source, 0);
     }

@@ -79,6 +79,15 @@ public class MinHeap<E extends Comparable<E>> implements PriorityQueue<E> {
         return n;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return n == 0;
+    }
+
+    private boolean isFull() {
+        return n == A.length;
+    }
+
     private int parent(int i) {
         return (i - 1) / 2;
     }
@@ -99,21 +108,22 @@ public class MinHeap<E extends Comparable<E>> implements PriorityQueue<E> {
     }
 
     private void heapifyDown(int i) {
-        int l = left(i);
-        int r = right(i);
-        int s; // the index of the smaller child
-        if (r < n && A[r].compareTo(A[l]) < 0) s = r;
-        else s = l;
-
+        int s = getSmallerChild(i);
         while (s < n && A[i].compareTo(A[s]) > 0) {
             swap(i, s);
             i = s;
-            l = left(i);
-            r = right(i);
-
-            if (r < n && A[r].compareTo(A[l]) < 0) s = r;
-            else s = l;
+            s = getSmallerChild(i);
         }
+    }
+
+    private int getSmallerChild(int i) {
+        int l = left(i);
+        int r = right(i);
+        if (r < n && A[r].compareTo(A[l]) < 0) {
+            return r;
+        }
+
+        return l;
     }
 
     private void swap(int i, int j) {
@@ -128,14 +138,6 @@ public class MinHeap<E extends Comparable<E>> implements PriorityQueue<E> {
         System.arraycopy(A, 0, copy, 0, n);
 
         A = copy;
-    }
-
-    private boolean isEmpty() {
-        return n == 0;
-    }
-
-    private boolean isFull() {
-        return n == A.length;
     }
 
     @Override
