@@ -24,8 +24,8 @@ public class RunExperimentTest {
         List<Pathfinder> algorithms = new ArrayList<>();
         algorithms.add(new Dijkstra(g, new Neighbours(g, false)));
 
-        Timer mockTimer = new MockTimer();
-        runner = new RunExperiment(g, algorithms, 10, mockTimer);
+        Timer timer = new StubTimer();
+        runner = new RunExperiment(g, algorithms, 10, timer);
 
         smallExperiment = new Experiment(2, "small.map", 30, 15, 8, 7, 17, 2, 4 + 5 * Math.sqrt(2));
     }

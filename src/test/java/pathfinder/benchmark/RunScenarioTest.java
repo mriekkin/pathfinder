@@ -26,7 +26,7 @@ public class RunScenarioTest {
         outContent = new ByteArrayOutputStream();
         out = new PrintStream(outContent);
 
-        timer = new MockTimer();
+        timer = new StubTimer();
     }
 
     @Test
@@ -36,7 +36,7 @@ public class RunScenarioTest {
 
         runner.run(experiments);
 
-        // Column headers: bucket, time_Dijkstra, time_A*, dist_Dijkstra, dist_A*
+        // Column headers: bucket, time_Dijkstra, time_A*, time_JPS, dist_Dijkstra, dist_A*, dist_JPS
         // Times are 1 because we use the stub timer which always returns 1
         // Distances should match the reference values (and be the same for all algorithms)
         assertEquals(""

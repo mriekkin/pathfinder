@@ -30,7 +30,7 @@ public class BenchmarkTest {
     public void exampleScenarioPrintsExpectedResults() {
         Benchmark b = new Benchmark("grids/tests/example.map.scen", REPLICATES, CC, out);
         b.run();
-        // Column headers: bucket, time_Dijkstra, time_A*, dist_Dijkstra, dist_A*
+        // Column headers: bucket, time_Dijkstra, time_A*, time_JPS, dist_Dijkstra, dist_A*, dist_JPS
         // We use regular expressions to match the time columns
         // Distances should match the reference values (and be the same for all algorithms)
         assertTrue(outContent.toString().matches(""
