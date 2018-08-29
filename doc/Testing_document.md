@@ -135,7 +135,7 @@ The interesting point here is the use of ```heap.toString()``` which produces a 
 
 This package contains classes related to application logic. It contains frequently used classes such as Graph and Node. Most of these unit tests, however, are also relatively straightforward.
 
-We've chosen here one example from [GraphSetupTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/GraphSetupTest.java). This example setups a grid and then compares the result to what we would expect. The comparison is based on the grid's textual representation which is obtained by calling ```GraphWriter.plotGrid```.
+We've chosen here one example from [GraphSetupTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/GraphSetupTest.java). This example sets up a grid and then compares the result to what we would expect. The comparison is based on the grid's textual representation which is obtained by calling ```GraphWriter.plotGrid```.
 
 ```java
 @Test

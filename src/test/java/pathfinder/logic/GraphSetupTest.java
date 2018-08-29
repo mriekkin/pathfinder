@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import pathfinder.io.GraphWriter;
 
 /**
- * Tests graph setup using a few examples
+ * Tests setting up a graph using a few examples
  */
 public class GraphSetupTest {
 
