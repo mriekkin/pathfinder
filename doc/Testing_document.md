@@ -63,7 +63,7 @@ The output of the benchmark mode is written to a PrintStream which, in this case
 
 The output is a big table which specifies the execution time and optimal distance for each problem and algorithm. Each row corresponds to a single experiment. The execution times are all 1.000 because we are using StubTimer. The optimal distance is the same for all three algorithms, and should match the optimal distance specified in the problem set.
 
-The scenario used here is [grids/tests/example.map.scen](https://github.com/mriekkin/pathfinder/blob/master/grids/tests/example.map.scen). This scenario was built by taking a piece of the (much larger) scenario [grids/dao/lak100d.map.scen](https://github.com/mriekkin/pathfinder/blob/master/grids/dao/lak100d.map.scen). Since this example includes only the first two buckets the optimal paths are relatively short.
+The scenario used here is [grids/tests/example.map.scen](https://github.com/mriekkin/pathfinder/blob/master/grids/tests/example.map.scen). This scenario was built by taking a piece of the (much larger) scenario [grids/dao/lak100d.map.scen](https://github.com/mriekkin/pathfinder/blob/master/grids/dao/lak100d.map.scen). Since this example scenario includes only the first two buckets the optimal paths are relatively short.
 
 ### Package pathfinder.datastructures
 
@@ -71,7 +71,7 @@ This package contains all self-implemented data structures. The test classes are
 
 These unit tests are relatively straightforward. First, an instance of the data structure is created, and filled with a small amount of test data. Second, a number of tests is run on the pre-filled data structure. We've chosen here one example from [MinHeapTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/datastructures/MinHeapTest.java):
 
-```
+```java
 @Before
 public void setUp() {
     heap = new MinHeap<>();
@@ -124,7 +124,61 @@ public void pollReturnsNullIfQueueIsEmpty() {
 The interesting point here is the use of ```heap.toString()``` which produces a string representation of the underlying array. This allows us to compare the contents of the heap with a solution computed by hand.
 
 ### Package pathfinder.io
+
+
+
+**TODO: FINISH THE I/O MODULE AND THEN UPDATE THIS SECTION!**
+
+
+
 ### Package pathfinder.logic
+
+This package contains classes related to application logic. It contains frequently used classes such as Graph and Node. Most of these unit tests, however, are also relatively straightforward.
+
+We've chosen here one example from [GraphSetupTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/GraphSetupTest.java). This example setups a grid and then compares the result to what we would expect. The comparison is based on the grid's textual representation which is obtained by calling ```GraphWriter.plotGrid```.
+
+```java
+@Test
+public void setUpBigGrid() {
+    Pair dimensions = new Pair(30, 15);
+    Pair source = new Pair(8, 7);
+    Pair dest = new Pair(17, 2);
+    Graph g = new Graph(dimensions, source, dest);
+
+    for (int y = 3; y <= 11; y++) {
+        g.getNode(3, y).setWalkable(false);
+        g.getNode(4, y).setWalkable(false);
+    }
+
+    for (int y = 4; y <= 14; y++) {
+        g.getNode(13, y).setWalkable(false);
+        g.getNode(14, y).setWalkable(false);
+    }
+
+    // ...
+
+    assertEquals(""
+            + ".....................##.......\n"
+            + ".....................##.......\n"
+            + ".................B...##.......\n"
+            + "...##................##.......\n"
+            + "...##........##......##.......\n"
+            + "...##........##......#####....\n"
+            + "...##........##......#####....\n"
+            + "...##...A....##...............\n"
+            + "...##........##...............\n"
+            + "...##........##...............\n"
+            + "...##........##...............\n"
+            + "...##........##...............\n"
+            + ".............##...............\n"
+            + ".............##...............\n"
+            + ".............##...............",
+            GraphWriter.plotGrid(g));
+}
+```
+
+One side note: even though the method is named setUpBigGrid, this grid is very small compared to some of the larger grids in the problem sets.
+
 ### Package pathfinder.logic.neighbours
 ### Package pathfinder.logic.pathfinders
 

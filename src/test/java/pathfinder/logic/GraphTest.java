@@ -9,7 +9,7 @@ public class GraphTest {
     Graph g;
 
     @Before
-    public void setup() {
+    public void setUp() {
         g = new Graph(new Pair(10, 20), new Pair(0, 0), new Pair(9, 19));
     }
 
