@@ -51,4 +51,9 @@ public class HeuristicsTest {
         assertEquals(9 * Math.sqrt(2), Heuristics.octileDist(a, b), eps);
     }
 
+    @Test
+    public void getCoverageForEmptyDefaultConstructorOfStaticClass() {
+        Heuristics h = new Heuristics();
+    }
+
 }
