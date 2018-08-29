@@ -57,9 +57,9 @@ public class MinHeapTest {
         heap.add(16);
         heap.add(17);
         heap.add(18);
-        heap.add(19);
-        heap.add(20);
-        assertEquals(11, heap.size());
+        heap.add(19); // at this point the heap becomes full (the initial capacity is 10)
+        heap.add(20); // at this point the capacity should increase to accommodate a new element
+        assertEquals(11, heap.size()); // if size > 10, then the capacity must have increased
     }
 
     @Test
@@ -94,12 +94,14 @@ public class MinHeapTest {
     public void pollRemovesMinimalElement() {
         heap.poll();
         assertEquals(5, heap.size());
+        assertEquals("[11, 13, 12, 15, 14]", heap.toString());
     }
 
     @Test
     public void canPollRepeatedly() {
         heap.poll();
         heap.poll();
+        assertEquals(4, heap.size());
         assertEquals("[12, 13, 14, 15]", heap.toString());
     }
 

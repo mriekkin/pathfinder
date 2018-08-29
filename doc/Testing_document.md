@@ -2,10 +2,6 @@
 
 ## Unit Testing
 
-Approximately 190 unit tests, written with the JUnit unit testing framework. Line coverage of 98 % and branch coverage of 95 %.
-
-![JaCoCo: summary of code coverage](img/test_coverage.png)
-
 Unit tests can be run from the command-line with the command
 
 ```
@@ -19,6 +15,10 @@ open build/reports/tests/test/index.html
 open build/reports/jacoco/test/html/index.html
 ```
 
+There are approximately 190 unit tests, written with the JUnit unit testing framework. These give a combined line coverage of 98 % and a  branch coverage of 95 %. Furthermore, as can be seen from the table below, each individual package has a test coverage of over 90 %.
+
+![JaCoCo: summary of code coverage](img/test_coverage.png)
+
 The rest of this section describes package-by-package what kind of unit testing is done. All packages except the GUI have unit tests. The GUI packages do not have unit tests.
 
 ### Package pathfinder.benchmark
@@ -30,33 +30,33 @@ Each experiment produces two values: the length of a shortest path (optimal dist
 The following test case illustrates how the testing is done. This code is from [RunScenarioTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/benchmark/RunScenarioTest.java).
 
 ```java
-    @Before
-    public void setUp() {
-        outContent = new ByteArrayOutputStream();
-        out = new PrintStream(outContent);
-        timer = new StubTimer();
-    }
+@Before
+public void setUp() {
+    outContent = new ByteArrayOutputStream();
+    out = new PrintStream(outContent);
+    timer = new StubTimer();
+}
 
-    @Test
-    public void exampleScenarioPrintsExpectedResults() throws Exception {
-        List<Experiment> experiments = new ScenarioReader().read(SCENARIO_FILE);
-        RunScenario runner = new RunScenario(REPLICATES, MAP_DIRECTORY, timer, CC, out);
+@Test
+public void exampleScenarioPrintsExpectedResults() throws Exception {
+    List<Experiment> experiments = new ScenarioReader().read(SCENARIO_FILE);
+    RunScenario runner = new RunScenario(REPLICATES, MAP_DIRECTORY, timer, CC, out);
 
-        runner.run(experiments);
+    runner.run(experiments);
 
-        // Column headers: bucket, time_Dijkstra, time_A*, time_JPS, dist_Dijkstra, dist_A*, dist_JPS
-        // Times are 1 because we use the stub timer which always returns 1
-        // Distances should match the reference values (and be the same for all algorithms)
-        assertEquals(""
-                + "0	1.000	1.000	1.000	2.82842712	2.82842712	2.82842712\n"
-                + "0	1.000	1.000	1.000	2.41421356	2.41421356	2.41421356\n"
-                + "0	1.000	1.000	1.000	3.82842712	3.82842712	3.82842712\n"
-                // ...
-                + "1	1.000	1.000	1.000	6.41421356	6.41421356	6.41421356\n"
-                + "1	1.000	1.000	1.000	7.24264069	7.24264069	7.24264069\n"
-                + "1	1.000	1.000	1.000	6.65685425	6.65685425	6.65685425\n",
-                outContent.toString());
-    }
+    // Column headers: bucket, time_Dijkstra, time_A*, time_JPS, dist_Dijkstra, dist_A*, dist_JPS
+    // Times are 1 because we use the stub timer which always returns 1
+    // Distances should match the reference values (and be the same for all algorithms)
+    assertEquals(""
+            + "0	1.000	1.000	1.000	2.82842712	2.82842712	2.82842712\n"
+            + "0	1.000	1.000	1.000	2.41421356	2.41421356	2.41421356\n"
+            + "0	1.000	1.000	1.000	3.82842712	3.82842712	3.82842712\n"
+            // ...
+            + "1	1.000	1.000	1.000	6.41421356	6.41421356	6.41421356\n"
+            + "1	1.000	1.000	1.000	7.24264069	7.24264069	7.24264069\n"
+            + "1	1.000	1.000	1.000	6.65685425	6.65685425	6.65685425\n",
+            outContent.toString());
+}
 ```
 
 The output of the benchmark mode is written to a PrintStream which, in this case, is connected to an underlying ByteArrayOutputStream. This implies that we can test the output of the program with a big assert statement.
@@ -66,6 +66,63 @@ The output is a big table which specifies the execution time and optimal distanc
 The scenario used here is [grids/tests/example.map.scen](https://github.com/mriekkin/pathfinder/blob/master/grids/tests/example.map.scen). This scenario was built by taking a piece of the (much larger) scenario [grids/dao/lak100d.map.scen](https://github.com/mriekkin/pathfinder/blob/master/grids/dao/lak100d.map.scen). Since this example includes only the first two buckets the optimal paths are relatively short.
 
 ### Package pathfinder.datastructures
+
+This package contains all self-implemented data structures. The test classes are ArrayListTest, ArrayStackTest and MinHeapTest.
+
+These unit tests are relatively straightforward. First, an instance of the data structure is created, and filled with a small amount of test data. Second, a number of tests is run on the pre-filled data structure. We've chosen here one example from [MinHeapTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/datastructures/MinHeapTest.java):
+
+```
+@Before
+public void setUp() {
+    heap = new MinHeap<>();
+    heap.add(10);
+    heap.add(11);
+    heap.add(12);
+    heap.add(13);
+    heap.add(14);
+    heap.add(15);
+}
+
+@Test
+public void pollReturnsMinimalElement() {
+    assertEquals(Integer.valueOf(10), heap.poll());
+}
+
+@Test
+public void pollRemovesMinimalElement() {
+    heap.poll();
+    assertEquals(5, heap.size());
+    assertEquals("[11, 13, 12, 15, 14]", heap.toString());
+}
+
+@Test
+public void canPollRepeatedly() {
+    heap.poll();
+    heap.poll();
+    assertEquals(4, heap.size());
+    assertEquals("[12, 13, 14, 15]", heap.toString());
+}
+
+@Test
+public void canPollUntilEmpty() {
+    heap.poll();
+    heap.poll();
+    heap.poll();
+    heap.poll();
+    heap.poll();
+    heap.poll();
+    assertEquals(0, heap.size());
+}
+
+@Test
+public void pollReturnsNullIfQueueIsEmpty() {
+    heap = new MinHeap<>();
+    assertNull(heap.poll());
+}
+```
+
+The interesting point here is the use of ```heap.toString()``` which produces a string representation of the underlying array. This allows us to compare the contents of the heap with a solution computed by hand.
+
 ### Package pathfinder.io
 ### Package pathfinder.logic
 ### Package pathfinder.logic.neighbours
