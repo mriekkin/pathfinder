@@ -1,6 +1,21 @@
 # Testing document
 
+Table of contents:
+
+- [Unit Testing](#unit-testing)
+    - [Introduction](#introduction)
+    - [Package pathfinder.benchmark](#package-pathfinderbenchmark)
+    - [Package pathfinder.datastructures](#package-pathfinderdatastructures)
+    - [Package pathfinder.io](#package-pathfinderio)
+    - [Package pathfinder.logic](#package-pathfinderlogic)
+    - [Package pathfinder.logic.neighbours](#package-pathfinderlogicneighbours)
+    - [Package pathfinder.logic.pathfinders](#package-pathfinderlogicpathfinders)
+- [Manual testing](#manual-testing)
+- [References](#references)
+
 ## Unit Testing
+
+### Introduction
 
 Unit tests can be run from the command-line with the command
 
