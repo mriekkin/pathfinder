@@ -187,7 +187,7 @@ public void setUpSmallGrid() {
 
 This package contains classes for looking up the neighbours of a specified node.
 
-The produce a list of neighbours the program has to check each adjacent node, and then return a list of those which are walkable. This is the usual approach which is implemented by the class Neighbours. Jump point search, however, goes further by applying a prune operation on the usual list of neighbours. This pruning operation is implemented by the classes NeighbourPruningRulesCcAllowed and NeighbourPruningRulesCcDisallowed. These implement two flawors of pruning: with and without corner-cutting. These pruning operations are described in more detail in [1] and [2].
+To produce a list of neighbours the program has to check each adjacent node, and then return a list of those which are walkable. This is the usual approach which is implemented by the class Neighbours. Jump point search, however, goes further by applying a prune operation on the usual list of neighbours. This pruning operation is implemented by the classes NeighbourPruningRulesCcAllowed and NeighbourPruningRulesCcDisallowed. These implement two flawors of pruning: with and without corner-cutting. These pruning operations are described in more detail in [1] and [2].
 
 We've chosen here an example from [NeighbourPruningRulesCcDisallowedTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/neighbours/NeighbourPruningRulesCcDisallowedTest.java). This example corresponds to cases (a) and (c) in the figure below. In (a) we have a straight move from p to x where only one natural neighbour remains. In (c) obstacles around x cause some neighbours to become forced. Pruned neighbours are marked in grey. Remaining neighbours, marked white, are those which remain after the pruning operation. This figure is from a paper by Harabor and Grastien [2].
 
@@ -239,9 +239,7 @@ This package contains implementations of the various pathfinding algorithms.
 
 Most of the testing is based on the lengths of the computed shortest paths. These tests run each algorithm and compare the computed optimal distance against a known value (either computed by hand or taken from the problem sets). This testing is limited to a few grids: one small grid created manually and one big grid taken from the problem sets. A much more complete set of grids is analyzed through manual testing.
 
-Here's one example of this kind of testing. This example is from [JumpPointSearchTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/pathfinders/JumpPointSearchTest.java). Both Dijkstra and A* have similar test cases.
-
-It should be noted, that we require the optimal distance to match the reference values within six decimal places. For very long paths there's some variation in the seventh and eight decimals which we suspect might be due to rounding error.
+Here's one example of this kind of testing. This example is from [JumpPointSearchTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/pathfinders/JumpPointSearchTest.java). Both Dijkstra and A* have similar test cases. It should be noted, that we require the optimal distance to match the reference values within six decimal places. For very long paths there's some variation in the seventh and eight decimals which we suspect might be due to rounding error.
 
 ```java
 public static final double eps = 0.000001;
@@ -319,6 +317,15 @@ public void returnsJumpPointSuccessorForExampleBWhenNoCc() throws IOException {
 
 ## Manual testing
 
+Manual testing concentrated on verifying that the optimal distances computed by each algorithm math reference values given in the problem sets.
+
+The following table gives the maximum error for each problem set.
+
+| Prob. set | err_Dijkstra | err_AStar  | err_JPS    |
+| --------- | ------------ | ---------- | ---------- |
+| DAO       | 2.7000e-07   | 2.7000e-07 | 2.7000e-07 |
+| DA2       | 1.3000e-07   | 1.3000e-07 | 1.3000e-07 |
+| BG512     | 2.5000e-07   | 2.5000e-07 | 2.5000e-07 |
 
 ## References
 
