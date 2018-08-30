@@ -237,9 +237,11 @@ public void returnsForcedNeighboursForHorizontalMove() {
 
 This package contains implementations of the various pathfinding algorithms.
 
-Most of the testing is based on the length of the computed shortest path. These tests run each algorithm and compare the computed optimal distance against a value computed by hand. This testing is limited to a few grids: one small grid created manually and one big grid taken from the problem sets. A much more complete set of grids is analyzed through manual testing.
+Most of the testing is based on the lengths of the computed shortest paths. These tests run each algorithm and compare the computed optimal distance against a known value (either computed by hand or taken from the problem sets). This testing is limited to a few grids: one small grid created manually and one big grid taken from the problem sets. A much more complete set of grids is analyzed through manual testing.
 
 Here's one example of this kind of testing. This example is from [JumpPointSearchTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/pathfinders/JumpPointSearchTest.java). Both Dijkstra and A* have similar test cases.
+
+It should be noted, that we require the optimal distance to match the reference values within six decimal places. For very long paths there's some variation in the seventh and eight decimals which we suspect might be due to rounding error.
 
 ```java
 public static final double eps = 0.000001;
@@ -271,7 +273,7 @@ The figure below presents (a) a straight jump from x to y. Here the recursion st
 
 Code for testing these kinds of jumps is listed below. This example is from [JumpTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/pathfinders/JumpTest.java). Here the graph is defined as a string which is passed to GraphReader. Because GraphReader expects a Reader the string is first wrapped to a StringReader. It should be noted that GraphReader disregards the symbols x and y in the definition of the graph. GraphReader substitutes a "." in the place of any unknown characters. Also, the abbreviation "Cc" in the names of the following methods refers to corner-cutting. In this case corner-cutting is not allowed.
 
-```
+```java
 @Test
 public void returnsJumpPointSuccessorForExampleAWhenNoCc() throws IOException {
     // This is from Figure 2(a) in the second JPS paper by Harabor and Grastien
