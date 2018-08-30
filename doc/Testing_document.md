@@ -19,7 +19,7 @@ There are approximately 190 unit tests, written with the JUnit unit testing fram
 
 ![JaCoCo: summary of code coverage](img/test_coverage.png)
 
-The rest of this section describes package-by-package what kind of unit testing is done. All packages except the GUI have unit tests. The GUI packages do not have unit tests.
+The rest of this section describes package-by-package, in alphabetical order, what kind of unit testing is done. All packages except the GUI have unit tests. The GUI packages do not have unit tests.
 
 ### Package pathfinder.benchmark
 
@@ -145,7 +145,7 @@ We've chosen here one example from [GraphSetupTest](https://github.com/mriekkin/
 
 ```java
 @Test
-public void setUpBigGrid() {
+public void setUpSmallGrid() {
     Pair dimensions = new Pair(30, 15);
     Pair source = new Pair(8, 7);
     Pair dest = new Pair(17, 2);
@@ -183,17 +183,15 @@ public void setUpBigGrid() {
 }
 ```
 
-One side note: even though the method is named setUpBigGrid, this grid is very small compared to some of the larger grids in the problem sets.
-
 ### Package pathfinder.logic.neighbours
 
 This package contains classes for looking up the neighbours of a specified node.
 
 The produce a list of neighbours the program has to check each adjacent node, and then return a list of those which are walkable. This is the usual approach which is implemented by the class Neighbours. Jump point search, however, goes further by applying a prune operation on the usual list of neighbours. This pruning operation is implemented by the classes NeighbourPruningRulesCcAllowed and NeighbourPruningRulesCcDisallowed. These implement two flawors of pruning: with and without corner-cutting. These pruning operations are described in more detail in [1] and [2].
 
-We've chosen here an example from [NeighbourPruningRulesCcDisallowedTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/neighbours/NeighbourPruningRulesCcDisallowedTest.java). This example corresponds to cases (a) and (b) in the figure below. In (a) we have a straight move from p to x where only one natural neighbour remains. In (c) obstacles around x cause some neighbours to become forced. This figure is from a paper by Harabor and Grastien [2].
+We've chosen here an example from [NeighbourPruningRulesCcDisallowedTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/neighbours/NeighbourPruningRulesCcDisallowedTest.java). This example corresponds to cases (a) and (c) in the figure below. In (a) we have a straight move from p to x where only one natural neighbour remains. In (c) obstacles around x cause some neighbours to become forced. Pruned neighbours are marked in grey. Remaining neighbours, marked white, are those which remain after the pruning operation. This figure is from a paper by Harabor and Grastien [2].
 
-![](img/jps_neighbours.png)
+![JPS: examples of pruning](img/jps_prune.png)
 
 In the code segment below x is located at the node (5,&nbsp;5). This means that p is at (4,&nbsp;5) and the obstacle in (c) is at (4,&nbsp;4). Another obstacle is placed below x at (4,&nbsp;6).
 
@@ -213,7 +211,7 @@ public void returnsNaturalNeighboursForHorizontalMove() {
     NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
     Node p = g.getNode(4, 5);
     Node x = g.getNode(5, 5);
-    List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+    List<Node> neighbours = prune.getNeighbours(p, x);
     assertEquals(1, neighbours.size());
     assertEquals("(6, 5)", neighbours.get(0).toString());
 }
@@ -225,7 +223,7 @@ public void returnsForcedNeighboursForHorizontalMove() {
     Node x = g.getNode(5, 5);
     g.getNode(4, 4).setWalkable(false); // Add obstacles,
     g.getNode(4, 6).setWalkable(false); // which should create forced neighbours
-    List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+    List<Node> neighbours = prune.getNeighbours(p, x);
     assertEquals(5, neighbours.size());
     assertEquals("(6, 5)", neighbours.get(0).toString()); // 1 natural neighbour
     assertEquals("(5, 4)", neighbours.get(1).toString()); // 4 forced neighbours
@@ -237,10 +235,90 @@ public void returnsForcedNeighboursForHorizontalMove() {
 
 ### Package pathfinder.logic.pathfinders
 
+This package contains implementations of the various pathfinding algorithms.
+
+Most of the testing is based on the length of the computed shortest path. These tests run each algorithm and compare the computed optimal distance against a value computed by hand. This testing is limited to a few grids: one small grid created manually and one big grid taken from the problem sets. A much more complete set of grids is analyzed through manual testing.
+
+Here's one example of this kind of testing. This example is from [JumpPointSearchTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/pathfinders/JumpPointSearchTest.java). Both Dijkstra and A* have similar test cases.
+
+```java
+public static final double eps = 0.000001;
+
+public NeighbourPruningRules getPrune(Graph graph) {
+    return new NeighbourPruningRulesCcDisallowed(graph);
+}
+
+@Test
+public void returnsCorrectPathLengthForSmallGrid() throws IOException {
+    Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
+    Pathfinder pathfinder = new JumpPointSearch(small, getPrune(small));
+    assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
+}
+
+@Test
+public void returnsCorrectPathLengthForBigGrid() throws IOException {
+    Graph big = GraphReader.readFile(Paths.get("grids/tests/lak100d.map"));
+    Pathfinder pathfinder = new JumpPointSearch(big, getPrune(big));
+    assertEquals(812.06810913, pathfinder.run(), eps);
+}
+```
+
+Since pathfinding algorithms are at the core of this project, we present another example as well. The previous section described tests for one feature of Jump point search: pruning. Here we shall describe tests for jumping, which is another feature of JPS.
+
+The figure below presents (a) a straight jump from x to y. Here the recursion stops due to node z which is forced. (b) A diagonal jump from x to y. Here the recursion stops due a non-failed straight jump. This figure is also from a paper by Harabor and Grastien [2].
+
+![JPS: examples of jumping](img/jps_jump.png)
+
+Code for testing these kinds of jumps is listed below. This example is from [JumpTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/pathfinders/JumpTest.java). Here the graph is defined as a string which is passed to GraphReader. Because GraphReader expects a Reader the string is first wrapped to a StringReader. It should be noted that GraphReader disregards the symbols x and y in the definition of the graph. GraphReader substitutes a "." in the place of any unknown characters. Also, the abbreviation "Cc" in the names of the following methods refers to corner-cutting. In this case corner-cutting is not allowed.
+
+```
+@Test
+public void returnsJumpPointSuccessorForExampleAWhenNoCc() throws IOException {
+    // This is from Figure 2(a) in the second JPS paper by Harabor and Grastien
+    Graph g = GraphReader.read(new StringReader(""
+            + "type octile\n"
+            + "height 5\n"
+            + "width 7\n"
+            + "map\n"
+            + ".......\n"
+            + ".......\n"
+            + ".....#.\n"
+            + ".x....y\n"
+            + ".......\n"));
+    NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
+    Jump jump = new Jump(g, prune);
+    Node x = g.getNode(1, 3);
+    int dx = 1;
+    int dy = 0;
+    assertEquals("(6, 3)", jump.jump(x, dx, dy).toString());
+}
+
+@Test
+public void returnsJumpPointSuccessorForExampleBWhenNoCc() throws IOException {
+    // This is from Figure 2(b) in the second JPS paper by Harabor and Grastien
+    Graph g = GraphReader.read(new StringReader(""
+            + "type octile\n"
+            + "height 5\n"
+            + "width 7\n"
+            + "map\n"
+            + ".......\n"
+            + "...y...\n"
+            + ".....#.\n"
+            + ".x...#.\n"
+            + ".......\n"));
+    NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
+    Jump jump = new Jump(g, prune);
+    Node x = g.getNode(1, 3);
+    int dx = 1;
+    int dy = -1;
+    assertEquals("(3, 1)", jump.jump(x, dx, dy).toString());
+}
+```
+
 ## Manual testing
 
 
 ## References
 
-[1] Harabor, D. and Grastien, A. (2011), "Online Graph Pruning for Pathfinding on Grid Maps", 25th National Conference on Artificial Intelligence, AAAI.
-[2] Harabor, D. and Grastien, A. (2012), "The JPS Pathfinding System", 26th National Conference on Artificial Intelligence, AAAI.
+1. Harabor, D. and Grastien, A. (2011), "Online Graph Pruning for Pathfinding on Grid Maps", 25th National Conference on Artificial Intelligence, AAAI.
+2. Harabor, D. and Grastien, A. (2012), "The JPS Pathfinding System", 26th National Conference on Artificial Intelligence, AAAI.
