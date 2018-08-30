@@ -30,6 +30,10 @@ Each experiment produces two values: the length of a shortest path (optimal dist
 The following test case illustrates how the testing is done. This code is from [RunScenarioTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/benchmark/RunScenarioTest.java).
 
 ```java
+ByteArrayOutputStream outContent;
+PrintStream out;
+Timer timer;
+
 @Before
 public void setUp() {
     outContent = new ByteArrayOutputStream();
@@ -61,7 +65,7 @@ public void exampleScenarioPrintsExpectedResults() throws Exception {
 
 The output of the benchmark mode is written to a PrintStream which, in this case, is connected to an underlying ByteArrayOutputStream. This implies that we can test the output of the program with a big assert statement.
 
-The output is a big table which specifies the execution time and optimal distance for each problem and algorithm. Each row corresponds to a single experiment. The execution times are all 1.000 because we are using StubTimer. The optimal distance is the same for all three algorithms, and should match the optimal distance specified in the problem set.
+The output is a big table which specifies the execution time and optimal distance for each problem and algorithm. Each row corresponds to a single problem. The execution times are all 1.000 because we are using StubTimer. The optimal distance should be the same for all three algorithms, and should match the optimal distance specified in the problem set.
 
 The scenario used here is [grids/tests/example.map.scen](https://github.com/mriekkin/pathfinder/blob/master/grids/tests/example.map.scen). This scenario was built by taking a piece of the (much larger) scenario [grids/dao/lak100d.map.scen](https://github.com/mriekkin/pathfinder/blob/master/grids/dao/lak100d.map.scen). Since this example scenario includes only the first two buckets the optimal paths are relatively short.
 
@@ -72,6 +76,8 @@ This package contains all self-implemented data structures. The test classes are
 These unit tests are relatively straightforward. First, an instance of the data structure is created, and filled with a small amount of test data. Second, a number of tests is run on the pre-filled data structure. We've chosen here one example from [MinHeapTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/datastructures/MinHeapTest.java):
 
 ```java
+MinHeap<Integer> heap;
+
 @Before
 public void setUp() {
     heap = new MinHeap<>();
@@ -180,6 +186,61 @@ public void setUpBigGrid() {
 One side note: even though the method is named setUpBigGrid, this grid is very small compared to some of the larger grids in the problem sets.
 
 ### Package pathfinder.logic.neighbours
+
+This package contains classes for looking up the neighbours of a specified node.
+
+The produce a list of neighbours the program has to check each adjacent node, and then return a list of those which are walkable. This is the usual approach which is implemented by the class Neighbours. Jump point search, however, goes further by applying a prune operation on the usual list of neighbours. This pruning operation is implemented by the classes NeighbourPruningRulesCcAllowed and NeighbourPruningRulesCcDisallowed. These implement two flawors of pruning: with and without corner-cutting. These pruning operations are described in more detail in [1] and [2].
+
+We've chosen here an example from [NeighbourPruningRulesCcDisallowedTest](https://github.com/mriekkin/pathfinder/blob/master/src/test/java/pathfinder/logic/neighbours/NeighbourPruningRulesCcDisallowedTest.java). This example corresponds to cases (a) and (b) in the figure below. In (a) we have a straight move from p to x where only one natural neighbour remains. In (c) obstacles around x cause some neighbours to become forced. This figure is from a paper by Harabor and Grastien [2].
+
+![](img/jps_neighbours.png)
+
+In the code segment below x is located at the node (5,&nbsp;5). This means that p is at (4,&nbsp;5) and the obstacle in (c) is at (4,&nbsp;4). Another obstacle is placed below x at (4,&nbsp;6).
+
+```java
+Graph g;
+
+@Before
+public void setUp() {
+    Pair dimensions = new Pair(10, 10);
+    Pair source = new Pair(1, 1);
+    Pair dest = new Pair(9, 9);
+    g = new Graph(dimensions, source, dest);
+}
+
+@Test
+public void returnsNaturalNeighboursForHorizontalMove() {
+    NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
+    Node p = g.getNode(4, 5);
+    Node x = g.getNode(5, 5);
+    List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+    assertEquals(1, neighbours.size());
+    assertEquals("(6, 5)", neighbours.get(0).toString());
+}
+
+@Test
+public void returnsForcedNeighboursForHorizontalMove() {
+    NeighbourPruningRules prune = new NeighbourPruningRulesCcDisallowed(g);
+    Node p = g.getNode(4, 5);
+    Node x = g.getNode(5, 5);
+    g.getNode(4, 4).setWalkable(false); // Add obstacles,
+    g.getNode(4, 6).setWalkable(false); // which should create forced neighbours
+    List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+    assertEquals(5, neighbours.size());
+    assertEquals("(6, 5)", neighbours.get(0).toString()); // 1 natural neighbour
+    assertEquals("(5, 4)", neighbours.get(1).toString()); // 4 forced neighbours
+    assertEquals("(6, 4)", neighbours.get(2).toString());
+    assertEquals("(5, 6)", neighbours.get(3).toString());
+    assertEquals("(6, 6)", neighbours.get(4).toString());
+}
+```
+
 ### Package pathfinder.logic.pathfinders
 
 ## Manual testing
+
+
+## References
+
+[1] Harabor, D. and Grastien, A. (2011), "Online Graph Pruning for Pathfinding on Grid Maps", 25th National Conference on Artificial Intelligence, AAAI.
+[2] Harabor, D. and Grastien, A. (2012), "The JPS Pathfinding System", 26th National Conference on Artificial Intelligence, AAAI.
