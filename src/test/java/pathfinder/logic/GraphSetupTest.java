@@ -10,7 +10,7 @@ import pathfinder.io.GraphWriter;
 public class GraphSetupTest {
 
     @Test
-    public void setUpSmallGrid() {
+    public void setUpTinyGrid() {
         Pair dimensions = new Pair(10, 10);
         Pair source = new Pair(0, 9);
         Pair dest = new Pair(9, 9);
@@ -35,7 +35,7 @@ public class GraphSetupTest {
     }
 
     @Test
-    public void setUpBigGrid() {
+    public void setUpSmallGrid() {
         Pair dimensions = new Pair(30, 15);
         Pair source = new Pair(8, 7);
         Pair dest = new Pair(17, 2);

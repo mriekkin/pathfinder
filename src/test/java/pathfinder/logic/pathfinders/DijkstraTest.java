@@ -11,7 +11,7 @@ import pathfinder.logic.neighbours.Neighbours;
 
 public class DijkstraTest {
 
-    public static final double eps = 0.00001;
+    public static final double eps = 0.000001;
 
     private static Neighbours getNeighbours(Graph g) {
         return new Neighbours(g, false);
@@ -32,6 +32,13 @@ public class DijkstraTest {
         Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
         Pathfinder pathfinder = new Dijkstra(small, getNeighbours(small));
         assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
+    }
+
+    @Test
+    public void returnsCorrectPathLengthForBigGrid() throws IOException {
+        Graph big = GraphReader.readFile(Paths.get("grids/tests/lak100d.map"));
+        Pathfinder pathfinder = new Dijkstra(big, getNeighbours(big));
+        assertEquals(812.06810913, pathfinder.run(), eps);
     }
 
     @Test

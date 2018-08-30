@@ -12,7 +12,7 @@ import pathfinder.logic.neighbours.*;
 
 public class JumpPointSearchTest {
 
-    public static final double eps = 0.00001;
+    public static final double eps = 0.000001;
 
     Graph g;
 
@@ -39,6 +39,13 @@ public class JumpPointSearchTest {
         Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
         Pathfinder pathfinder = new JumpPointSearch(small, getPrune(small));
         assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
+    }
+
+    @Test
+    public void returnsCorrectPathLengthForBigGrid() throws IOException {
+        Graph big = GraphReader.readFile(Paths.get("grids/tests/lak100d.map"));
+        Pathfinder pathfinder = new JumpPointSearch(big, getPrune(big));
+        assertEquals(812.06810913, pathfinder.run(), eps);
     }
 
     @Test
