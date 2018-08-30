@@ -25,7 +25,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 5);
         Node x = g.getNode(5, 5);
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(1, neighbours.size());
         assertEquals("(6, 5)", neighbours.get(0).toString());
     }
@@ -37,7 +37,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         Node x = g.getNode(5, 5);
         g.getNode(5, 4).setWalkable(false); // Add obstacles,
         g.getNode(5, 6).setWalkable(false); // which should create forced neighbours
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(3, neighbours.size());
         assertEquals("(6, 5)", neighbours.get(0).toString()); // 1 natural neighbour
         assertEquals("(6, 4)", neighbours.get(1).toString()); // 2 forced neighbours
@@ -49,7 +49,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(5, 4);
         Node x = g.getNode(5, 5);
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(1, neighbours.size());
         assertEquals("(5, 6)", neighbours.get(0).toString());
     }
@@ -61,7 +61,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         Node x = g.getNode(5, 5);
         g.getNode(4, 5).setWalkable(false); // Add obstacles,
         g.getNode(6, 5).setWalkable(false); // which should create forced neighbours
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(3, neighbours.size());
         assertEquals("(5, 6)", neighbours.get(0).toString()); // 1 natural neighbour
         assertEquals("(4, 6)", neighbours.get(1).toString()); // 2 forced neighbours
@@ -73,7 +73,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = g.getNode(4, 6);
         Node x = g.getNode(5, 5);
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(3, neighbours.size());
         assertEquals("(5, 4)", neighbours.get(0).toString());
         assertEquals("(6, 4)", neighbours.get(1).toString());
@@ -87,7 +87,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         Node x = g.getNode(5, 5);
         g.getNode(4, 5).setWalkable(false); // Add obstacles,
         g.getNode(5, 6).setWalkable(false); // which should create forced neighbours
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(5, neighbours.size());
         assertEquals("(5, 4)", neighbours.get(0).toString()); // 3 natural neighbours
         assertEquals("(6, 4)", neighbours.get(1).toString());
@@ -102,7 +102,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         Node p = g.getNode(4, 5); // Horizontal move
         Node x = g.getNode(5, 5);
         g.getNode(6, 5).setWalkable(false); // Block the 1 natural neighbour
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertTrue(neighbours.isEmpty());
     }
 
@@ -115,7 +115,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         g.getNode(5, 6).setWalkable(false);
         g.getNode(6, 4).setWalkable(false); // But make them unwalkable
         g.getNode(6, 6).setWalkable(false);
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(1, neighbours.size());
         assertEquals("(6, 5)", neighbours.get(0).toString()); // Only the 1 natural neighbour remains
     }
@@ -127,7 +127,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         Node x = g.getNode(5, 5);
         g.getNode(4, 4).setWalkable(false); // Block all "irrelevant" neighbours,
         g.getNode(4, 6).setWalkable(false); // which should not create a forced neighbour
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(1, neighbours.size()); // No forced neighbours (only the 1 natural neighbour)
         assertEquals("(6, 5)", neighbours.get(0).toString());
     }
@@ -137,7 +137,7 @@ public class NeighbourPruningRulesCcAllowedTest {
         NeighbourPruningRules prune = new NeighbourPruningRulesCcAllowed(g);
         Node p = null; // The source node has no predecessor
         Node x = g.getNode(1, 1);
-        List<Node> neighbours = prune.getPrunedNeighbours(p, x);
+        List<Node> neighbours = prune.getNeighbours(p, x);
         assertEquals(8, neighbours.size()); // Returns all 8 possible neighbours
     }
 

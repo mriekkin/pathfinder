@@ -15,7 +15,7 @@ public interface NeighbourPruningRules {
      * @param u the current node
      * @return pruned set of neighbours for the specified node
      */
-    List<Node> getPrunedNeighbours(Node p, Node u);
+    List<Node> getNeighbours(Node p, Node u);
 
     /**
      * Returns true if the specified node u has a forced neighbour.

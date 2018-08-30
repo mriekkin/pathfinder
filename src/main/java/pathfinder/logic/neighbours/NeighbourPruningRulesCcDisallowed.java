@@ -37,7 +37,7 @@ public class NeighbourPruningRulesCcDisallowed implements NeighbourPruningRules 
     }
 
     @Override
-    public List<Node> getPrunedNeighbours(Node p, Node u) {
+    public List<Node> getNeighbours(Node p, Node u) {
         ArrayList<Node> neighbours = new ArrayList<>();
         if (p == null) {
             // No pruning for the source node

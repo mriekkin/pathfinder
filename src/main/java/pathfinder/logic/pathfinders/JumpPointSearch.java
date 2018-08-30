@@ -88,7 +88,7 @@ public class JumpPointSearch extends AbstractPathfinder {
      */
     private List<Node> identifySuccessors(Node x) {
         List<Node> successors = new ArrayList<>();
-        List<Node> neighbours = prune.getPrunedNeighbours(getPred(x), x);
+        List<Node> neighbours = prune.getNeighbours(getPred(x), x);
 
         for (Node n : neighbours) {
             int dx = n.x() - x.x();
