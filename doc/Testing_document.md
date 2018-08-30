@@ -317,9 +317,9 @@ public void returnsJumpPointSuccessorForExampleBWhenNoCc() throws IOException {
 
 ## Manual testing
 
-Manual testing concentrated on verifying that the optimal distances computed by each algorithm math reference values given in the problem sets.
+Manual testing concentrated on verifying that the optimal distances computed by each algorithm match reference values given in the problem sets.
 
-The following table gives the maximum error for each problem set.
+The following table gives the maximum error for each [problem set](https://github.com/mriekkin/pathfinder/blob/master/doc/Implementation_document.md#experimental-setup). This table was produced with the Matlab/Octave script [results/verify_path_lengths.m](https://github.com/mriekkin/pathfinder/blob/master/results/verify_path_lengths.m). As can be seen from the table, the magnitude of the error < 5*10^(-7). In other words, the computed distances match reference values up to 6 decimal places. On the other hand, the seventh and eight decimals may be inaccurate. Here we should remember that the reference values are given up to 8 decimal places. We suspect that this small discrepancy may be due to rounding error. It is interesting to note that the magnitude of the error is exactly the same for all three algorithms, but varies across problem sets.
 
 | Prob. set | err_Dijkstra | err_AStar  | err_JPS    |
 | --------- | ------------ | ---------- | ---------- |
