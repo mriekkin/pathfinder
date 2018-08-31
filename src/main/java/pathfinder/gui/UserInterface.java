@@ -200,33 +200,15 @@ public class UserInterface implements Runnable, PropertyChangeListener {
     }
 
     private void resize() {
-        // Solution A
-        // Dimension size = scroll.getSize();
-        // grid.reset(g, pathfinder, prefs.getCellSize());
-        // scroll.setPreferredSize(size);
-
         grid.reset(current.getGraph(), pathfinder, prefs.getCellSize());
 
-        // Solution B
-        // resizeScrollPane();
+        // Update the layout and repaint
         frame.pack();
-        grid.revalidate();
-        grid.repaint();
+//        grid.revalidate();
+//        grid.repaint();
         scroll.revalidate();
-        scroll.repaint();
+//        scroll.repaint();
+        frame.repaint();
     }
 
-    // Solution B
-//    private void resizeScrollPane() {
-//        frame.pack();
-//        Dimension size = scroll.getSize();
-//        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-//        
-//        if (size.getWidth() > 0.8 * screen.getWidth() ||
-//            size.getHeight() > 0.8 * screen.getHeight()) {
-//            int width = (int) Math.min(0.8 * screen.getWidth(), size.getWidth());
-//            int height = (int) Math.min(0.8 * screen.getHeight(), size.getHeight());
-//            scroll.setPreferredSize(new Dimension(width, height));
-//        }
-//    }
 }
