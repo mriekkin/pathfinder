@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
@@ -87,6 +88,7 @@ public class PreferencesEditor {
     private JDialog dialog;
     private JSpinner cellSizeSpin;
     private JCheckBox cornerCuttingCb;
+    private JButton ok;
     private int cellSizeValue;
     private boolean cornerCuttingValue;
 
@@ -134,6 +136,7 @@ public class PreferencesEditor {
         dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         addComponents(dialog.getContentPane());
+        setDefaultButton(dialog.getRootPane());
 
         dialog.pack();
         dialog.setResizable(false);
@@ -176,7 +179,7 @@ public class PreferencesEditor {
     }
 
     private void addOkButton(JPanel buttons) {
-        JButton ok = new JButton("OK");
+        ok = new JButton("OK");
         ok.addActionListener((e) -> {
             okAction();
             close();
@@ -215,6 +218,10 @@ public class PreferencesEditor {
 
     private void close() {
         dialog.dispose();
+    }
+
+    private void setDefaultButton(JRootPane rootPane) {
+        rootPane.setDefaultButton(ok);
     }
 
     private GridBagConstraints getConstraints(int x, int y, int w, int h) {
