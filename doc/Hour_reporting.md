@@ -47,3 +47,26 @@
 | 22.8.  | Wed     | 10 h  | Studied the results, wrote a section on performance testing           |
 | 23.8.  | Thu     | 10 h  | Studied the results, peer review                                      |
 | 24.8.  | Fri     |  2 h  | Worked on the ArrayList implementation, weekly report                 |
+
+## Week 6
+
+| Date   | Weekday | Hours | What was done                                                         |
+| ------ | ------- | ----- | --------------------------------------------------------------------- |
+| 27.8.  | Mon     |  8 h  | Implemented a binary heap                                             |
+| 28.8.  | Tue     |  8 h  | Implemented a stack and worked with collections in general            |
+| 29.8.  | Wed     |  8 h  | Began to write the testing document                                   |
+| 30.8.  | Thu     | 10 h  | Finished the testing document                                         |
+| 31.8.  | Fri     |  8 h  | Peer review, fixed a couple of bugs, weekly report                    |
+
+## Totals
+
+| Week  | Hours  |
+| ----- | ------ |
+| 1     |   8 h  |
+| 2     |  28 h  |
+| 3     |  36 h  |
+| 4     |  44 h  |
+| 5     |  38 h  |
+| 6     |  42 h  |
+| 7     |     h  |
+| Total | 196 h  |
