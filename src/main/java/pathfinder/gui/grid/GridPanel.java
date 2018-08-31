@@ -73,7 +73,6 @@ public class GridPanel extends JPanel {
 
     private int getBorderSize(int squareSize) {
         if (squareSize == 1) return 0;
-        if (squareSize < 5) return 1;
         return 1;
     }
 
@@ -91,27 +90,15 @@ public class GridPanel extends JPanel {
         super.paintComponent(gr);
 
         Graphics2D g2 = (Graphics2D) gr;
-        paintSquares(g2);
         if (borderSize > 0)
-            paintBorders(g2);
+            fillBackground(g2, borderColor);        
+        paintSquares(g2);
         paintPath(g2);
     }
 
-    private void paintBorders(Graphics2D g2) {
-        g2.setColor(borderColor);
-        g2.setStroke(borderStroke);
-
-        int totalSize = getTotalSize();
-        int width = computeWidth();
-        int height = computeHeight();
-
-        for (int y = 0; y <= g.getRows(); y++) {
-            g2.drawLine(0, y * totalSize, width, y * totalSize);
-        }
-
-        for (int x = 0; x <= g.getCols(); x++) {
-            g2.drawLine(x * totalSize, 0, x * totalSize, height);
-        }
+    private void fillBackground(Graphics2D g2, Color color) {
+        g2.setColor(color);
+        g2.fillRect(0, 0, computeWidth(), computeHeight());
     }
 
     private int getTotalSize() {
