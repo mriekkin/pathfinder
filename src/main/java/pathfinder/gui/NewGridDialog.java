@@ -108,8 +108,8 @@ public class NewGridDialog {
     private void addGridDimensions(JPanel content) {
         JLabel numColsLabel = new JLabel("Columns");
         JLabel numRowsLabel = new JLabel("Rows");
-        int initCols = current.getCols();
-        int initRows = current.getRows();
+        int initCols = clamp(current.getCols(), MIN_NUM_COLS_ROWS, MAX_NUM_COLS_ROWS);
+        int initRows = clamp(current.getRows(), MIN_NUM_COLS_ROWS, MAX_NUM_COLS_ROWS);
         numCols = new JSpinner(new SpinnerNumberModel(initCols, MIN_NUM_COLS_ROWS, MAX_NUM_COLS_ROWS, 1));
         numRows = new JSpinner(new SpinnerNumberModel(initRows, MIN_NUM_COLS_ROWS, MAX_NUM_COLS_ROWS, 1));
 
@@ -117,6 +117,10 @@ public class NewGridDialog {
         content.add(numRowsLabel, getConstraints(0, 1));
         content.add(numCols, getConstraints(1, 0));
         content.add(numRows, getConstraints(1, 1));
+    }
+
+    private int clamp(int val, int min, int max) {
+        return Math.max(min, Math.min(max, val));
     }
 
     private void addButtonsRow(final Container pane) {
