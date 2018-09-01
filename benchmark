@@ -40,5 +40,5 @@ create_directory "results/data/$timestamp"
 
 run_problem_set "da2"
 run_problem_set "dao"
-run_problem_set "sc1"
 run_problem_set "bg512"
+run_problem_set "sc1"
