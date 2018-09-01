@@ -2,7 +2,7 @@
 
 ## Obtaining a copy of the repository
 
-First you should obtain a copy of the repository. You can clone the repository with the following command, which should be entered on the command-line.
+You can clone the repository with the following command, which should be entered on the command-line.
 
 ```bash
 git clone https://github.com/mriekkin/pathfinder.git
@@ -49,7 +49,7 @@ When the program opens it displays a pre-loaded map.
 
 ### Running the problem sets
 
-The benchmark mode only supports UNIX-like systems. The benchmark mode employs a shell script which invokes the Java runtime. Since shell scripts only work on UNIX-like systems, the benchmark mode cannot be run on Windows machines. Windows users can still run individual scenarios, as explained below, but they cannot run the full range of benchmarks.
+The benchmark mode only supports UNIX-like systems. The benchmark mode employs a shell script which invokes the Java runtime. Since shell scripts only work on UNIX-like systems, the benchmark mode cannot be run on Windows machines. Windows users can still run individual scenarios, as explained below, but they cannot use the benchmark script, which would run the full range of benchmarks.
 
 The benchmark mode can be run with the command
 
@@ -66,7 +66,7 @@ run_problem_set "bg512"
 run_problem_set "sc1"
 ```
 
-Running the problem sets is a time consuming process. You should expect each problem set to take several hours to complete. On one test machine the computations for each problem set would take from 2 hours (DA2) to up to 8 hours (DAO and BG512) and up to a day (SC1). The benchmarks are run on a single thread so on a multicore machine the CPU utilization remains below 100&nbsp;%. Regardless, to get reliable results one should not work on other tasks while running the benchmarks. Hence, it's convenient to run the benchmarks overnight.
+Running the problem sets is a time consuming process. You should expect each problem set to take several hours to complete. On our test machine the computations for each problem set would take from 2 hours (DA2) to up to 8 hours (DAO and BG512) and up to a day (SC1). The benchmarks are run on a single thread so on a multicore machine the CPU utilization remains below 100&nbsp;%. Regardless, to get reliable results one should not work on other tasks while running the benchmarks. Hence, it's convenient to run the benchmarks overnight.
 
 ### Analyzing the results
 
@@ -97,4 +97,4 @@ Individual scenarios can be run with the command
 java -jar build/libs/pathfinder.jar -b grids/dao/lak100d.map.scen
 ```
 
-Here ```-b``` refers to the benchmark mode. Without it the application will start in the visualization mode. This command will print out a large table of [data](Results_file_format.md). To save the results the output can be piped to a file. In fact, this is the approach used by the benchmark script.
+Here ```-b``` refers to the benchmark mode. Without it the application will start in the visualization mode. The last parameter specifies the scenario file to be used. This command will print out a large table of [data](Results_file_format.md). To save the results the output can be piped to a file. In fact, this is the approach used by the benchmark script.
