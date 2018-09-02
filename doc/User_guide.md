@@ -1,5 +1,17 @@
 # User guide
 
+Table of contents:
+
+* [Obtaining a copy of the repository](#obtaining-a-copy-of-the-repository)
+* [Visualization mode](#visualization-mode)
+    * [Running the visualization mode](#running-the-visualization-mode)
+    * [Basic usage of the visualization mode](#basic-usage-of-the-visualization-mode)
+    * [Working with large maps](#working-with-large-maps)
+* [Benchmark mode](#benchmark-mode)
+    * [Running the problem sets](#running-the-problem-sets)
+    * [Analyzing the results](#analyzing-the-results)
+    * [Running individual scenarios](#running-individual-scenarios)
+
 ## Obtaining a copy of the repository
 
 You can clone the repository with the following command, which should be entered on the command-line.
@@ -8,7 +20,7 @@ You can clone the repository with the following command, which should be entered
 git clone https://github.com/mriekkin/pathfinder.git
 ```
 
-This might take a while because the repository is rather large, around 180 MB. Most of this size is due to a large number of data files. Then change the current directory to the projects root directory.
+This might take a while because the repository is rather large, around 180 MB. Most of this size is due to a large number of data files. In case you don't have git installed, you may also download the repository as a ZIP file. Just download and extract the ZIP archive to a convenient location. Then change the current directory to the project's root directory.
 
 ```bash
 cd pathfinder
@@ -18,32 +30,48 @@ All subsequent commands should be entered in the project's root directory.
 
 ## Visualization mode
 
+### Running the visualization mode
+
 The visualization mode can be run by executing the command
 
 ```bash
-gradle run
+./gradlew run
 ```
 
 Alternatively, you may create a JAR file and execute it with the commands
 
 ```bash
-gradle jar
+./gradlew jar
 java -jar build/libs/pathfinder.jar
 ```
 
-When the program opens it displays a pre-loaded map.
+On a Windows machine you should use slightly different commands ```gradlew.bat run``` and ```gradlew.bat jar```.
 
-**Map editing.** Obstacles can be placed and removed with the mouse.
+### Basic usage of the visualization mode
 
-**Creating a new map.** To create a new grid select the menu File >> New. This creates an empty grid, and places the source and destination nodes at the corners.
+When the program opens it displays a pre-loaded map. This map, shown below, opens every time the program is opened.
 
-**Opening a map file.** To open a previously created grid file select the menu File >> Open.
+This, and every other, map is a 2-dimensional grid. Each node has a state which indicates if that node is walkable or unwalkable (blocked). Walkable nodes represent open areas; unwalkable nodes represent obstacles. Walkable nodes are marked in white and unwalkable nodes in gray. Furthermore, the source node is marked in green and the destination node in orange. Each walkable nodes is connected to those of its neighbours which are also walkable. All edges have the same weight, so the weights are assumed to be 1.
 
-**User preferences.** To edit user preferences select the menu Preferences >> Preferences.
+![The map which opens at startup](img/screenshot_startup.png)
 
-*Modifying the cell size*.
+The map can be edited. Obstacles can be placed and removed with the mouse. Clicking on a node toggles that node as either walkable or unwalkable (blocked). You can also drag the mouse to place or remove multiple obstacles at once. Dragging on the source or destination node moves it to another location.
 
-*Enabling/disabling corner-cutting.*
+To select an algorithm use the combo box on the top-right. Three algorithms are available: Dijkstra, A* and Jump point search (JPS). Dijkstra and A* are general algorithms but Jump point search is a specialized algorithm for uniform-cost grids.
+
+To find a shortest path press the button Find. This instructs the program to find a shortest path using the currently selected algorithm. The computations should finish rather quickly, in a matter of milliseconds. Once the computations are complete the program displays the final stage of running the algorithm. Visualization of the intermediate steps would be a nice feature but, at the moment, it is not supported. When viewing the results you can see that some of the nodes are marked in blue. These are the nodes which have been expanded by the selected algorithm. A coarse visual comparison of the three algorithms reveals a distinctive difference in the number of nodes expanded. Finally, the computed shortest path is painted with a yellow line.
+
+![Visual comparison of the results](img/screenshot_comparison_2.png)
+
+To create a new map select the menu File >> New. This creates an empty grid, and places the source and destination nodes at the corners. You can also open a previously created map. To open a map select the menu File >> Open. A few example maps are available in the subdirectory ```grids/```. This is discussed further in the next section. At the moment, you cannot save the maps you create because *saving is not yet supported*. The only way to create map files is with the help of a text editor. If you wish to try this, you'll find that the map format is pretty self-explanatory.
+
+The application has a few preference options to choose from. To edit user preferences select the menu Preferences >> Preferences. The first option is the cell size. This is the size of each node on screen, in pixels. In other words, this a "zoom in/out" option. The second option is whether corner-cutting is allowed. If corner-cutting is allowed, the paths can cross corners. By default corner-cutting is disallowed.
+
+### Working with large maps
+
+We shall show how to work with a large map copied from one of the problem sets.
+
+...
 
 ## Benchmark mode
 
