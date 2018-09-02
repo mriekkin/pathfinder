@@ -32,7 +32,7 @@ sigint() {
 
 trap sigint INT
 
-gradle jar
+./gradlew jar
 
 timestamp="$(date +%y%m%d_%H%M%S)"
 create_directory "results/data"
