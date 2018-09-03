@@ -1,4 +1,4 @@
-type tile
+type octile
 height 10
 width 10
 map
