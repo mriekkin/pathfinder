@@ -77,11 +77,7 @@ We shall show how to work with a large map copied from one of the problem sets.
 
 When working with large maps the keyword is zooming. First, you should select the menu Preferences >> Preferences and adjust the cell size option. For viewing large maps *the best cell size is 1*. This paints each node with just one pixel and omits the cell borders.
 
-You can open a map by selecting the menu File >> Open. In this example we open the file ```grids/maze512-8-0.map```. This is a 512x512 maze where the width of each corridor is 8. The maze and its solution with A* is shown below.
-
-![A maze](img/screenshot_maze_1.png)
-
-The picture below shows the solution of the same maze but this time with each of the three algorithms.
+You can open a map by selecting the menu File >> Open. In this example we open the file ```grids/maze512-8-0.map```. This is a 512x512 maze where the width of each corridor is 8. The maze and its solution with each of the three algorithms is shown below.
 
 ![A solution of the maze](img/screenshot_maze_2.png)
 
@@ -89,7 +85,7 @@ Finally, a few words of warning regarding large maps.
 
 The editing of large maps is rather difficult. Editing at this zoom level is not really meaningful because each node is only one pixel in size. To make any meaningful edits you would have to zoom in quite a bit. However, because these maps are so large, editing them one section at a time would be rather laborious. Therefore, while large maps are suitable for viewing and benchmarking, they are not really meant to be edited in this way.
 
-You may interested to try out the maps in the subdirectories ```grids/dao```, ```grids/da2``` etc. These are original, unmodified benchmark maps downloaded from the site [movingai.com/benchmarks](https://www.movingai.com/benchmarks/). However, there's one problem with these maps: they don't contain the position of the source and destination nodes. Hence, by default this program places the source and destination nodes at the coordinates (0, 0) (the top-left corner). If you wish to try out these benchmark maps, you have to drag the source and destination nodes to another location. However, you may find this rather difficult or at least laborious. Hence, it's easier to just stick with the few examples maps provided in the directory ```grids```.
+You may interested to try out the maps in the subdirectories ```grids/dao```, ```grids/da2``` etc. These are the original, unmodified benchmark maps downloaded from the site [movingai.com/benchmarks](https://www.movingai.com/benchmarks/). However, there's one problem with these maps: they don't contain the position of the source and destination nodes. Hence, by default this program places the source and destination nodes at the coordinates (0,&nbsp;0) (the top-left corner). If you wish to try out these benchmark maps, you have to drag the source and destination nodes to another location. However, you may find this rather difficult or at least laborious. Hence, it's easier to just stick with the few examples maps provided in the directory ```grids```.
 
 ## Benchmark mode
 
