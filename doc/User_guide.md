@@ -67,7 +67,7 @@ When viewing the results you can see that some of the nodes are marked in blue. 
 
 ![Visual comparison of the results](img/screenshot_comparison.png)
 
-To create a new map select the menu File >> New. This creates an empty grid, and places the source and destination nodes at the corners. You can also open a previously created map. To open a map select the menu File >> Open. A few example maps are available in the subdirectory ```grids/```. This is discussed further in the next section. At the moment, you cannot save the maps you create because *saving is not yet supported*. Hence, new map files can be created only with the help of a text editor. If you wish to try this, you'll find that the map format is pretty self-explanatory.
+To create a new map select the menu File >> New. This creates an empty grid, and places the source and destination nodes at the corners. You can also open a previously created map. To open a map select the menu File >> Open. A few example maps are available in the subdirectory ```grids```. This is discussed further in the next section. At the moment, you cannot save the maps you create because *saving is not yet supported*. Hence, new map files can be created only with the help of a text editor. If you wish to try this, you'll find that the map format is pretty self-explanatory.
 
 The application has a few preference options to choose from. To edit user preferences select the menu Preferences >> Preferences. The first option is the cell size. This is the size of each node on screen, in pixels. In other words, this a "zoom in" and "zoom out" option. The second option is whether corner-cutting is allowed. If corner-cutting is allowed, the paths can cross corners. This makes for smoother looking paths but is somewhat unrealistic. By default corner-cutting is disallowed.
 
@@ -77,10 +77,17 @@ We shall show how to work with a large map copied from one of the problem sets.
 
 When working with large maps the keyword is zooming. First, you should select the menu Preferences >> Preferences and adjust the cell size option. For viewing large maps *the best cell size is 1*. This paints each node with just one pixel and omits the cell borders.
 
-You can open a map by selecting the menu File >> Open. In this example we open the file ```grids/maze512-8-0.map```. This is a 512x512 maze where the width of each corridor is 8.
+You can open a map by selecting the menu File >> Open. In this example we open the file ```grids/maze512-8-0.map```. This is a 512x512 maze where the width of each corridor is 8. The maze and its solution with A* is shown below.
 
 ![A maze](img/screenshot_maze_1.png)
+
+The picture below shows the solution of the same maze but this time with each the three algorithms.
+
 ![A solution of the maze](img/screenshot_maze_2.png)
+
+The editing of large maps is rather difficult. Editing at this zoom level is not really meaningful because each node is only one pixel in size. To make any meaningful edits you would have to zoom in quite a bit. However, because these maps are so large, editing them one section at a time would be rather laborious. Therefore, while large maps are suitable for viewing and benchmarking, they are not really meant to be edited in this way.
+
+You may interested to try out the maps in the subdirectories ```grids/dao```, ```grids/da2``` etc. These are original, unmodified benchmark maps downloaded from the site [movingai.com/benchmarks](https://www.movingai.com/benchmarks/). However, there's one problem with these maps: they don't contain the position of the source and destination nodes. Hence, by default this program places the source and destination nodes at the coordinates (0, 0) (the top-left corner). If you wish to try out these benchmark maps, you have to drag the source and destination nodes to another location. However, you may find this rather difficult or at least laborious. Hence, it's easier to just stick with the few examples maps provided in the directory ```grids```.
 
 ## Benchmark mode
 
@@ -109,7 +116,7 @@ Running the problem sets is a time consuming process. You should expect each pro
 
 Benchmark mode creates a set of files under the subdirectory ```results/data```. These files are organized according to a timestamp and the originating problem set. The data are a set of CSV files where each file corresponds to a single scenario. For instance, the DAO problem set has 156 maps (and the same number of scenarios), so the results are a set of 156 CSV files. The [results file format](Results_file_format.md) is described in another document.
 
-We have provided Matlab/Octave scripts for analyzing the results. One may use either Matlab or Octave, but here we use Octave, which is [freely available](https://www.gnu.org/software/octave/). To run the scripts, start Octave and navigate to the subdirectory ```results/```. Then you can issue, in Octave, the following command
+We have provided Matlab/Octave scripts for analyzing the results. One may use either Matlab or Octave, but here we use Octave, which is [freely available](https://www.gnu.org/software/octave/). To run the scripts, start Octave and navigate to the subdirectory ```results```. Then you can issue, in Octave, the following command
 
 ```octave
 results2
