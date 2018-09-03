@@ -69,13 +69,18 @@ When viewing the results you can see that some of the nodes are marked in blue. 
 
 To create a new map select the menu File >> New. This creates an empty grid, and places the source and destination nodes at the corners. You can also open a previously created map. To open a map select the menu File >> Open. A few example maps are available in the subdirectory ```grids/```. This is discussed further in the next section. At the moment, you cannot save the maps you create because *saving is not yet supported*. Hence, new map files can be created only with the help of a text editor. If you wish to try this, you'll find that the map format is pretty self-explanatory.
 
-The application has a few preference options to choose from. To edit user preferences select the menu Preferences >> Preferences. The first option is the cell size. This is the size of each node on screen, in pixels. In other words, this a "zoom in/out" option. The second option is whether corner-cutting is allowed. If corner-cutting is allowed, the paths can cross corners. By default corner-cutting is disallowed.
+The application has a few preference options to choose from. To edit user preferences select the menu Preferences >> Preferences. The first option is the cell size. This is the size of each node on screen, in pixels. In other words, this a "zoom in" and "zoom out" option. The second option is whether corner-cutting is allowed. If corner-cutting is allowed, the paths can cross corners. This makes for smoother looking paths but is somewhat unrealistic. By default corner-cutting is disallowed.
 
 ### Working with large maps
 
 We shall show how to work with a large map copied from one of the problem sets.
 
-...
+When working with large maps the keyword is zooming. First, you should select the menu Preferences >> Preferences and adjust the cell size option. For viewing large maps *the best cell size is 1*. This paints each node with just one pixel and omits the cell borders.
+
+You can open a map by selecting the menu File >> Open. In this example we open the file ```grids/maze512-8-0.map```. This is a 512x512 maze where the width of each corridor is 8.
+
+![A maze](img/screenshot_maze_1.png)
+![A solution of the maze](img/screenshot_maze_2.png)
 
 ## Benchmark mode
 
