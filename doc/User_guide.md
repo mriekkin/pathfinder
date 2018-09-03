@@ -81,9 +81,11 @@ You can open a map by selecting the menu File >> Open. In this example we open t
 
 ![A maze](img/screenshot_maze_1.png)
 
-The picture below shows the solution of the same maze but this time with each the three algorithms.
+The picture below shows the solution of the same maze but this time with each of the three algorithms.
 
 ![A solution of the maze](img/screenshot_maze_2.png)
+
+Finally, a few words of warning regarding large maps.
 
 The editing of large maps is rather difficult. Editing at this zoom level is not really meaningful because each node is only one pixel in size. To make any meaningful edits you would have to zoom in quite a bit. However, because these maps are so large, editing them one section at a time would be rather laborious. Therefore, while large maps are suitable for viewing and benchmarking, they are not really meant to be edited in this way.
 
