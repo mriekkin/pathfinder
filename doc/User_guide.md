@@ -47,19 +47,21 @@ java -jar build/libs/pathfinder.jar
 
 On a Windows machine you should use slightly different commands ```gradlew.bat run``` and ```gradlew.bat jar```.
 
+The first time you issue any of these commands, a copy of the Gradle distribution is downloaded and stored in the local filesystem. This means that you don't have to install the Gradle runtime manually. All of this is done by the Gradle Wrapper (```gradlew``` or ```gradlew.bat```).
+
 ### Basic usage of the visualization mode
 
-When the program opens it displays a pre-loaded map. This map, shown below, opens every time the program is opened.
+When the program opens it displays a pre-loaded map. This map, shown below on the left, opens every time the program is opened.
 
-This, and every other, map is a 2-dimensional grid. Each node has a state which indicates if that node is walkable or unwalkable (blocked). Walkable nodes represent open areas; unwalkable nodes represent obstacles. Walkable nodes are marked in white and unwalkable nodes in gray. Furthermore, the source node is marked in green and the destination node in orange. Each walkable nodes is connected to those of its neighbours which are also walkable. All edges have the same weight, so the weights are assumed to be 1.
+Each map represents one particular graph. In this application each graph is a 2-dimensional grid. The grid consists of nodes each of which is either walkable or unwalkable (blocked). Walkable nodes represent open areas, and unwalkable nodes represent obstacles. Walkable nodes are marked in white and unwalkable nodes in gray. Under the hood each walkable nodes is connected to those of its neighbours which are also walkable. All edges have the same weight, so the weights are assumed to be 1. Each map has also one source node and one destination node. The source node is marked in green and the destination node in orange.
 
-![The map which opens at startup](img/screenshot_startup.png)
+Obstacles can be placed and removed with the mouse. Clicking on a node toggles that node as either walkable or unwalkable (blocked). You can also drag the mouse to place or remove multiple obstacles at once. Dragging on the source or destination node moves it to another location. One constructed map is shown below, on the right.
 
-The map can be edited. Obstacles can be placed and removed with the mouse. Clicking on a node toggles that node as either walkable or unwalkable (blocked). You can also drag the mouse to place or remove multiple obstacles at once. Dragging on the source or destination node moves it to another location.
+![The map which opens at startup (left), and one constructed map (right)](img/screenshot_startup_1.png)
 
 To select an algorithm use the combo box on the top-right. Three algorithms are available: Dijkstra, A* and Jump point search (JPS). Dijkstra and A* are general algorithms but Jump point search is a specialized algorithm for uniform-cost grids.
 
-To find a shortest path press the button Find. This instructs the program to find a shortest path using the currently selected algorithm. The computations should finish rather quickly, in a matter of milliseconds. Once the computations are complete the program displays the final stage of running the algorithm. Visualization of the intermediate steps would be a nice feature but, at the moment, it is not supported. When viewing the results you can see that some of the nodes are marked in blue. These are the nodes which have been expanded by the selected algorithm. A coarse visual comparison of the three algorithms reveals a distinctive difference in the number of nodes expanded. Finally, the computed shortest path is painted with a yellow line.
+To find a shortest path press the button Find. This instructs the program to find a shortest path using the currently selected algorithm. The computations should finish rather quickly, in a matter of milliseconds. Once the computations are complete the program displays the final stage of running the algorithm (visualization of the intermediate steps is not yet supported). When viewing the results you can see that some of the nodes are marked in blue. These are the nodes which have been expanded by the selected algorithm. A coarse visual comparison of the three algorithms reveals a distinctive difference in the number of nodes expanded. This can be seen in the figure below. Finally, the computed shortest path is painted with a yellow line.
 
 ![Visual comparison of the results](img/screenshot_comparison_2.png)
 
