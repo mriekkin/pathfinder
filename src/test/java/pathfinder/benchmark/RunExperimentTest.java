@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import pathfinder.datastructures.ArrayList;
 import pathfinder.datastructures.List;
 import pathfinder.io.GraphReader;
+import pathfinder.io.GraphReaderException;
 import pathfinder.logic.Graph;
 import pathfinder.logic.neighbours.Neighbours;
 import pathfinder.logic.pathfinders.Dijkstra;
@@ -19,7 +20,7 @@ public class RunExperimentTest {
     Experiment smallExperiment;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws GraphReaderException, IOException {
         Graph g = GraphReader.readFile(Paths.get("grids/tests/small.map"));
         List<Pathfinder> algorithms = new ArrayList<>();
         algorithms.add(new Dijkstra(g, new Neighbours(g, false)));

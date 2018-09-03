@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import pathfinder.io.GraphReader;
+import pathfinder.io.GraphReaderException;
 import pathfinder.logic.CurrentGraph;
 import pathfinder.logic.Graph;
 
@@ -63,14 +64,16 @@ public class OpenFileAction extends AbstractAction {
         try {
             Graph graph = GraphReader.readFile(path);
             current.setGraph(graph);
+        } catch (GraphReaderException e) {
+            showErrorMessage(e);
         } catch (IOException e) {
             showErrorMessage(e);
         }
     }
 
-    private void showErrorMessage(IOException e) {
+    private void showErrorMessage(Exception e) {
         String title = "Open file error";
-        String msg = "Cannot open the file:\n\n" + e.toString();
+        String msg = "Cannot open the specified file!\n" + e.getMessage();
 
         JOptionPane.showMessageDialog(owner, msg, title, JOptionPane.ERROR_MESSAGE);
     }

@@ -11,13 +11,13 @@ import pathfinder.logic.Pair;
 
 public class GraphReader {
 
-    public static Graph readFile(Path path) throws IOException {
+    public static Graph readFile(Path path) throws GraphReaderException, IOException {
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             return read(reader);
         }
     }
 
-    public static Graph read(Reader r) throws IOException {
+    public static Graph read(Reader r) throws GraphReaderException, IOException {
         try (BufferedReader reader = new BufferedReader(r)) {
             Pair dimensions = readHeader(reader);
             Pair tmp = new Pair(0, 0);
@@ -61,16 +61,40 @@ public class GraphReader {
         }
     }
 
-    private static Pair readHeader(BufferedReader reader) throws IOException {
+    private static Pair readHeader(BufferedReader reader) throws GraphReaderException, IOException {
         String line1 = reader.readLine();
         String line2 = reader.readLine();
         String line3 = reader.readLine();
         String line4 = reader.readLine();
 
+        checkHeader(line1, line2, line3, line4);
+
         int height = Integer.parseInt(line2.split(" ")[1]);
         int width = Integer.parseInt(line3.split(" ")[1]);
 
         return new Pair(width, height);
+    }
+
+    private static void checkHeader(String line1, String line2, String line3, String line4) throws GraphReaderException {
+        if (line1 == null || line2 == null || line3 == null || line4 == null) {
+            throw new GraphReaderException("Invalid header: expected 4 lines");
+        }
+
+        if (!line1.equals("type octile")) {
+            throw new GraphReaderException("Invalid header: expected \"type octile\"");
+        }
+
+        if (!line2.matches("height [0-9]+")) {
+            throw new GraphReaderException("Invalid header: expected \"height y\"");
+        }
+
+        if (!line3.matches("width [0-9]+")) {
+            throw new GraphReaderException("Invalid header: expected \"width x\"");
+        }
+
+        if (!line4.equals("map")) {
+            throw new GraphReaderException("Invalid header: expected \"map\"");
+        }
     }
 
 }

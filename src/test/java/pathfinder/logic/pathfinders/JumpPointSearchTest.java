@@ -1,6 +1,5 @@
 package pathfinder.logic.pathfinders;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -35,14 +34,14 @@ public class JumpPointSearchTest {
     }
 
     @Test
-    public void returnsCorrectPathLengthForSmallGrid() throws IOException {
+    public void returnsCorrectPathLengthForSmallGrid() throws Exception {
         Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
         Pathfinder pathfinder = new JumpPointSearch(small, getPrune(small));
         assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
     @Test
-    public void returnsCorrectPathLengthForBigGrid() throws IOException {
+    public void returnsCorrectPathLengthForBigGrid() throws Exception {
         Graph big = GraphReader.readFile(Paths.get("grids/tests/lak100d.map"));
         Pathfinder pathfinder = new JumpPointSearch(big, getPrune(big));
         assertEquals(812.06810913, pathfinder.run(), eps);

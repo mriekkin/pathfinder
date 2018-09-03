@@ -9,6 +9,7 @@ import java.text.DecimalFormatSymbols;
 import pathfinder.datastructures.ArrayList;
 import pathfinder.datastructures.List;
 import pathfinder.io.GraphReader;
+import pathfinder.io.GraphReaderException;
 import pathfinder.logic.Graph;
 import pathfinder.logic.neighbours.*;
 import pathfinder.logic.pathfinders.*;
@@ -59,8 +60,10 @@ public class RunScenario {
      * @param experiments a list of experiments to be run
      * @throws IOException if the map file referenced by the experiments cannot
      * be read
+     * @throws GraphReaderException if the map file referenced by the
+     * experiments is invalid
      */
-    public void run(List<Experiment> experiments) throws IOException {
+    public void run(List<Experiment> experiments) throws GraphReaderException, IOException {
         if (experiments.isEmpty()) {
             return;
         }
@@ -94,7 +97,7 @@ public class RunScenario {
         return NeighbourPruningRulesFactory.get(g, cornerCutting);
     }
 
-    private Graph loadGraph(Experiment e) throws IOException {
+    private Graph loadGraph(Experiment e) throws GraphReaderException, IOException {
         String filename = e.getMap();
         Path mapFile = mapDirectory.resolve(filename);
         return GraphReader.readFile(mapFile);

@@ -1,6 +1,5 @@
 package pathfinder.logic.pathfinders;
 
-import java.io.IOException;
 import java.io.StringReader;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -12,7 +11,7 @@ import pathfinder.logic.neighbours.*;
 public class JumpTest {
 
     @Test
-    public void returnsJumpPointSuccessorForHorizontalJump() throws IOException {
+    public void returnsJumpPointSuccessorForHorizontalJump() throws Exception {
         Graph g = GraphReader.read(new StringReader(""
                 + "type octile\n"
                 + "height 10\n"
@@ -37,7 +36,7 @@ public class JumpTest {
     }
 
     @Test
-    public void returnsJumpPointSuccessorForHorizontalJumpWhenNoCc() throws IOException {
+    public void returnsJumpPointSuccessorForHorizontalJumpWhenNoCc() throws Exception {
         Graph g = GraphReader.read(new StringReader(""
                 + "type octile\n"
                 + "height 10\n"
@@ -62,7 +61,7 @@ public class JumpTest {
     }
 
     @Test
-    public void returnsJumpPointSuccessorForDiagonalJump() throws IOException {
+    public void returnsJumpPointSuccessorForDiagonalJump() throws Exception {
         Graph g = GraphReader.read(new StringReader(""
                 + "type octile\n"
                 + "height 10\n"
@@ -87,7 +86,7 @@ public class JumpTest {
     }
 
     @Test
-    public void returnsJumpPointSuccessorForDiagonalJumpWhenNoCc() throws IOException {
+    public void returnsJumpPointSuccessorForDiagonalJumpWhenNoCc() throws Exception {
         Graph g = GraphReader.read(new StringReader(""
                 + "type octile\n"
                 + "height 10\n"
@@ -112,7 +111,7 @@ public class JumpTest {
     }
 
     @Test
-    public void returnsJumpPointSuccessorForExampleA() throws IOException {
+    public void returnsJumpPointSuccessorForExampleA() throws Exception {
         // This is from Figure 2(a) in the second JPS paper by Harabor and Grastien
         Graph g = GraphReader.read(new StringReader(""
                 + "type octile\n"
@@ -133,7 +132,7 @@ public class JumpTest {
     }
 
     @Test
-    public void returnsJumpPointSuccessorForExampleAWhenNoCc() throws IOException {
+    public void returnsJumpPointSuccessorForExampleAWhenNoCc() throws Exception {
         // This is from Figure 2(a) in the second JPS paper by Harabor and Grastien
         Graph g = GraphReader.read(new StringReader(""
                 + "type octile\n"
@@ -154,7 +153,7 @@ public class JumpTest {
     }
 
     @Test
-    public void returnsJumpPointSuccessorForExampleB() throws IOException {
+    public void returnsJumpPointSuccessorForExampleB() throws Exception {
         // This is from Figure 2(b) in the second JPS paper by Harabor and Grastien
         Graph g = GraphReader.read(new StringReader(""
                 + "type octile\n"
@@ -175,7 +174,7 @@ public class JumpTest {
     }
 
     @Test
-    public void returnsJumpPointSuccessorForExampleBWhenNoCc() throws IOException {
+    public void returnsJumpPointSuccessorForExampleBWhenNoCc() throws Exception {
         // This is from Figure 2(b) in the second JPS paper by Harabor and Grastien
         Graph g = GraphReader.read(new StringReader(""
                 + "type octile\n"

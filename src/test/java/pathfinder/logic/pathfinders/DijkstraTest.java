@@ -1,6 +1,5 @@
 package pathfinder.logic.pathfinders;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 import org.junit.Test;
 import pathfinder.logic.Graph;
@@ -28,14 +27,14 @@ public class DijkstraTest {
     }
 
     @Test
-    public void returnsCorrectPathLengthForSmallGrid() throws IOException {
+    public void returnsCorrectPathLengthForSmallGrid() throws Exception {
         Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
         Pathfinder pathfinder = new Dijkstra(small, getNeighbours(small));
         assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
     }
 
     @Test
-    public void returnsCorrectPathLengthForBigGrid() throws IOException {
+    public void returnsCorrectPathLengthForBigGrid() throws Exception {
         Graph big = GraphReader.readFile(Paths.get("grids/tests/lak100d.map"));
         Pathfinder pathfinder = new Dijkstra(big, getNeighbours(big));
         assertEquals(812.06810913, pathfinder.run(), eps);

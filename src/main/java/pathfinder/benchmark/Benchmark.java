@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import pathfinder.datastructures.ArrayList;
 import pathfinder.datastructures.List;
+import pathfinder.io.GraphReaderException;
 import pathfinder.io.ScenarioFileException;
 import pathfinder.io.ScenarioReader;
 
@@ -75,7 +76,7 @@ public class Benchmark {
         try {
             RunScenario runner = new RunScenario(replicates, mapDirectory, timer, cornerCutting, out);
             runner.run(experiments);
-        } catch (IOException e) {
+        } catch (IOException | GraphReaderException e) {
             out.println("Cannot run scenario");
             out.println("   " + e);
         }
