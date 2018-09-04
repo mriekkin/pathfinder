@@ -20,15 +20,13 @@ The diagram below represents a simplified class diagram for the benchmark mode.
 
 ![Class diagram for the benchmark mode](img/structure_benchmark.png)
 
-![Class diagram for RunExperiment](img/structure_runexperiment.png)
-
 ## Algorithms
 
-In this section we shall present pseudocode for the different algorithms, and consider their complexity. The pseudocode for Dijkstra and A* has been adapted from the lecture notes [1]. The pseudocode for JPS has been adapted from the corresponding papers [2] and [3].
+In this section we shall present pseudocode for the different algorithms, and consider their complexity. The pseudocode for Dijkstra and A* has been adapted from the lecture notes [1]. The pseudocode for JPS has been adapted from the corresponding papers [2] and [3]. The following descriptions are rather brief. Further information can be found from the references, and a number of other sources.
 
-### Dijkstra
+### Dijkstra's algorithm
 
-Dijkstra's algorithm is a general algorithm for finding shortest paths between nodes in a graph. Unlike other algorithms presented here, it uses no heuristic.
+Dijkstra's algorithm is a general algorithm for finding shortest paths between nodes in a graph.
 
 Before describing the actual algorithm, we shall need the following operations: initialization and an update operation called relaxation.
 
@@ -45,7 +43,7 @@ Relax-Dijkstra(u,v,w)
         path[v] = u
 ```
 
-Dijkstra's algorithm maintains a set which consists of those nodes whose shortest distance is already known. This is known as the closed set. On each iteration Dijkstra's algorithm considers the remaining nodes (whose distance is still unknown), and picks the node with the smallest distance estimate. This is a greedy strategy. The following pseudocode uses a heap to store those nodes which have been discovered, but whose distance is still unknown. Hence picking the next node is equal to calling ```heap-del-min```.
+Dijkstra's algorithm maintains a set which consists of those nodes whose shortest distance is already known. This is known as the closed set. On each iteration Dijkstra's algorithm considers the remaining nodes (whose distance is still unknown), and picks the node with the smallest distance estimate. This is a greedy strategy. The following pseudocode uses a heap to store those nodes which have been discovered, but whose distance is still unknown.
 
 ```
 Dijkstra(G,w,s)
@@ -92,7 +90,7 @@ Relax-Astar(u,v,w)
 
 The operation of A* is very similar to Dijkstra's algorithm. The primary difference is the use of a heuristic function.
 
-A* maintains two values for each node: the estimated distance from the source node (g), and the estimated distance to the destination node (h). When choosing the next node we consider the sum g[v]+h[v]. These are the priorities we shall use when constructing and maintaining the heap.
+A* maintains two values for each node: the estimated distance from the source node (g), and the estimated distance to the destination node (h). When choosing the next node, we consider the sum g[v]+h[v]. These are the priorities we shall use when constructing and maintaining the heap.
 
 ```
 Astar(G,w,a,b)
