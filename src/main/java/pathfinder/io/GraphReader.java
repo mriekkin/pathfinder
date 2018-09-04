@@ -26,11 +26,26 @@ public class GraphReader {
             String nodes;
             int row = 0;
             while ((nodes = reader.readLine()) != null) {
+                checkRow(g, row, nodes);
                 processRow(g, row, nodes);
                 row++;
             }
 
+            if (row < g.getRows()) {
+                throw new GraphReaderException("Fewer rows than specified in the header.");
+            }
+
             return g;
+        }
+    }
+
+    private static void checkRow(Graph g, int row, String nodes) throws GraphReaderException {
+        if (row >= g.getRows()) {
+            throw new GraphReaderException("More rows than specified in the header.");
+        }
+
+        if (nodes.length() != g.getCols()) {
+            throw new GraphReaderException("Length of row y=" + row + " doesn't match the header.");
         }
     }
 
@@ -69,8 +84,16 @@ public class GraphReader {
 
         checkHeader(line1, line2, line3, line4);
 
+        return getDimensions(line2, line3);
+    }
+
+    private static Pair getDimensions(String line2, String line3) throws GraphReaderException {
         int height = Integer.parseInt(line2.split(" ")[1]);
         int width = Integer.parseInt(line3.split(" ")[1]);
+
+        if (width <= 0 || height <= 0) {
+            throw new GraphReaderException("Invalid header: invalid dimensions");
+        }
 
         return new Pair(width, height);
     }
