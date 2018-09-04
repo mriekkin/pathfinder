@@ -1,7 +1,5 @@
 # Implementation document
 
-Pathfinder is a collection of shortest path algorithms for grid-based maps. It can be used in a visualization mode to illustrate the application of individual algorithms, or in a benchmark mode to compare the performance of different algorithms.
-
 ## Program structure
 
 Central abstractions for this program include the class Graph and the interface Pathfinder.
@@ -24,6 +22,95 @@ The diagram below represents a simplified class diagram for the benchmark mode.
 
 ![Class diagram for RunExperiment](img/structure_runexperiment.png)
 
+## Algorithms
+
+In this section we shall present pseudocode for the different algorithms, and consider their complexity. The pseudocode for Dijkstra and A* has been adapted from the lecture notes [1]. The pseudocode for JPS has been adapted from the corresponding papers [2] and [3].
+
+### Dijkstra
+
+Dijkstra's algorithm is a general algorithm for finding shortest paths between nodes in a graph. Unlike other algorithms presented here, it uses no heuristic.
+
+Before describing the actual algorithm, we shall need the following operations: initialization and an update operation called relaxation.
+
+```
+Initialize-Dijkstra(G,s)
+    for all nodes v in V
+        distance[v] = infinity
+        path[v] = NIL
+    distance[s] = 0
+
+Relax-Dijkstra(u,v,w)
+    if distance[v] > distance[u] + w(u,v)
+        distance[v] = distance[u] + w(u,v)
+        path[v] = u
+```
+
+Dijkstra's algorithm maintains a set which consists of those nodes whose shortest distance is already known. This is known as the closed set. On each iteration Dijkstra's algorithm considers the remaining nodes (whose distance is still unknown), and picks the node with the smallest distance estimate. This is a greedy strategy. The following pseudocode uses a heap to store those nodes which have been discovered, but whose distance is still unknown. Hence picking the next node is equal to calling ```heap-del-min```.
+
+```
+Dijkstra(G,w,s)
+    Initialize-Dijkstra(G,s)
+    for all nodes v in V
+        heap-insert(H,v,distance[v])
+    while not empty(H)
+        u = heap-del-min(H)
+        for each node v in neighbours[u]
+            Relax-Dijkstra(u,v,w)
+            heap-decrease-key(H,v,distance[v])
+```
+
+When using a binary heap, the time complexity of Dijkstra's algorithm is O((V + E)log(V)). The space complexity is O(V).
+
+### A*
+
+A* is another general algorithm for finding the shortest path between nodes in a graph. However, unlike Dijkstra's algorithm, A* uses a heuristic function to guide the search towards directions which seem promising.
+
+We shall use the octile distance as the heuristic function. Here a and b are any two nodes.
+
+```
+heuristic(a,b)
+    dx = abs(b.x - a.x)
+    dy = abs(b.y - a.y)
+    return (dx + dy) + (sqrt(2) - 2) * min(dx, dy)
+```
+
+Again, before describing the actual algorithm, we shall need the following operations: initialization and an update operation called relaxation. Here a and b are the source and destination nodes, respectively.
+
+```
+Initialize-Astar(G,a,b)
+    for all nodes v in V
+        g[v] = infinity
+        h[v] = heuristic(v,b)
+        path[v] = NIL
+    g[a] = 0
+
+Relax-Astar(u,v,w)
+    if g[v] > g[u] + w(u,v)
+        g[v] = g[u] + w(u,v)
+        path[v] = u
+```
+
+The operation of A* is very similar to Dijkstra's algorithm. The primary difference is the use of a heuristic function.
+
+A* maintains two values for each node: the estimated distance from the source node (g), and the estimated distance to the destination node (h). When choosing the next node we consider the sum g[v]+h[v]. These are the priorities we shall use when constructing and maintaining the heap.
+
+```
+Astar(G,w,a,b)
+    Initialize-Astar(G,a,b)
+    for all nodes v in V
+        heap-insert(H,v,g[v]+h[v])
+    while not empty(H)
+        u = heap-del-min(H)
+        for each node v in neighbours[u]
+            Relax-Astar(u,v,w)
+            heap-decrease-key(H,v,g[v]+h[v])
+```
+
+### Jump point search (JPS)
+
+...
+
+
 ## Performance Testing
 
 Algorithms can be compared by running the same set of problems for a number of algorithms. This means running multiple problems on any single map with different source and destination nodes. It also means running the same set of algorithms on a variety of different maps.
@@ -32,7 +119,7 @@ Algorithms can be compared by running the same set of problems for a number of a
 
 We run an experiment designed to compare the performance of three algorithms: Dijkstra, A* and Jump point search (JPS). We use our own implementations written in Java. The code for these implementations is available in this GitHub repository.
 
-We use standard benchmark problem sets [1] available from the site [movingai.com/benchmarks/](https://www.movingai.com/benchmarks/). We use the following problem sets extracted from commercial video games:
+We use standard benchmark problem sets [4] available from the site [movingai.com/benchmarks/](https://www.movingai.com/benchmarks/). We use the following problem sets extracted from commercial video games:
 
 * **Dragon Age: Origins (DAO).** 156 maps with a total of 155&nbsp;620 instances.
 * **Dragon Age 2 (DA2).** 67 maps with a total of 67&nbsp;200 instances.
@@ -47,7 +134,7 @@ We run the experiments on a 2013 MacBook Pro running macOS High Sierra. Our test
 
 ### Results for a single scenario
 
-The problem sets categorize problems into larger buckets. Given the optimal solution length, the bucket for a path of length L is floor(L/4). Reporting results in buckets reduces the variance and makes it easier to compare similar problems across maps. Each bucket on each map contains at most 10 problems. [1]
+The problem sets categorize problems into larger buckets. Given the optimal solution length, the bucket for a path of length L is floor(L/4). Reporting results in buckets reduces the variance and makes it easier to compare similar problems across maps. Each bucket on each map contains at most 10 problems. [4]
 
 We would like to describe running time as a function of path length. To describe running time across similar problem instances we use the median running time averaged across buckets. We average (within each bucket) across problem instances in the same scenario. This gives us the average running time for each bucket. In other words, we get the average running time as a function of path length.
 
@@ -82,5 +169,7 @@ Explanation for the "jumps": Some individual scenarios are much faster/slower th
 ![Scenario running times for DAO](img/dao_scenario_running_times.png)
 
 ## References
-
-[1] Sturtevant, N. (2012), "Benchmarks for Grid-Based Pathfinding", IEEE Transactions on Computational Intelligence and AI in Games, 4(2): 144-148.
+1. Kivinen, J. (2018), "Data structures and algorithms, Spring 2018", Lecture notes for the course Data structures and algorithms at the University of Helsinki.
+2. Harabor, D. and Grastien, A. (2011), "Online Graph Pruning for Pathfinding on Grid Maps", 25th National Conference on Artificial Intelligence, AAAI.
+3. Harabor, D. and Grastien, A. (2012), "The JPS Pathfinding System", 26th National Conference on Artificial Intelligence, AAAI.
+4. Sturtevant, N. (2012), "Benchmarks for Grid-Based Pathfinding", IEEE Transactions on Computational Intelligence and AI in Games, 4(2): 144-148.
