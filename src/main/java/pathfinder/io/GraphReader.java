@@ -9,14 +9,35 @@ import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 import pathfinder.logic.Pair;
 
+/**
+ * Reads the contents of a map file, and returns the corresponding graph.
+ */
 public class GraphReader {
 
+    /**
+     * Reads the contents of a map file, and returns the corresponding graph.
+     *
+     * @param path the path of the map file to be read
+     * @return a graph created from the specified map file
+     * @throws GraphReaderException if the specified map file is invalid
+     * @throws IOException if the specified map file cannot be read
+     */
     public static Graph readFile(Path path) throws GraphReaderException, IOException {
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             return read(reader);
         }
     }
 
+    /**
+     * Reads the contents of a map, using the specified reader, and returns the
+     * corresponding graph.
+     *
+     * @param r the reader to be used
+     * @return a graph created from the read map specification
+     * @throws GraphReaderException if the map specification is invalid
+     * @throws IOException if reading from the specified reader produces an I/O
+     * exception
+     */
     public static Graph read(Reader r) throws GraphReaderException, IOException {
         try (BufferedReader reader = new BufferedReader(r)) {
             Pair dimensions = readHeader(reader);

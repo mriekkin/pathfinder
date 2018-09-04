@@ -1,5 +1,8 @@
 package pathfinder.io;
 
+/**
+ * Signals that an attempt to read a map file has failed.
+ */
 public class GraphReaderException extends Exception {
 
     /**

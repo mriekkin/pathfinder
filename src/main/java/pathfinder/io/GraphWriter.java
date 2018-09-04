@@ -3,8 +3,17 @@ package pathfinder.io;
 import pathfinder.logic.Graph;
 import pathfinder.logic.Node;
 
+/**
+ * Converts a graph into its corresponding string representation.
+ */
 public class GraphWriter {
 
+    /**
+     * Returns a string representation of the specified graph.
+     *
+     * @param g the graph to be used
+     * @return a string representation of the specified graph
+     */
     public static String plotGrid(Graph g) {
         StringBuilder s = new StringBuilder();
         for (int y = 0; y < g.getRows(); y++) {
