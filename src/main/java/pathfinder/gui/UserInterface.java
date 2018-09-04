@@ -206,7 +206,7 @@ public class UserInterface implements Runnable, PropertyChangeListener {
         frame.pack();
 //        grid.revalidate();
 //        grid.repaint();
-        scroll.revalidate();
+//        scroll.revalidate();
 //        scroll.repaint();
         frame.repaint();
     }
