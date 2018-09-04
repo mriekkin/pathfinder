@@ -1,5 +1,18 @@
 # Implementation document
 
+Table of contents:
+
+* [Program structure](#program-structure)
+* [Algorithms](#algorithms)
+    * [Dijkstra's algorithm](#dijkstras-algorithm)
+    * [A*](#a)
+    * [Jump point search (JPS)](#jump-point-search-jps)
+* [Performance Testing](#performance-testing)
+    * [Experimental setup](#experimental-setup)
+    * [Results for a single scenario](#results-for-a-single-scenario)
+    * [Aggregated results](#aggregated-results)
+* [References](#references)
+
 ## Program structure
 
 Central abstractions for this program include the class Graph and the interface Pathfinder.
