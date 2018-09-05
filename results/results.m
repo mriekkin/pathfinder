@@ -3,7 +3,7 @@
 % Settings
 %
 %===============================================================================
-DIRECTORY = "data/180821/dao";
+DIRECTORY = "data/180831/dao";
 SAVE_FILENAME = "img/dao_results.png";
 Y_LIMITS = [[0 40]; [0 12]; [0 6]];
 
