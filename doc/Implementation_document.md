@@ -74,7 +74,7 @@ When using a binary heap, the time complexity of Dijkstra's algorithm is O((V + 
 
 ### A*
 
-A* is another general algorithm for finding the shortest path between nodes in a graph. However, unlike Dijkstra's algorithm, A* uses a heuristic function to guide the search towards directions which seem promising.
+A* is another general algorithm for finding shortest paths between nodes in a graph. However, unlike Dijkstra's algorithm, A* uses a heuristic function to guide the search towards directions which seem promising.
 
 We shall use the octile distance as the heuristic function. Here a and b are any two nodes.
 
@@ -117,10 +117,37 @@ Astar(G,w,a,b)
             heap-decrease-key(H,v,g[v]+h[v])
 ```
 
+When using a binary heap, the time complexity of A* is O((V + E)log(V)). The space complexity is O(V).
+
 ### Jump point search (JPS)
 
 ...
 
+
+```
+identify_successors(x,a,b)
+    successors = empty set
+    neighbours = prune(x,neighbours(x))
+    for all n in neighbours
+        n = jump(x,direction(x,n),a,b)
+        add n to successors
+```
+
+```
+jump(x,d,a,b)
+    n = step(x,d)
+    if n is an obstacle or is outside the grid
+        return NIL
+    if n = b
+        return n
+    if exists n' in neighbours(n) such that n' is forced
+        return n
+    if d is diagonal
+        for all i in {1,2}
+            if jump(n,d_i,a,b) is not NIL
+                return n
+    return jump(n,d,a,b)
+```
 
 ## Performance Testing
 
@@ -153,7 +180,7 @@ Running time is described first in absolute terms (milliseconds), and then mostl
 
 The figure below presents the results of running a single scenario. The scenario in question is "lak100d" from the DAO problem set.
 
-![The results of running a single scenario](img/lak100d_results_avg.png)
+![The results of running a single scenario](img/lak100d_results3.png)
 
 **A\*:** For most problems, A* is faster than Dijkstra. The average speedup, however, is only 1.6, which is perhaps a bit disappointing. The maximum observed speedup, excluding outliers, is around 2.5. When path lengths approach the maximum, the performance of Dijkstra and A* is roughly the same. This indicates that for sufficiently long paths both Dijkstra and A* expand roughly the same set of nodes. The figure below indicates that this is because each map has limited width and height, which constrains the search. In other words, even though Dijkstra has a tendency to search radially the limits of the map constrain this radial expansion.
 
