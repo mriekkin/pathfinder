@@ -162,7 +162,6 @@ We use standard benchmark problem sets [4] available from the site [movingai.com
 * **Dragon Age: Origins (DAO).** 156 maps with a total of 155&nbsp;620 instances.
 * **Dragon Age 2 (DA2).** 67 maps with a total of 67&nbsp;200 instances.
 * **Baldurs Gate II, scaled to 512x512 (BG512).** 75 maps with a total of 122&nbsp;600 instances.
-* **Starcraft (SC1).** 75 maps with a total of 211&nbsp;390 instances.
 
 As intended in the problem sets, we disallow corner-cutting diagonal movement.
 
@@ -198,7 +197,9 @@ Below are the aggregated results for three problem sets: DAO, DA2 and BG512.
 ![Results for the problem set DA2](img/da2_results.png)
 ![Results for the problem set BG512](img/bg512_results.png)
 
-Running times are in the range of 0-40 ms. The DAO problem set has the longest running times. In general running times increase as a function of path length. In other words, longer paths tend to take a longer time to compute. The BG512 set, however, is a peculiar exception to this rule. Many of the curves also have "jumps". These are studied more closely below.
+Running times are in the range of 0-40 ms. The DAO problem set has the longest paths and therefore the longest running times. In general running times increase as a function of path length. In other words, longer paths tend to take a longer time to compute. The BG512 set, however, is a peculiar exception to this rule. Many of the curves also have "jumps". These are studied more closely below.
+
+A* obtains a 1-2 times speedup compared to Dijkstra (for path lengths >100). For short paths the speedup is the greatest for the BG512 problem set, where A* is up to 7 times faster than Dijkstra. On the other hand, when path lengths approach the maximum, the performance of Dijkstra and A* is roughly the same.
 
 JPS obtains a 3-5 times speedup compared to A*, and a 3-10 times speedup compared to Dijkstra. The speedup compared to Dijkstra is most pronounced for relatively short paths, and in particular for the BG512 problem set. This is probably due the different nature of the problem sets. The titles in the Dragon Age series are role-playing games (RPG), where the maps are more linear; Baldur's Gate on the other hand is a real-time strategy game (RTS), where the maps are more two-dimensional.
 
