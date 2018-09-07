@@ -13,6 +13,7 @@ Table of contents:
     * [Experimental setup](#experimental-setup)
     * [Results for a single scenario](#results-for-a-single-scenario)
     * [Aggregated results](#aggregated-results)
+* [Limitations and possible improvements](#limitations-and-possible-improvements)
 * [References](#references)
 
 ## Javadoc documentation
@@ -250,6 +251,16 @@ JPS obtains a 3-5 times speedup compared to A*, and a 3-10 times speedup compare
 Explanation for the "jumps": Some individual scenarios are much faster/slower than the average. The difference in running times is large enough to skew the average downwards/upwards. When such a scenario ends (the scenarios have different lengths), the average shifts abruptly in the opposite direction. This process is depicted in the picture below, which shows the running times for individual scenarios in the DAO problem set.
 
 ![Scenario running times for DAO](img/dao_scenario_running_times.png)
+
+# Limitations and possible improvements
+
+Here are some ideas for future work:
+
+- The results of performance testing could be studied even further. One possible direction would be study the differences between the fastest and the slowest scenarios.
+
+- Collections should release a portion of the allocated memory when elements are removed. At the moment collections increase the memory allocation as elements are added, but do not release memory as elements are removed.
+
+- In the visualization mode, maps cannot be saved. Maps can be loaded and edited, but saving is not yet supported.
 
 ## References
 1. Kivinen, J. (2018), "Data structures and algorithms, Spring 2018", Lecture notes for the course Data structures and algorithms at the University of Helsinki.
