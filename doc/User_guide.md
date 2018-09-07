@@ -102,13 +102,12 @@ The benchmark mode can be run with the command
 This runs a shell script, which is in the project's root directory. By default, this runs the full range of problem sets. To add or remove problem sets you can modify the script's last few lines, which are
 
 ```bash
-run_problem_set "da2"
 run_problem_set "dao"
+run_problem_set "da2"
 run_problem_set "bg512"
-run_problem_set "sc1"
 ```
 
-Running the problem sets is a time consuming process. You should expect each problem set to take several hours to complete. On our test machine the computations for each problem set would take from 2 hours (DA2) to up to 8 hours (DAO and BG512) and up to a day (SC1). The benchmarks are run on a single thread so on a multicore machine the CPU utilization remains below 100&nbsp;%. Regardless, to get reliable results one should not work on other tasks while running the benchmarks. Hence, it's convenient to run the benchmarks overnight.
+Running the problem sets is a time consuming process. You should expect each problem set to take several hours to complete. On our test machine the computations for each problem set would take from 2 hours (DA2) to up to 8 hours (DAO and BG512). The benchmarks are run on a single thread so on a multicore machine the CPU utilization remains below 100&nbsp;%. Regardless, to get reliable results one should not work on other tasks while running the benchmarks. Hence, it's convenient to run the benchmarks overnight.
 
 ### Analyzing the results
 

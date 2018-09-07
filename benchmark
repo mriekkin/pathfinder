@@ -38,7 +38,6 @@ timestamp="$(date +%y%m%d_%H%M%S)"
 create_directory "results/data"
 create_directory "results/data/$timestamp"
 
-run_problem_set "da2"
 run_problem_set "dao"
+run_problem_set "da2"
 run_problem_set "bg512"
-run_problem_set "sc1"
