@@ -149,17 +149,30 @@ When using a binary heap, the time complexity of A* is O((V + E)log(V)). The spa
 
 ### Jump point search (JPS)
 
-...
+Jump point search is a specialized algorithm for uniform-cost grids. It's a modified version of A* which takes advantage of path symmetry, prevalent in the grid domain.
 
+The basic idea is to prune all potential successors which can be reached by another path which is shorter than, or symmetric to, the current path. To accomplish this JPS employs two sets of rules: pruning rules and jumping rules. The rules are presented in [2] and [3]. We shall not present them here. We will only note that pruning is an operation which takes constant time and space. Jumping is described at the level of pseudocode, below.
+
+Jump point search operates in a couple of stages:
+
+1. List the neighbours of the current node. We shall refer to this list as ```neighbours(x)```.
+2. Prune the set of neighbours. We shall call the pruned set of neighbours as the natural successors of the node x. We will refer to this set as ```pruned_neighbours```.
+3. For each node n in ```pruned_neighbours``` find the so called jump point successor of that node. We shall call the resulting set of nodes as the jump point successors of the node x. We shall refer to this set as ```successors```.
+
+In practice, when implementing JPS the stages 1 and 2 are combined but here we shall consider them as separate.
+
+JPS can be described as two methods: ```identify_successors``` and ```jump```. We shall list them here. In the following pseudocode ```direction(x,n)``` denotes a vector which points from x to n.
 
 ```
 identify_successors(x,a,b)
     successors = empty set
-    neighbours = prune(x,neighbours(x))
-    for all n in neighbours
+    pruned_neighbours = prune(x,neighbours(x))
+    for all n in pruned_neighbours
         n = jump(x,direction(x,n),a,b)
         add n to successors
 ```
+
+In the following pseudocode d denotes one of the eight allowable movement directions. If d is a diagonal move, then d_1 and d_2 denote the two straight moves at 45 degree angle to d.
 
 ```
 jump(x,d,a,b)
@@ -176,6 +189,8 @@ jump(x,d,a,b)
                 return n
     return jump(n,d,a,b)
 ```
+
+When using a binary heap, the time complexity of JPS is O((V + E)log(V)). The space complexity is O(V). Hence, all pathfinding algorithms presented here have the same asymptotic time and space complexity. However, in practice there can a significant difference in performance.
 
 ## Performance Testing
 
