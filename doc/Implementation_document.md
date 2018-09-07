@@ -161,7 +161,7 @@ Jump point search operates in a couple of stages:
 
 In practice, when implementing JPS the stages 1 and 2 are combined but here we shall consider them as separate.
 
-JPS can be described as two methods: ```identify_successors``` and ```jump```. We shall list them here. In the following pseudocode ```direction(x,n)``` denotes a vector which points from x to n.
+JPS can be described as two methods: ```identify_successors``` and ```jump```. We shall list them here. In the following pseudocode a and b denote the source and destination nodes, respectively. Also, ```direction(x,n)``` denotes a vector which points from x to n.
 
 ```
 identify_successors(x,a,b)
@@ -170,6 +170,7 @@ identify_successors(x,a,b)
     for all n in pruned_neighbours
         n = jump(x,direction(x,n),a,b)
         add n to successors
+    return successors
 ```
 
 In the following pseudocode d denotes one of the eight allowable movement directions. If d is a diagonal move, then d_1 and d_2 denote the two straight moves at 45 degree angle to d.
