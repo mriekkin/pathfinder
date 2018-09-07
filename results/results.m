@@ -36,7 +36,7 @@ for i = 1:size(files, 1)
     if rows == 0
         disp(["File has 0 rows: ", filename])
     end
-    if cols != 7
+    if cols ~= 7
         disp(["File should have exactly 7 columns: " filename " (has " num2str(cols) ")"])
         break;
     end
@@ -66,8 +66,8 @@ for i = 1:size(files, 1)
     % Average over scenarios
     %
     %===========================================================================
-    t(1:buckets, :) += B;
-    n(1:buckets, :) += 1;
+    t(1:buckets, :) = t(1:buckets, :) + B;
+    n(1:buckets, :) = n(1:buckets, :) + 1;
     max_buckets = max(max_buckets, buckets);
 end
 

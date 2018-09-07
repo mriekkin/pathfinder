@@ -42,7 +42,7 @@ for i = 1:size(files, 1)
     if rows == 0
         disp(["File has 0 rows: ", filename])
     end
-    if cols != 7
+    if cols ~= 7
         disp(["File should have exactly 7 columns: " filename " (has " num2str(cols) ")"])
         break;
     end
@@ -89,19 +89,19 @@ for i = 1:size(files, 1)
 
         subplot(1, 3, 1)
         plot(b, t_D, "k"); hold on;
-        title(strcat("Running times for Dijkstra\n(scenarios with >200 buckets)"))
+        title(strcat("Running times for Dijkstra (scenarios with >200 buckets)"))
         xlabel("Bucket")
         ylabel("Average time (ms)")
 
         subplot(1, 3, 2)
         plot(b, t_Astar, "k"); hold on;
-        title(strcat("Running times for A*\n(scenarios with >200 buckets)"))
+        title(strcat("Running times for A* (scenarios with >200 buckets)"))
         xlabel("Bucket")
         ylabel("Average time (ms)")
 
         subplot(1, 3, 3)
         plot(b, t_JPS, "k"); hold on;
-        title(strcat("Running times for JPS\n(scenarios with >200 buckets)"))
+        title(strcat("Running times for JPS (scenarios with >200 buckets)"))
         xlabel("Bucket")
         ylabel("Average time (ms)")
     end
@@ -111,8 +111,8 @@ for i = 1:size(files, 1)
     % Average over scenarios
     %
     %===========================================================================
-    t(1:buckets, :) += B;
-    n(1:buckets, :) += 1;
+    t(1:buckets, :) = t(1:buckets, :) + B;
+    n(1:buckets, :) = n(1:buckets, :) + 1;
     max_buckets = max(max_buckets, buckets);
 end
 

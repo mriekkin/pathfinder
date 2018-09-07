@@ -15,7 +15,6 @@ function plot_result(fig, B, filename, y_limits)
 
     % Plot of the running time
     subplot(1, 3, 1)
-%    figure(11)
     plot(b, t_D, "color", blue); hold on;
     plot(b, t_Astar, "color", green);
     plot(b, t_JPS, "color", yellow);
@@ -29,7 +28,6 @@ function plot_result(fig, B, filename, y_limits)
 
     % Plot of the speedup factor (compared to Dijkstra)
     subplot(1, 3, 2)
-%    figure(12)
     plot(b, t_D ./ t_Astar, "color", green); hold on;
     plot(b, t_D ./ t_JPS, "color", yellow);
     legend("A*", "JPS", "location", "northwest")
@@ -42,7 +40,6 @@ function plot_result(fig, B, filename, y_limits)
 
     % Plot of the speedup factor (compared to A*)
     subplot(1, 3, 3)
-%    figure(13)
     plot(b, t_Astar ./ t_JPS, "color", yellow);
     legend("JPS", "location", "northwest")
     title("Speedup over A*")

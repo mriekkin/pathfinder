@@ -34,7 +34,7 @@ for i = 1:size(files, 1)
     if rows == 0
         disp(["File has 0 rows: ", filename])
     end
-    if cols != 7
+    if cols ~= 7
         disp(["File should have exactly 7 columns: " filename " (has " num2str(cols) ")"])
         break;
     end
