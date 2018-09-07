@@ -191,7 +191,7 @@ jump(x,d,a,b)
     return jump(n,d,a,b)
 ```
 
-When using a binary heap, the time complexity of JPS is O((V + E)log(V)). The space complexity is O(V). Hence, all pathfinding algorithms presented here have the same asymptotic time and space complexity. However, in practice there can a significant difference in performance.
+When using a binary heap, the time complexity of JPS is O((V + E)log(V)). The space complexity is O(V). Hence, all pathfinding algorithms presented here have the same asymptotic time and space complexity. However, in practice there can be a significant difference in performance.
 
 ## Performance Testing
 
@@ -225,9 +225,9 @@ The figure below presents the results of running a single scenario. The scenario
 
 ![The results of running a single scenario](img/lak100d_results3.png)
 
-**A\*:** For most problems, A* is faster than Dijkstra. The average speedup, however, is only 1.6, which is perhaps a bit disappointing. The maximum observed speedup, excluding outliers, is around 2.5. When path lengths approach the maximum, the performance of Dijkstra and A* is roughly the same. This indicates that for sufficiently long paths both Dijkstra and A* expand roughly the same set of nodes. The figure below indicates that this is because each map has limited width and height, which constrains the search. In other words, even though Dijkstra has a tendency to search radially the limits of the map constrain this radial expansion.
+For most problems, A* is faster than Dijkstra. The average speedup, however, is only 1.5, which is perhaps a bit disappointing. The maximum observed speedup, excluding outliers, is around 2.5. When path lengths approach the maximum, the performance of Dijkstra and A* is roughly the same. This indicates that for sufficiently long paths both Dijkstra and A* expand roughly the same set of nodes. The figure below indicates that this is because each map has limited width and height, which constrains the search. In other words, even though Dijkstra has a tendency to search radially the limits of the map constrain this radial expansion.
 
-**JPS:** For path lengths >50 JPS is faster than both Dijkstra and A*. The average speedup compared to Dijkstra is 3.7, and the average speedup compared to A* is 2.6.
+For path lengths >50 JPS is faster than both Dijkstra and A*. The average speedup compared to Dijkstra is 3.4, and the average speedup compared to A* is 2.5.
 
 ![Visualization for one benchmark problem](img/lak100d_visualization.png)
 
