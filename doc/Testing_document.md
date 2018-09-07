@@ -3,7 +3,7 @@
 Table of contents:
 
 - [Unit Testing](#unit-testing)
-    - [Introduction](#introduction)
+    - [Running the unit tests](#running-the-unit-tests)
     - [Package pathfinder.benchmark](#package-pathfinderbenchmark)
     - [Package pathfinder.datastructures](#package-pathfinderdatastructures)
     - [Package pathfinder.io](#package-pathfinderio)
@@ -15,12 +15,12 @@ Table of contents:
 
 ## Unit Testing
 
-### Introduction
+### Running the unit tests
 
 Unit tests can be run from the command-line with the command
 
 ```
-gradle test jacocoTestReport
+./gradlew test jacocoTestReport
 ```
 
 This command creates two reports: a test report and a JaCoCo code coverage report. They are located under the directory ```build``` and can be opened as follows:
@@ -30,7 +30,7 @@ open build/reports/tests/test/index.html
 open build/reports/jacoco/test/html/index.html
 ```
 
-There are approximately 190 unit tests, written with the JUnit unit testing framework. These give a combined line coverage of 98 % and a  branch coverage of 95 %. Furthermore, as can be seen from the table below, each individual package has a test coverage of over 90 %.
+There are 213 unit tests, written with the JUnit unit testing framework. These give a combined line coverage of 98 % and a  branch coverage of 94 %. Furthermore, as can be seen from the table below, each individual package has a test coverage of over 90 %.
 
 ![JaCoCo: summary of code coverage](img/test_coverage.png)
 
@@ -264,14 +264,14 @@ public NeighbourPruningRules getPrune(Graph graph) {
 }
 
 @Test
-public void returnsCorrectPathLengthForSmallGrid() throws IOException {
+public void returnsCorrectPathLengthForSmallGrid() throws Exception {
     Graph small = GraphReader.readFile(Paths.get("grids/tests/small.map"));
     Pathfinder pathfinder = new JumpPointSearch(small, getPrune(small));
     assertEquals(4 + 5 * Math.sqrt(2), pathfinder.run(), eps);
 }
 
 @Test
-public void returnsCorrectPathLengthForBigGrid() throws IOException {
+public void returnsCorrectPathLengthForBigGrid() throws Exception {
     Graph big = GraphReader.readFile(Paths.get("grids/tests/lak100d.map"));
     Pathfinder pathfinder = new JumpPointSearch(big, getPrune(big));
     assertEquals(812.06810913, pathfinder.run(), eps);
@@ -288,7 +288,7 @@ Code for testing these kinds of jumps is listed below. This example is from [Jum
 
 ```java
 @Test
-public void returnsJumpPointSuccessorForExampleAWhenNoCc() throws IOException {
+public void returnsJumpPointSuccessorForExampleAWhenNoCc() throws Exception {
     // This is from Figure 2(a) in the second JPS paper by Harabor and Grastien
     Graph g = GraphReader.read(new StringReader(""
             + "type octile\n"
@@ -309,7 +309,7 @@ public void returnsJumpPointSuccessorForExampleAWhenNoCc() throws IOException {
 }
 
 @Test
-public void returnsJumpPointSuccessorForExampleBWhenNoCc() throws IOException {
+public void returnsJumpPointSuccessorForExampleBWhenNoCc() throws Exception {
     // This is from Figure 2(b) in the second JPS paper by Harabor and Grastien
     Graph g = GraphReader.read(new StringReader(""
             + "type octile\n"
