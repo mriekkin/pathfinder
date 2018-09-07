@@ -1,4 +1,4 @@
 /**
- * The reading and writing of graphs and scenario files.
+ * The reading of maps and scenario files.
  */
 package pathfinder.io;
