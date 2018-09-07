@@ -252,7 +252,7 @@ Explanation for the "jumps": Some individual scenarios are much faster/slower th
 
 ![Scenario running times for DAO](img/dao_scenario_running_times.png)
 
-# Limitations and possible improvements
+## Limitations and possible improvements
 
 Here are some ideas for future work:
 
