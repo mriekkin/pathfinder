@@ -51,7 +51,7 @@ function plot_result(fig, B, filename, y_limits)
 
     resize_figure(f, 1000, 230);
 
-    if !isempty(filename)
+    if ~isempty(filename)
         print(filename, "-dpng")
     end
 end
