@@ -146,11 +146,39 @@ The interesting point here is the use of ```heap.toString()``` which produces a 
 
 ### Package pathfinder.io
 
+This package contains classes for reading maps and scenario files. Central test classes include GraphReaderTest and ScenarioReaderTest.
 
+We've chosen here an example from ScenarioReaderTest. These tests utilize a few scenario files in the directory [grids/tests](../grids/tests). These tests also demonstrate how exceptions can be handled in unit tests.
 
-**TODO: FINISH THE I/O MODULE AND THEN UPDATE THIS SECTION!**
+```
+@Rule
+public ExpectedException thrown = ExpectedException.none();
+ScenarioReader reader;
 
+@Before
+public void setUp() {
+    reader = new ScenarioReader();
+}
 
+@Test
+public void readsValidFileCorrectly() throws ScenarioFileException, IOException {
+    List<Experiment> experiments = reader.read(Paths.get("grids/tests/example.map.scen"));
+    assertEquals(20, experiments.size());
+}
+
+@Test
+public void throwsExceptionIfNoSuchFileExists() throws ScenarioFileException, IOException {
+    thrown.expect(NoSuchFileException.class);
+    reader.read(Paths.get("grids/tests/non-existent_file.map.scen"));
+}
+
+@Test
+public void throwsExceptionIfVersionNumberOtherThan1() throws ScenarioFileException, IOException {
+    thrown.expect(ScenarioFileException.class);
+    thrown.expectMessage("Invalid version number");
+    reader.read(Paths.get("grids/tests/invalid_version.map.scen"));
+}
+```
 
 ### Package pathfinder.logic
 
