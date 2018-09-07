@@ -13,7 +13,7 @@ Table of contents:
     * [Experimental setup](#experimental-setup)
     * [Results for a single scenario](#results-for-a-single-scenario)
     * [Aggregated results](#aggregated-results)
-* [Limitations and possible improvements](#limitations-and-possible-improvements)
+* [Future work](#future-work)
 * [References](#references)
 
 ## Javadoc documentation
@@ -252,7 +252,7 @@ Explanation for the "jumps": Some individual scenarios are much faster/slower th
 
 ![Scenario running times for DAO](img/dao_scenario_running_times.png)
 
-## Limitations and possible improvements
+## Future work
 
 Here are some ideas for future work:
 
