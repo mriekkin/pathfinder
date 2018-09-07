@@ -148,7 +148,7 @@ The interesting point here is the use of ```heap.toString()``` which produces a 
 
 This package contains classes for reading maps and scenario files. Central test classes include GraphReaderTest and ScenarioReaderTest.
 
-We've chosen here an example from ScenarioReaderTest. These tests utilize a few scenario files in the directory [grids/tests](../grids/tests). These tests also demonstrate how exceptions can be handled in unit tests.
+We've chosen here an example from ScenarioReaderTest. These tests utilize a few scenario files in the subdirectory [grids/tests](../grids/tests). These tests also demonstrate how exceptions are handled in unit tests.
 
 ```
 @Rule
