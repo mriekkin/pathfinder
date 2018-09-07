@@ -4,6 +4,7 @@ Table of contents:
 
 * [Javadoc documentation](#javadoc-documentation)
 * [Program structure](#program-structure)
+* [Imported packages](#imported-packages)
 * [Algorithms](#algorithms)
     * [Dijkstra's algorithm](#dijkstras-algorithm)
     * [A*](#a)
@@ -49,6 +50,16 @@ The main class, Benchmark, uses two classes to handle the workload: ScenarioRead
 The diagram below represents a simplified class diagram for the benchmark mode.
 
 ![Class diagram for the benchmark mode](img/structure_benchmark.png)
+
+## Imported packages
+
+This program uses a few imports from the standard Java Class Library (JCL). These are mostly related to I/O such as printing text to a console. The majority of these imports are used to facilitate testing. In our opinion these are not related to the actual algorithms implemented by this program. The algorithms employ only self-implemented data structures.
+
+* *StringBuilder* is used in 3 instances to print some text. StringBuilder is used in RunScenario.printRow, GraphWriter.plotGrid and AbstractCollection.toString. The first uses StringReader to print text to a console. The last two return a string but these methods are only used by unit tests.
+* I/O
+    * *BufferedReader* is used in the I/O module to read data files. BufferedReader is used by GraphReader and ScenarioReader. To be more specific BufferedReader is used in GraphReader.readFile, GraphReader.read and ScenarioReader.read.
+    * *StringReader* is used in unit tests so that there's no need to create auxiliary test files. StringReader is used in GraphReaderTest and JumpTest. In both cases a map specification is given as a string and then passed to GraphReader. The alternative would be create a separate test file for each unit test.
+    * *PrintStream* is used to facilitate testing. Instead of printing to ```System.out``` the program prints text to a ```PrintStream``` passed as a constructor's parameter. This means that unit tests can check if the program would print the correct text to the user's console. PrintStream is used to print text by the classes Benchmark and RunScenario. The corresponding unit tests BenchmarkTest and RunScenarioTest check the contents of PrintStream against what would be expected.
 
 ## Algorithms
 
