@@ -58,6 +58,18 @@
 | 30.8.  | Thu     | 10 h  | Finished the testing document                                         |
 | 31.8.  | Fri     |  8 h  | Peer review, fixed a couple of bugs, weekly report                    |
 
+## Week 7
+
+| Date   | Weekday | Hours | What was done                                                         |
+| ------ | ------- | ----- | --------------------------------------------------------------------- |
+| 1.9.   | Sat     |  4 h  | Began to write the user guide                                         |
+| 2.9.   | Sun     |  4 h  | Worked on the user guide                                              |
+| 3.9.   | Mon     |  8 h  | Finished the user guide, worked on the I/O module                     |
+| 4.9.   | Tue     |  8 h  | Wrote further tests for the I/O module, worked on implementation doc  |
+| 5.9.   | Wed     |  2 h  | Small updates to the results section                                  |
+| 6.9.   | Thu     |  2 h  | Participated in the demo presentations                                |
+| 7.9.   | Fri     |  8 h  | Finished a large number of small tasks                                |
+
 ## Totals
 
 | Week  | Hours  |
@@ -68,5 +80,5 @@
 | 4     |  44 h  |
 | 5     |  38 h  |
 | 6     |  42 h  |
-| 7     |     h  |
-| Total | 196 h  |
+| 7     |  36 h  |
+| Total | 232 h  |
