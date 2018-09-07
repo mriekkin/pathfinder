@@ -53,7 +53,7 @@ The diagram below represents a simplified class diagram for the benchmark mode.
 
 ## Imported packages
 
-This program uses a few imports from the standard Java Class Library (JCL). These are mostly related to I/O such as printing text to a console. The majority of these imports are used to facilitate testing. In our opinion these are not related to the actual algorithms implemented by this program. The algorithms employ only self-implemented data structures.
+This program uses a few imports from the standard Java Class Library (JCL). These are mostly related to I/O such as printing text to a console. The majority of these imports are used to facilitate testing. In our opinion these are not related to the algorithmic core implemented by this program. The algorithms employ only self-implemented data structures.
 
 * **StringBuilder** is used in 3 instances to print some text. StringBuilder is used in RunScenario.printRow, GraphWriter.plotGrid and AbstractCollection.toString. The first uses StringReader to print text to a console. The last two return a string but these methods are only used by unit tests.
 * I/O
