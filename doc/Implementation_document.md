@@ -2,6 +2,7 @@
 
 Table of contents:
 
+* [Javadoc documentation](#javadoc-documentation)
 * [Program structure](#program-structure)
 * [Algorithms](#algorithms)
     * [Dijkstra's algorithm](#dijkstras-algorithm)
@@ -12,6 +13,22 @@ Table of contents:
     * [Results for a single scenario](#results-for-a-single-scenario)
     * [Aggregated results](#aggregated-results)
 * [References](#references)
+
+## Javadoc documentation
+
+Javadoc API documentation can be generated with the command
+
+```
+./gradlew javadoc
+```
+
+This generates a set of HTML documents. They are located under the directory ```build``` and can be opened with the command
+
+```
+open build/docs/javadoc/index.html
+```
+
+The source code itself is located under the directory [src/main/java/pathfinder/](../src/main/java/pathfinder/).
 
 ## Program structure
 
@@ -187,7 +204,7 @@ The figure below presents the results of running a single scenario. The scenario
 
 ![Visualization for one benchmark problem](img/lak100d_visualization.png)
 
-## Aggregated results
+### Aggregated results
 
 Again, we would like to describe running time as a function of path length. In this case we average (within each bucket) across all problem instances in the same problem set. This gives us the average running time for each bucket. In other words, we get the average running time as a function of path length.
 
