@@ -20,7 +20,7 @@ You can clone the repository with the following command, which should be entered
 git clone https://github.com/mriekkin/pathfinder.git
 ```
 
-This might take a while because the repository is rather large, around 180 MB. Most of this size is due to a large number of data files. In case you don't have git installed, you may also download the repository as a ZIP file. Just download and extract the ZIP archive to a convenient location. Then change the current directory to the project's root directory.
+This might take a while because the repository is rather large, around 100 MB. Most of this size is due to a large number of data files. In case you don't have git installed, you may also download the repository as a ZIP file. Just download and extract the ZIP archive to a convenient location. Then change the current directory to the project's root directory.
 
 ```bash
 cd pathfinder
