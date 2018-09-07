@@ -36,7 +36,7 @@ for i = 1:size(files, 1)
     end
     if cols ~= 7
         disp(["File should have exactly 7 columns: " filename " (has " num2str(cols) ")"])
-        break;
+        return;
     end
 
     % The original (un-averaged) columns

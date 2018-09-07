@@ -14,7 +14,7 @@ if rows == 0
 end
 if cols ~= 7
     disp(["File should have exactly 7 columns: " filename " (has " num2str(cols) ")"])
-    break;
+    return;
 end
 
 % Average over buckets
